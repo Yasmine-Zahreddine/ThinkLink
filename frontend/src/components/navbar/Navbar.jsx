@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import './navbar.css'
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri'
 import logo from "../../assets/logos/logo_lighttheme_thinklink.png"
@@ -8,6 +8,7 @@ const Menu = ()=> (
   <>
     <p><a href="#home">Home</a></p>
     <p><a href="#my_learning">My Learning</a></p>
+    <p><a href="#about">About</a></p>
     <p><a href="#support">Support</a></p>
   </>
 )
