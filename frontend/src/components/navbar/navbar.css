@@ -4,7 +4,7 @@
     align-items: center;
     padding: 0rem 0.3rem;
     width: 100vw;
-    height: 12vh;
+    height: 10vh;
     position: relative;
     /* z-index: 10; */
     background-color: var(--navbar-color);
@@ -124,14 +124,14 @@
     font-family: var(--font-family);
     font-weight: 500;
     outline: none;
-    color: var(--color-bg);
+    color: var(--color-dark-blue);
     background: var(--color-bg);
 }
 
 .navbar-search img {
     position: relative;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 20px;
     cursor: pointer;
 }
 
