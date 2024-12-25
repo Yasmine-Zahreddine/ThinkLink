@@ -41,6 +41,7 @@
     .card{
         flex-direction: column;
         width: 100%;
+        background-color: var(--navbar-color);
     }
     .card-image{
         margin: 1rem 0;
