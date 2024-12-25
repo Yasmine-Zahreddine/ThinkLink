@@ -12,7 +12,10 @@ const Menu = ()=> (
     <p><a href="#support">Support</a></p>
   </>
 )
-
+const [clickSignUp, setClickSignUp]=useState(false);
+const handleSignUp = () => {
+   
+}
 const Navbar = () => {
   const[toggleMenu, setToggleMenu] = useState(false)
   return (
@@ -36,7 +39,7 @@ const Navbar = () => {
       </div>
       <div className='navbar-sign'>
         <p>Sign in</p>
-        <button type='button'>Sign up</button>
+        <button type='button' onClick={}>Sign up</button>
       </div>
       <div className='navbar-menu'>
         {toggleMenu ? <RiCloseLine color='#fff' size= {27} onClick={()=>{setToggleMenu(false)}}/> : <RiMenu3Line color='#fff' size={27} onClick={()=>setToggleMenu(true)}/>}
