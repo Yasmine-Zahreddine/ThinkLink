@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./signup.css";
 import Card from "../../components/card/Card";
+import { NavLink } from "react-router-dom";
 
 const Signup = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1000);
@@ -62,7 +63,7 @@ const Signup = () => {
         </div>
         <div className="login">
           <p>
-            Already have an account? <a href="/">Sign in</a>
+            Already have an account? <NavLink to="/signin">Sign in</NavLink>
           </p>
         </div>
       </div>
