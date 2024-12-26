@@ -9,7 +9,7 @@ import {
 import Footer from "./components/footer/Footer";
 import Header from "./containers/Header/Header";
 import Signup from "./containers/SignUp/Signup";
-import SignIn from "./containers/Signin/SignIn";
+import Signin from "./containers/Signin/SignIn";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Header />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signin" element={<Signin />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <Footer />

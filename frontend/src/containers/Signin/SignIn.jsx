@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./signin.css";
 import Card from "../../components/card/Card";
 
-const SignIn = () => {
+const Signin = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1000);
 
   useEffect(() => {
@@ -34,12 +34,8 @@ const SignIn = () => {
         )}
       </div>
       <div className="Box">
-        <h1>Sign up and start learning</h1>
-        <input
-          type="text"
-          placeholder="Full Name"
-          className="full_name_input textinputs"
-        />
+        <h1>Sign in and continue learning</h1>
+
         <input type="text" placeholder="Email" className="email textinputs" />
         <input
           type="password"
@@ -48,21 +44,15 @@ const SignIn = () => {
         />
         <div className="checkboxContainer">
           <input type="checkbox" className="checkbox" />
-          <p>
-            Send me special offers, personalized recommendations, and learning
-            tips.
-          </p>
+          <p>Remember me</p>
         </div>
-        <button className="buttonCreateAccount">Sign up</button>
-        <div className="policyContainer">
-          <p className="policyAgree">
-            By signing up, you agree to our <a href="/">Terms of Use</a> and{" "}
-            <a href="/">Privacy Policy</a>.
-          </p>
-        </div>
+        <button className="buttonCreateAccount">Sign in</button>
+        <a href="" className="link">
+          forget password?
+        </a>
         <div className="login">
           <p>
-            Already have an account? <a href="/">Log in</a>
+            Dont have an account? <a href="/">Sign up</a>
           </p>
         </div>
       </div>
@@ -70,4 +60,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Signin;
