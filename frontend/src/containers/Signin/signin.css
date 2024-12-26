@@ -1,0 +1,439 @@
+.SignUp_Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding-bottom: 5vw;
+  padding-top: 5vw;
+}
+.smallScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 3vw;
+  padding-bottom: 5vw;
+}
+.card-content1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome {
+  width: 50%;
+  order: 2;
+  margin-bottom: 10vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Box {
+  display: flex;
+  order: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 50%;
+}
+
+.textinputs {
+  border: 1.2px solid black;
+  width: 70%;
+  height: 3.5vw;
+  border-radius: 4px;
+  color: var(--color-text);
+  padding-left: 1rem;
+  font-size: 1.2vw;
+  background-color: var(--color-bg);
+}
+
+.textinputs::placeholder {
+  font-size: 1.2vw;
+  color: var(--color-text);
+}
+.Box > h1 {
+  margin-bottom: 1vw;
+  font-size: 2vw;
+  font-family: var(--font-family);
+  color: var(--color-text);
+}
+
+.checkboxContainer {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.checkboxContainer > p {
+  width: 100%;
+  font-size: 1.3vw;
+  color: var(--color-text);
+}
+
+.checkbox {
+  width: 1rem;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.buttonCreateAccount {
+  width: 70%;
+  height: 4vw;
+  background-color: var(--color-dark-blue);
+  outline: none;
+  border: none;
+  font-family: var(--font-family);
+  color: var(--color-bg);
+  border-radius: 4px;
+  font-size: 1.4vw;
+}
+.policyAgree {
+  margin-top: 1vw;
+  color: var(--color-text);
+}
+.policyAgree > a {
+  text-decoration: underline;
+  color: var(--color-dark-blue);
+}
+.login {
+  margin-top: 1vw;
+  width: 70%;
+  height: 4vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--navbar-color);
+}
+.login > p {
+  color: var(--color-text);
+  font-size: 1.5vw;
+}
+.login > p > a {
+  text-decoration: underline;
+  color: var(--color-dark-blue);
+}
+@media (max-width: 1000px) {
+  .welcome {
+    margin-bottom: 2vw;
+  }
+  .card-content1 h1 {
+    font-family: var(--font-family);
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 45px;
+    margin: 1rem 0;
+  }
+  .Box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 70%;
+  }
+
+  .textinputs {
+    border: 1.2px solid black;
+    width: 60%;
+    height: 3rem;
+    border-radius: 4px;
+    padding-left: 1rem;
+    font-size: 1.5vw;
+    background-color: var(--color-bg);
+  }
+
+  .textinputs::placeholder {
+    font-size: 1.5vw;
+  }
+  .Box > h1 {
+    margin-bottom: 1vw;
+    font-size: 2.5vw;
+    font-family: var(--font-family);
+    color: var(--color-text);
+  }
+
+  .checkboxContainer {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .checkboxContainer > p {
+    width: 100%;
+    font-size: 1.5vw;
+  }
+
+  .checkbox {
+    width: 2rem;
+    height: auto;
+  }
+
+  .buttonCreateAccount {
+    width: 60%;
+    height: 3rem;
+    background-color: var(--color-dark-blue);
+    outline: none;
+    border: none;
+    font-family: var(--font-family);
+    color: var(--color-bg);
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  .policyAgree {
+    margin-top: 1vw;
+    font-size: 1.5vw;
+  }
+  .policyAgree > a {
+    text-decoration: underline;
+    color: var(--color-dark-blue);
+  }
+  .policyContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+  }
+  .login {
+    margin-top: 1vw;
+    width: 60%;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--navbar-color);
+  }
+  .login > p {
+    color: var(--color-text);
+    font-size: 2vw;
+  }
+  .login > p > a {
+    text-decoration: underline;
+    color: var(--color-dark-blue);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .welcome {
+    margin-bottom: 2vw;
+    width: 100%;
+  }
+  .card-content1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-content1 h1 {
+    font-family: var(--font-family);
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 45px;
+    margin: 1rem 0;
+  }
+
+  .Box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 90%;
+  }
+
+  .textinputs {
+    border: 1.2px solid black;
+    width: 26rem;
+    height: 3rem;
+    border-radius: 4px;
+    padding-left: 1rem;
+    font-size: 2.8vw;
+    background-color: var(--color-bg);
+  }
+
+  .textinputs::placeholder {
+    font-size: 2.8vw;
+  }
+  .Box > h1 {
+    margin-bottom: 0.5vw;
+    font-size: 4vw;
+    font-family: var(--font-family);
+    color: var(--color-text);
+  }
+
+  .checkboxContainer {
+    width: 26rem;
+    display: flex;
+    margin-top: 2vw;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .checkboxContainer > p {
+    width: 100%;
+
+    font-size: 0.8rem;
+  }
+
+  .checkbox {
+    width: 3vw;
+    height: auto;
+  }
+
+  .buttonCreateAccount {
+    width: 26rem;
+    height: 3rem;
+    background-color: var(--color-dark-blue);
+    outline: none;
+    border: none;
+    font-family: var(--font-family);
+    color: var(--color-bg);
+    border-radius: 4px;
+    font-size: 3vw;
+  }
+  .policyAgree {
+    margin-top: 1vw;
+    font-size: 0.8rem;
+  }
+  .policyAgree > a {
+    text-decoration: underline;
+    color: var(--color-dark-blue);
+  }
+  .policyContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 26rem;
+  }
+  .login {
+    margin-top: 1vw;
+    width: 26rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--navbar-color);
+  }
+  .login > p {
+    color: var(--color-text);
+    font-size: 3vw;
+  }
+  .login > p > a {
+    text-decoration: underline;
+    color: var(--color-dark-blue);
+  }
+}
+@media screen and (max-width: 480px) {
+  .welcome {
+    margin-bottom: 2vw;
+    width: 100%;
+  }
+  .card-content1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-content1 h1 {
+    font-family: var(--font-family);
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 45px;
+    margin: 1rem 0;
+  }
+
+  .Box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 90%;
+  }
+
+  .textinputs {
+    border: 1.2px solid black;
+    width: 18rem;
+
+    height: 2rem;
+    border-radius: 4px;
+    padding-left: 1rem;
+    font-size: 2.8vw;
+    background-color: var(--color-bg);
+  }
+
+  .textinputs::placeholder {
+    font-size: 2.8vw;
+  }
+  .Box > h1 {
+    margin-bottom: 0.5vw;
+    font-size: 4vw;
+    font-family: var(--font-family);
+    color: var(--color-text);
+  }
+
+  .checkboxContainer {
+    width: 18rem;
+    display: flex;
+    margin-top: 2vw;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .checkboxContainer > p {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .checkbox {
+    width: 1rem;
+    height: auto;
+  }
+
+  .buttonCreateAccount {
+    width: 18rem;
+    height: 2rem;
+    background-color: var(--color-dark-blue);
+    outline: none;
+    border: none;
+    font-family: var(--font-family);
+    color: var(--color-bg);
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  .policyAgree {
+    margin-top: 1vw;
+    font-size: 0.8rem;
+  }
+  .policyAgree > a {
+    text-decoration: underline;
+    color: var(--color-dark-blue);
+  }
+  .policyContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18rem;
+  }
+  .login {
+    margin-top: 1vw;
+    width: 18rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--navbar-color);
+  }
+  .login > p {
+    color: var(--color-text);
+    font-size: 1rem;
+  }
+  .login > p > a {
+    text-decoration: underline;
+    color: var(--color-dark-blue);
+  }
+}
