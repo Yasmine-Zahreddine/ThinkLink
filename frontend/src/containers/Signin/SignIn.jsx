@@ -18,14 +18,18 @@ const Signin = () => {
   }, []);
 
   return (
-    <div className={` ${isSmallScreen ? "smallScreen" : "SignUp_Container"}`}>
-      <div className="welcome">
+    <div
+      className={` ${
+        isSmallScreen ? "smallScreen_signin" : "SignIn_Container"
+      }`}
+    >
+      <div className="welcome_signin">
         {isSmallScreen ? (
           <div className="card-content1">
             <h1 className="gradient_text">Join us today!</h1>
           </div>
         ) : (
-          <div className="smallBox">
+          <div className="smallBox_signin">
             <Card
               title="Welcome Back!"
               content="Sign in to continue your learning journey"
@@ -33,26 +37,30 @@ const Signin = () => {
           </div>
         )}
       </div>
-      <div className="Box">
+      <div className="Box_signin">
         <h1>Sign in and continue learning</h1>
 
-        <input type="text" placeholder="Email" className="email textinputs" />
+        <input
+          type="text"
+          placeholder="Email"
+          className="email textinputs_signin"
+        />
         <input
           type="password"
           placeholder="Password"
-          className="password textinputs"
+          className="password textinputs_signin"
         />
-        <div className="checkboxContainer">
-          <input type="checkbox" className="checkbox" />
+        <div className="checkboxContainer_signin">
+          <input type="checkbox" className="checkbox_signin" />
           <p>Remember me</p>
         </div>
-        <button className="buttonCreateAccount">Sign in</button>
+        <button className="buttonSignin">Sign in</button>
         <a href="" className="link">
-          forget password?
+          forgot password?
         </a>
-        <div className="login">
+        <div className="signup">
           <p>
-            Dont have an account? <a href="/">Sign up</a>
+            {"Don't"} have an account? <a href="/">Sign up</a>
           </p>
         </div>
       </div>

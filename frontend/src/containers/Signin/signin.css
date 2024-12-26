@@ -1,4 +1,4 @@
-.SignUp_Container {
+.SignIn_Container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,7 +6,7 @@
   padding-bottom: 5vw;
   padding-top: 5vw;
 }
-.smallScreen {
+.smallScreen_signin {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,8 +22,9 @@
 .link {
   text-decoration: underline;
   color: var(--color-dark-blue);
+  font-size: 15px;
 }
-.welcome {
+.welcome_signin {
   width: 50%;
   order: 2;
   margin-bottom: 10vw;
@@ -32,7 +33,7 @@
   align-items: center;
 }
 
-.Box {
+.Box_signin {
   display: flex;
   order: 1;
   justify-content: center;
@@ -42,7 +43,7 @@
   width: 50%;
 }
 
-.textinputs {
+.textinputs_signin {
   border: 1.2px solid black;
   width: 70%;
   height: 3.5vw;
@@ -53,37 +54,37 @@
   background-color: var(--color-bg);
 }
 
-.textinputs::placeholder {
+.textinputs_signin::placeholder {
   font-size: 1.2vw;
   color: var(--color-text);
 }
-.Box > h1 {
+.Box_signin > h1 {
   margin-bottom: 1vw;
-  font-size: 2vw;
+  font-size: 25px;
   font-family: var(--font-family);
   color: var(--color-text);
 }
 
-.checkboxContainer {
+.checkboxContainer_signin {
   width: 70%;
   display: flex;
   flex-direction: row;
   gap: 1rem;
 }
 
-.checkboxContainer > p {
+.checkboxContainer_signin > p {
   width: 100%;
   font-size: 15px;
   color: var(--color-text);
 }
 
-.checkbox {
+.checkbox_signin {
   margin-top: 0;
   width: 1rem;
   height: auto;
 }
 
-.buttonCreateAccount {
+.buttonSignin {
   width: 70%;
   height: 4vw;
   background-color: var(--color-dark-blue);
@@ -92,17 +93,9 @@
   font-family: var(--font-family);
   color: var(--color-bg);
   border-radius: 4px;
-  font-size: 1.4vw;
+  font-size: 20px;
 }
-.policyAgree {
-  margin-top: 1vw;
-  color: var(--color-text);
-}
-.policyAgree > a {
-  text-decoration: underline;
-  color: var(--color-dark-blue);
-}
-.login {
+.signup {
   margin-top: 1vw;
   width: 70%;
   height: 4vw;
@@ -111,27 +104,22 @@
   align-items: center;
   background-color: var(--navbar-color);
 }
-.login > p {
+.signup > p {
   color: var(--color-text);
-  font-size: 1.5vw;
+  font-size: 20px;
 }
-.login > p > a {
+.signup > p > a {
   text-decoration: underline;
   color: var(--color-dark-blue);
 }
+
 @media (max-width: 1000px) {
-  .welcome {
+  .welcome_signin {
     margin-bottom: 2vw;
     order: 1;
   }
-  .card-content1 h1 {
-    font-family: var(--font-family);
-    font-weight: 800;
-    font-size: 34px;
-    line-height: 45px;
-    margin: 1rem 0;
-  }
-  .Box {
+
+  .Box_signin {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,45 +127,39 @@
     gap: 20px;
     width: 70%;
   }
-
-  .textinputs {
+  .textinputs_signin {
     border: 1.2px solid black;
     width: 60%;
     height: 3rem;
     border-radius: 4px;
     padding-left: 1rem;
-    font-size: 1.5vw;
+    font-size: 15px;
     background-color: var(--color-bg);
   }
-
-  .textinputs::placeholder {
-    font-size: 1.5vw;
+  .textinputs_signin::placeholder {
+    font-size: 15px;
   }
-  .Box > h1 {
+  .Box_signin > h1 {
     margin-bottom: 1vw;
-    font-size: 2.5vw;
+    font-size: 25px;
     font-family: var(--font-family);
     color: var(--color-text);
   }
-
-  .checkboxContainer {
+  .checkboxContainer_signin {
     width: 60%;
     display: flex;
     flex-direction: row;
     gap: 1rem;
   }
-
-  .checkboxContainer > p {
+  .checkboxContainer_signin > p {
     width: 100%;
-    font-size: 1.5vw;
+    font-size: 15px;
   }
-
-  .checkbox {
+  .checkbox_signin {
     width: 2rem;
     height: auto;
   }
-
-  .buttonCreateAccount {
+  .buttonSignin {
     width: 60%;
     height: 3rem;
     background-color: var(--color-dark-blue);
@@ -186,23 +168,12 @@
     font-family: var(--font-family);
     color: var(--color-bg);
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 20px;
   }
-  .policyAgree {
-    margin-top: 1vw;
-    font-size: 1.5vw;
+  .link {
+    font-size: 15px;
   }
-  .policyAgree > a {
-    text-decoration: underline;
-    color: var(--color-dark-blue);
-  }
-  .policyContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 60%;
-  }
-  .login {
+  .signup {
     margin-top: 1vw;
     width: 60%;
     height: 3rem;
@@ -211,37 +182,23 @@
     align-items: center;
     background-color: var(--navbar-color);
   }
-  .login > p {
+  .signup > p {
     color: var(--color-text);
-    font-size: 2vw;
+    font-size: 20px;
   }
-  .login > p > a {
+  .signup > p > a {
     text-decoration: underline;
     color: var(--color-dark-blue);
   }
 }
 
 @media screen and (max-width: 768px) {
-  .welcome {
+  .welcome_signin {
     margin-bottom: 2vw;
     width: 100%;
     order: 1;
   }
-  .card-content1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .card-content1 h1 {
-    font-family: var(--font-family);
-    font-weight: 800;
-    font-size: 34px;
-    line-height: 45px;
-    margin: 1rem 0;
-  }
-
-  .Box {
+  .Box_signin {
     display: flex;
     order: 2;
     justify-content: center;
@@ -250,47 +207,40 @@
     gap: 20px;
     width: 90%;
   }
-
-  .textinputs {
+  .textinputs_signin {
     border: 1.2px solid black;
     width: 26rem;
     height: 3rem;
     border-radius: 4px;
     padding-left: 1rem;
-    font-size: 2.8vw;
+    font-size: 15px;
     background-color: var(--color-bg);
   }
-
-  .textinputs::placeholder {
-    font-size: 2.8vw;
+  .textinputs_signin::placeholder {
+    font-size: 15px;
   }
-  .Box > h1 {
+  .Box_signin > h1 {
     margin-bottom: 0.5vw;
-    font-size: 4vw;
+    font-size: 25px;
     font-family: var(--font-family);
     color: var(--color-text);
   }
-
-  .checkboxContainer {
+  .checkboxContainer_signin {
     width: 26rem;
     display: flex;
     margin-top: 2vw;
     flex-direction: row;
     gap: 1rem;
   }
-
-  .checkboxContainer > p {
+  .checkboxContainer_signin > p {
     width: 100%;
-
-    font-size: 0.8rem;
+    font-size: 15px;
   }
-
-  .checkbox {
+  .checkbox_signin {
     width: 3vw;
     height: auto;
   }
-
-  .buttonCreateAccount {
+  .buttonSignin {
     width: 26rem;
     height: 3rem;
     background-color: var(--color-dark-blue);
@@ -299,23 +249,9 @@
     font-family: var(--font-family);
     color: var(--color-bg);
     border-radius: 4px;
-    font-size: 3vw;
+    font-size: 20px;
   }
-  .policyAgree {
-    margin-top: 1vw;
-    font-size: 0.8rem;
-  }
-  .policyAgree > a {
-    text-decoration: underline;
-    color: var(--color-dark-blue);
-  }
-  .policyContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 26rem;
-  }
-  .login {
+  .signup {
     margin-top: 1vw;
     width: 26rem;
     height: 3rem;
@@ -324,35 +260,22 @@
     align-items: center;
     background-color: var(--navbar-color);
   }
-  .login > p {
+  .signup > p {
     color: var(--color-text);
-    font-size: 3vw;
+    font-size: 20px;
   }
-  .login > p > a {
+  .signup > p > a {
     text-decoration: underline;
     color: var(--color-dark-blue);
   }
 }
-@media screen and (max-width: 480px) {
-  .welcome {
+
+@media screen and (max-width: 520px) {
+  .welcome_signin {
     margin-bottom: 2vw;
     width: 100%;
   }
-  .card-content1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .card-content1 h1 {
-    font-family: var(--font-family);
-    font-weight: 800;
-    font-size: 34px;
-    line-height: 45px;
-    margin: 1rem 0;
-  }
-
-  .Box {
+  .Box_signin {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -360,48 +283,117 @@
     gap: 20px;
     width: 90%;
   }
-
-  .textinputs {
+  .textinputs_signin {
     border: 1.2px solid black;
     width: 18rem;
-
     height: 2rem;
     border-radius: 4px;
     padding-left: 1rem;
     font-size: 15px;
     background-color: var(--color-bg);
   }
-
-  .textinputs::placeholder {
+  .textinputs_signin::placeholder {
     font-size: 15px;
   }
-  .Box > h1 {
+  .Box_signin > h1 {
     margin-bottom: 0.5vw;
     font-size: 25px;
     font-family: var(--font-family);
     color: var(--color-text);
   }
-
-  .checkboxContainer {
+  .checkboxContainer_signin {
     width: 18rem;
     display: flex;
     margin-top: 2vw;
     flex-direction: row;
     gap: 1rem;
   }
-
-  .checkboxContainer > p {
+  .checkboxContainer_signin > p {
     width: 100%;
     font-size: 15px;
   }
-
-  .checkbox {
+  .checkbox_signin {
     width: 1rem;
     height: auto;
   }
-
-  .buttonCreateAccount {
+  .buttonSignin {
     width: 18rem;
+    height: 2rem;
+    background-color: var(--color-dark-blue);
+    outline: none;
+    border: none;
+    font-family: var(--font-family);
+    color: var(--color-bg);
+    border-radius: 4px;
+    font-size: 20px;
+  }
+  .signup {
+    margin-top: 1vw;
+    width: 18rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--navbar-color);
+  }
+  .signup > p {
+    color: var(--color-text);
+    font-size: 20px;
+  }
+  .signup > p > a {
+    text-decoration: underline;
+    color: var(--color-dark-blue);
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .welcome_signin {
+    margin-bottom: 2vw;
+    width: 100%;
+  }
+  .Box_signin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 90%;
+  }
+  .textinputs_signin {
+    border: 1.2px solid black;
+    width: 15rem;
+    height: 2rem;
+    border-radius: 4px;
+    padding-left: 1rem;
+    font-size: 15px;
+    background-color: var(--color-bg);
+  }
+  .textinputs_signin::placeholder {
+    font-size: 15px;
+  }
+  .Box_signin > h1 {
+    margin-bottom: 0.5vw;
+    font-size: 20px;
+    font-family: var(--font-family);
+    color: var(--color-text);
+  }
+  .checkboxContainer_signin {
+    width: 15rem;
+    display: flex;
+    margin-top: 2vw;
+    flex-direction: row;
+    gap: 1rem;
+  }
+  .checkboxContainer_signin > p {
+    width: 100%;
+    font-size: 15px;
+  }
+  .checkbox_signin {
+    width: 1rem;
+    height: auto;
+  }
+  .buttonSignin {
+    width: 15rem;
     height: 2rem;
     background-color: var(--color-dark-blue);
     outline: none;
@@ -411,27 +403,20 @@
     border-radius: 4px;
     font-size: 15px;
   }
-  
-  .policyContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 18rem;
-  }
-  .login {
+  .signup {
     margin-top: 1vw;
-    width: 18rem;
+    width: 15rem;
     height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--navbar-color);
   }
-  .login > p {
+  .signup > p {
     color: var(--color-text);
-    font-size: 1rem;
+    font-size: 20px;
   }
-  .login > p > a {
+  .signup > p > a {
     text-decoration: underline;
     color: var(--color-dark-blue);
   }

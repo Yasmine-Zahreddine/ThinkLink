@@ -44,17 +44,17 @@
   border-radius: 4px;
   color: var(--color-text);
   padding-left: 1rem;
-  font-size: 1.2vw;
+  font-size: 20px;
   background-color: var(--color-bg);
 }
 
 .textinputs::placeholder {
-  font-size: 1.2vw;
+  font-size: 20px;
   color: var(--color-text);
 }
 .Box > h1 {
   margin-bottom: 1vw;
-  font-size: 2vw;
+  font-size: 25px;
   font-family: var(--font-family);
   color: var(--color-text);
 }
@@ -68,7 +68,7 @@
 
 .checkboxContainer > p {
   width: 100%;
-  font-size: 1.3vw;
+  font-size: 15px;
   color: var(--color-text);
 }
 
@@ -87,7 +87,7 @@
   font-family: var(--font-family);
   color: var(--color-bg);
   border-radius: 4px;
-  font-size: 1.4vw;
+  font-size: 20px;
 }
 .policyAgree {
   margin-top: 1vw;
@@ -108,7 +108,7 @@
 }
 .login > p {
   color: var(--color-text);
-  font-size: 1.5vw;
+  font-size: 20px;
 }
 .login > p > a {
   text-decoration: underline;
@@ -117,13 +117,6 @@
 @media (max-width: 1000px) {
   .welcome {
     margin-bottom: 2vw;
-  }
-  .card-content1 h1 {
-    font-family: var(--font-family);
-    font-weight: 800;
-    font-size: 34px;
-    line-height: 45px;
-    margin: 1rem 0;
   }
   .Box {
     display: flex;
@@ -140,16 +133,16 @@
     height: 3rem;
     border-radius: 4px;
     padding-left: 1rem;
-    font-size: 1.5vw;
+    font-size: 20px;
     background-color: var(--color-bg);
   }
 
   .textinputs::placeholder {
-    font-size: 1.5vw;
+    font-size: 20px;
   }
   .Box > h1 {
     margin-bottom: 1vw;
-    font-size: 2.5vw;
+    font-size: 25px;
     font-family: var(--font-family);
     color: var(--color-text);
   }
@@ -163,7 +156,7 @@
 
   .checkboxContainer > p {
     width: 100%;
-    font-size: 1.5vw;
+    font-size: 15px;
   }
 
   .checkbox {
@@ -180,11 +173,11 @@
     font-family: var(--font-family);
     color: var(--color-bg);
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 20px;
   }
   .policyAgree {
     margin-top: 1vw;
-    font-size: 1.5vw;
+    font-size: 15px;
   }
   .policyAgree > a {
     text-decoration: underline;
@@ -207,7 +200,7 @@
   }
   .login > p {
     color: var(--color-text);
-    font-size: 2vw;
+    font-size: 20px;
   }
   .login > p > a {
     text-decoration: underline;
@@ -226,14 +219,6 @@
     align-items: center;
   }
 
-  .card-content1 h1 {
-    font-family: var(--font-family);
-    font-weight: 800;
-    font-size: 34px;
-    line-height: 45px;
-    margin: 1rem 0;
-  }
-
   .Box {
     display: flex;
     justify-content: center;
@@ -249,16 +234,16 @@
     height: 3rem;
     border-radius: 4px;
     padding-left: 1rem;
-    font-size: 2.8vw;
+    font-size: 20px;
     background-color: var(--color-bg);
   }
 
   .textinputs::placeholder {
-    font-size: 2.8vw;
+    font-size: 20px;
   }
   .Box > h1 {
     margin-bottom: 0.5vw;
-    font-size: 4vw;
+    font-size: 25px;
     font-family: var(--font-family);
     color: var(--color-text);
   }
@@ -295,7 +280,7 @@
   }
   .policyAgree {
     margin-top: 1vw;
-    font-size: 0.8rem;
+    font-size: 15px;
   }
   .policyAgree > a {
     text-decoration: underline;
@@ -318,14 +303,14 @@
   }
   .login > p {
     color: var(--color-text);
-    font-size: 3vw;
+    font-size: 20px;
   }
   .login > p > a {
     text-decoration: underline;
     color: var(--color-dark-blue);
   }
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 520px) {
   .welcome {
     margin-bottom: 2vw;
     width: 100%;
@@ -334,14 +319,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  .card-content1 h1 {
-    font-family: var(--font-family);
-    font-weight: 800;
-    font-size: 34px;
-    line-height: 45px;
-    margin: 1rem 0;
   }
 
   .Box {
@@ -360,16 +337,16 @@
     height: 2rem;
     border-radius: 4px;
     padding-left: 1rem;
-    font-size: 2.8vw;
+    font-size: 15px;
     background-color: var(--color-bg);
   }
 
   .textinputs::placeholder {
-    font-size: 2.8vw;
+    font-size: 15px;
   }
   .Box > h1 {
     margin-bottom: 0.5vw;
-    font-size: 4vw;
+    font-size: 5;
     font-family: var(--font-family);
     color: var(--color-text);
   }
@@ -384,7 +361,7 @@
 
   .checkboxContainer > p {
     width: 100%;
-    font-size: 0.9rem;
+    font-size: 15px;
   }
 
   .checkbox {
@@ -401,11 +378,11 @@
     font-family: var(--font-family);
     color: var(--color-bg);
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 20px;
   }
   .policyAgree {
     margin-top: 1vw;
-    font-size: 0.8rem;
+    font-size: 15px;
   }
   .policyAgree > a {
     text-decoration: underline;
@@ -428,7 +405,7 @@
   }
   .login > p {
     color: var(--color-text);
-    font-size: 1rem;
+    font-size: 20px;
   }
   .login > p > a {
     text-decoration: underline;
