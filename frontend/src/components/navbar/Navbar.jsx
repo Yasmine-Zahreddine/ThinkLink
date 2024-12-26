@@ -40,8 +40,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-sign">
         <NavLink to="/signin">
-          {" "}
-          <p>Sign in</p>{" "}
+          <p>Sign in</p>
         </NavLink>
         <NavLink to="/signup">
           <button type="button">Sign up</button>
