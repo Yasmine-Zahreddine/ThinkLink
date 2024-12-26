@@ -1,136 +1,73 @@
+import { useEffect, useState } from "react";
 import "./signup.css";
-import { useState } from "react";
+import Card from "../../components/card/Card";
+
 const Signup = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [message, setMessage] = useState("");
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1000);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 1000);
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    window.addEventListener("resize", handleResize);
 
-    if (formData.password !== formData.confirmPassword) {
-      setMessage("Passwords do not match.");
-      return;
-    }
-
-    try {
-      const response = await fetch("/api/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.username,
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessage("User signed up successfully!");
-        setFormData({
-          username: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-        });
-      } else {
-        setMessage(data.error || "Something went wrong.");
-      }
-    } catch (error) {
-      console.error(error);
-      setMessage("An unexpected error occurred.");
-    }
-  };
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
-    <div className="sign-in-up">
-      {message && <p className="message">{message}</p>}
-      <div className="Back-cont">
-        <a href="/">
-          <img src="/path/to/back.png" alt="back" className="backimage" />
-        </a>
+    <div className={` ${isSmallScreen ? "smallScreen" : "SignUp_Container"}`}>
+      <div className="welcome">
+        {isSmallScreen ? (
+          <div className="card-content1">
+            <h1 className="gradient_text">Join us today!</h1>
+          </div>
+        ) : (
+          <div className="smallBox">
+            <Card
+              title="Join us today!"
+              content="Start your academic journey with us! By creating an account, you'll gain access to exclusive study materials, expert insights, and a community dedicated to your success."
+            />
+          </div>
+        )}
       </div>
-
-      <form className="sign-in-up-box" onSubmit={handleSubmit}>
-        <div className="signup-word-cont">
-          <h2>Sign up</h2>
+      <div className="Box">
+        <h1>Sign up and start learning</h1>
+        <input
+          type="text"
+          placeholder="Full Name"
+          className="full_name_input textinputs"
+        />
+        <input type="text" placeholder="Email" className="email textinputs" />
+        <input
+          type="password"
+          placeholder="Password"
+          className="password textinputs"
+        />
+        <div className="checkboxContainer">
+          <input type="checkbox" className="checkbox" />
+          <p>
+            Send me special offers, personalized recommendations, and learning
+            tips.
+          </p>
         </div>
-
-        <div className="input-cont">
-          <img src="/path/to/profile.png" alt="profile" className="profile" />
-          <input
-            className="input"
-            placeholder="Username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
+        <button className="buttonCreateAccount">Sign up</button>
+        <div className="policyContainer">
+          <p className="policyAgree">
+            By signing up, you agree to our <a href="/">Terms of Use</a> and{" "}
+            <a href="/">Privacy Policy</a>.
+          </p>
         </div>
-
-        <div className="input-cont">
-          <img src="/path/to/email.png" alt="email" className="email" />
-          <input
-            className="input"
-            placeholder="Email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+        <div className="login">
+          <p>
+            Already have an account? <a href="/">Log in</a>
+          </p>
         </div>
-
-        <div className="input-cont">
-          <img
-            src="/path/to/password.png"
-            alt="password"
-            className="password"
-          />
-          <input
-            className="input"
-            placeholder="Password"
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="input-cont">
-          <img
-            src="/path/to/password.png"
-            alt="password"
-            className="password"
-          />
-          <input
-            className="input"
-            placeholder="Confirm Password"
-            name="confirmPassword"
-            type="password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="Create-Account-cont">
-          <button type="submit" className="Create-Account-button">
-            Create
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
   );
 };
+
 export default Signup;
