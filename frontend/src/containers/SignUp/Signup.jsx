@@ -36,25 +36,42 @@ const Signup = () => {
       </div>
       <div className="Box">
         <h1>Sign up and start learning</h1>
-        <input
-          type="text"
-          placeholder="Full Name"
-          className="full_name_input textinputs"
-        />
-        <input type="text" placeholder="Email" className="email textinputs" />
-        <input
-          type="password"
-          placeholder="Password"
-          className="password textinputs"
-        />
-        <div className="checkboxContainer">
-          <input type="checkbox" className="checkbox" />
-          <p>
-            Send me special offers, personalized recommendations, and learning
-            tips.
-          </p>
-        </div>
-        <button className="buttonCreateAccount">Sign up</button>
+        <form className="form_signup">
+          <div className="flname">
+            <input
+              type="text"
+              placeholder="First name"
+              className="first_name_input"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Last name"
+              className="last_name_input"
+              required
+            />
+          </div>
+          <input
+            type="text"
+            placeholder="Email"
+            className="email textinputs"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="password textinputs"
+            required
+          />
+          <div className="checkboxContainer">
+            <input type="checkbox" className="checkbox" required />
+            <p>
+              Send me special offers, personalized recommendations, and learning
+              tips.
+            </p>
+          </div>
+          <button className="buttonCreateAccount">Sign up</button>
+        </form>
         <div className="policyContainer">
           <p className="policyAgree">
             By signing up, you agree to our <a href="/">Terms of Use</a> and{" "}
