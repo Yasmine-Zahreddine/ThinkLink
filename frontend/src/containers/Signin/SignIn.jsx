@@ -45,14 +45,16 @@ const Signin = () => {
           type="text"
           placeholder="Email"
           className="email textinputs_signin"
+          required
         />
         <input
           type="password"
           placeholder="Password"
           className="password textinputs_signin"
+          required
         />
         <div className="checkboxContainer_signin">
-          <input type="checkbox" className="checkbox_signin" />
+          <input type="checkbox" className="checkbox_signin" required />
           <p>Remember me</p>
         </div>
         <button className="buttonSignin">Sign in</button>
