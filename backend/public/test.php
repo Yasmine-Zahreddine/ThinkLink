@@ -1,10 +1,17 @@
 <?php
-// Database connection details
-$host = 'aws-0-eu-central-1.pooler.supabase.com'; // Host from your Supabase project
-$port = '5432'; // Default PostgreSQL port
-$dbname = 'postgres'; // Database name from Supabase
-$user = 'postgres.dvdvbefkxqowxmcvpzpc'; // Username from Supabase
-$password = 'zWG7WgA4Y3fNuIcB'; // Password from Supabase
+// Autoload dependencies
+require_once __DIR__ . '/../vendor/autoload.php';
+
+// Load the .env file
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+// Access environment variables
+$host = $_ENV['DB_HOST'];
+$port = $_ENV['DB_PORT'] ?? '5432'; // Default to 5432 if not set
+$dbname = $_ENV['DB_DATABASE'];
+$user = $_ENV['DB_USERNAME'];
+$password = $_ENV['DB_PASSWORD'];
 
 // Create connection string
 $conn_string = "host=$host port=$port dbname=$dbname user=$user password=$password";
@@ -20,7 +27,7 @@ if (!$conn) {
     echo "Connected to the database successfully!<br>";
 }
 
-// Step 3: Run a SELECT query
+// Run a SELECT query
 $query = 'SELECT * FROM users'; // Replace 'users' with a table in your database
 $result = pg_query($conn, $query);
 
@@ -31,7 +38,7 @@ if (!$result) {
 } else {
     echo "Query executed successfully!<br>";
 
-    // Step 4: Fetch and display the results
+    // Fetch and display the results
     while ($row = pg_fetch_assoc($result)) {
         echo "ID: " . $row['id'] . " - Name: " . $row['name'] . " - Email: " . $row['email'] . "<br>";
     }
