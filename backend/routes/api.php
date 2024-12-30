@@ -1,16 +1,30 @@
 <?php 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
-Route::post('/login', function (Request $request) {
-    $email = $request->input('email');
-    $password = $request->input('password');
+Route::post('/signup', function (Request $request) {
+    $validatedData = $request->validate([
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users,email',
+        'password' => 'required|string|min:8',
+    ]);
 
-    // Mock response (replace with real authentication logic)
-    if ($email === 'test@example.com' && $password === 'password') {
-        return response()->json(['success' => true, 'message' => 'Login successful']);
-    }
+    $userId = DB::table('users')->insertGetId([
+        'first_name' => $validatedData['fname'],
+        'last_name' => $validatedData['lname'],
+        'email' => $validatedData['email'],
+        'password' => Hash::make($validatedData['password']), 
+        'created_at' => now(), 
+        'updated_at' => now(), 
+    ]);
 
-    return response()->json(['success' => false, 'message' => 'Invalid credentials'], 401);
+    return response()->json([
+        'success' => true,
+        'message' => 'Account created successfully',
+        'user_id' => $userId
+    ], 201);
 });
-?>
