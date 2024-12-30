@@ -14,8 +14,8 @@ Route::post('/signup', function (Request $request) {
     ]);
 
     $userId = DB::table('users')->insertGetId([
-        'first_name' => $validatedData['fname'],
-        'last_name' => $validatedData['lname'],
+        'first_name' => $validatedData['first_name'],
+        'last_name' => $validatedData['last_name'],
         'email' => $validatedData['email'],
         'password' => Hash::make($validatedData['password']), 
         'created_at' => now(), 
