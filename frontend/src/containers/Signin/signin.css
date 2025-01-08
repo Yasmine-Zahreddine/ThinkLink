@@ -56,7 +56,7 @@
 
 .textinputs_signin::placeholder {
   font-size: 1.2vw;
-  color: var(--color-text);
+  color: var(--color-dark-blue);
 }
 .Box_signin > h1 {
   margin-bottom: 1vw;
