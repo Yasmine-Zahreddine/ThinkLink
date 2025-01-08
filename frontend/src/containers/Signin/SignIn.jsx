@@ -43,8 +43,9 @@ const Signin = () => {
     try {
       const data = await signin(formData);
       setMessage(data.message);
+      if(data.success){
       redirect('/');
-      return;
+    }
     } catch (err) {
       setError(err.errors || err.message || "Something went wrong");
     }
