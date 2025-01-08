@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { signin } from "../../../api/signin.js";
 import "./signin.css";
 import Card from "../../components/card/Card";
-import { NavLink } from "react-router-dom";
+import { NavLink, redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
+  const redirect = useNavigate();
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1000);
   const [formData, setFormData] = useState({
     email: "",
@@ -41,7 +43,8 @@ const Signin = () => {
     try {
       const data = await signin(formData);
       setMessage(data.message);
-      // Handle successful sign-in, e.g., redirect or store user info
+      redirect('/');
+      return;
     } catch (err) {
       setError(err.errors || err.message || "Something went wrong");
     }
