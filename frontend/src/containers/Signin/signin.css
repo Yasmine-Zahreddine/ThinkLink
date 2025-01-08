@@ -113,6 +113,14 @@
   color: var(--color-dark-blue);
 }
 
+form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
 @media (max-width: 1000px) {
   .welcome_signin {
     margin-bottom: 2vw;
