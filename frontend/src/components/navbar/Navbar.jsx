@@ -4,26 +4,41 @@ import { NavLink } from "react-router-dom";
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import logo from "../../assets/logos/logo_lighttheme_thinklink.png";
 import SearchIcon from "../../assets/search.svg";
+import PropTypes from 'prop-types';
 
-const Menu = () => (
+const Menu = ({ closeMenu }) => (
   <>
     <p>
-      <NavLink to="/">Home</NavLink>
+      <NavLink to="/" onClick={closeMenu}>Home</NavLink>
     </p>
     <p>
-      <a href="#my_learning">My Learning</a>
+      <a href="#my_learning" onClick={closeMenu}>My Learning</a>
     </p>
     <p>
-      <a href="#about">About</a>
+      <a href="#about" onClick={closeMenu}>About</a>
     </p>
     <p>
-      <a href="#support">Support</a>
+      <a href="#support" onClick={closeMenu}>Support</a>
     </p>
   </>
 );
 
+Menu.propTypes = {
+  closeMenu: PropTypes.func.isRequired
+};
+
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const closeMenu = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setToggleMenu(false);
+      setIsClosing(false);
+    }, 300); // Match this with animation duration
+  };
+
   return (
     <div className="navbar">
       <div className="navbar-links">
@@ -31,7 +46,7 @@ const Navbar = () => {
           <img src={logo} alt="logo" />
         </div>
         <div className="navbar-links_container">
-          <Menu />
+          <Menu closeMenu={closeMenu} />
         </div>
       </div>
       <div className="navbar-search">
@@ -48,12 +63,10 @@ const Navbar = () => {
       </div>
       <div className="navbar-menu">
         {toggleMenu ? (
-          <RiCloseLine
+          <RiMenu3Line
             color="#fff"
             size={27}
-            onClick={() => {
-              setToggleMenu(false);
-            }}
+            onClick={() => setToggleMenu(true)}
           />
         ) : (
           <RiMenu3Line
@@ -63,13 +76,20 @@ const Navbar = () => {
           />
         )}
         {toggleMenu && (
-          <div className="navbar-menu_container scale-up-center">
+          <div className={`navbar-menu_container ${isClosing ? 'closing' : ''}`}>
+            <div className="navbar-menu_container-close">
+              <RiCloseLine
+                color="#fff"
+                size={27}
+                onClick={closeMenu}
+              />
+            </div>
             <div className="navbar-menu_container-links">
-              <Menu />
+              <Menu closeMenu={closeMenu} />
               <div className="navbar-menu_container-links-sign">
-                <p>Sign in</p>
+                <p onClick={closeMenu}>Sign in</p>
                 <NavLink to="/signup">
-                  <button type="button">Sign up</button>
+                  <button type="button" onClick={closeMenu}>Sign up</button>
                 </NavLink>
               </div>
             </div>
