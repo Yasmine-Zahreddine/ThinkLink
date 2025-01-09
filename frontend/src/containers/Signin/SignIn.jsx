@@ -4,8 +4,10 @@ import "./signin.css";
 import Card from "../../components/card/Card";
 import { NavLink, redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useActionState } from "react";
 
 const Signin = () => {
+  const [loading, setLoading] =useState(false);
   const redirect = useNavigate();
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1000);
   const [formData, setFormData] = useState({
@@ -39,19 +41,30 @@ const Signin = () => {
     e.preventDefault();
     setMessage("");
     setError("");
-
     try {
+      setLoading(true);
       const data = await signin(formData);
       setMessage(data.message);
-      if(data.success){
-      redirect('/');
-    }
+      if (data.success) {
+        redirect('/'); // Navigate to the home page
+      } else {
+        setError(data.message || "Sign in failed"); // Add an error message if needed
+      }
     } catch (err) {
       setError(err.errors || err.message || "Something went wrong");
+    } finally {
+      // Always set loading to false after try/catch
+      setLoading(false);
     }
   };
 
   return (
+    <>
+    {loading && (
+      <div className="loading-overlay">
+        <div className="loading-spinner"></div>
+      </div>
+    )}
     <div
       className={` ${
         isSmallScreen ? "smallScreen_signin" : "SignIn_Container"
@@ -110,6 +123,7 @@ const Signin = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

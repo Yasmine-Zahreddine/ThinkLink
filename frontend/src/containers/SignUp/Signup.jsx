@@ -34,26 +34,44 @@ const Signup = () => {
     e.preventDefault();
     setMessage("");
     setError("");
-
-    try { 
-      setLoading(true); 
+  
+    try {
+      setLoading(true);
+  
+      // Call the signup API
       const data = await signup(formData);
-      setMessage(data.message);
+  
+      // Log data for debugging
+      console.log("API Response:", data);
+  
+      // Handle success or error based on response
       if (data.success) {
-          setLoading(false);
-          redirect("/signup/successful");
+        setMessage(data.message || "Sign up successful!");
+        setFormData({
+          first_name: "",
+          last_name: "",
+          email: "",
+          password: "",
+        });
+        redirect("/signup/successful");
+      } else {
+        throw new Error(data.message || "Sign up failed");
       }
-      setFormData({
-        first_name: "",
-        last_name: "",
-        email: "",
-        password: "",
-      });
     } catch (err) {
-      setError(err.errors || err.message || "Something went wrong");
+      // Log error for debugging
+      console.error("Error:", err);
+  
+      // Safely set error message
+      setError(
+        err.response?.data?.message || // Server error message
+        err.message || // JavaScript error message
+        "Something went wrong" // Fallback message
+      );
+    } finally {
+      setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
@@ -128,10 +146,7 @@ const Signup = () => {
             />
             <div className="checkboxContainer">
               <input type="checkbox" className="checkbox" required />
-              <p>
-                Send me special offers, personalized recommendations, and
-                learning tips.
-              </p>
+              <p>Send me special offers, personalized recommendations, and learning tips.</p>
             </div>
             <button className="buttonCreateAccount" type="submit">
               Sign up
@@ -139,8 +154,7 @@ const Signup = () => {
           </form>
           <div className="policyContainer">
             <p className="policyAgree">
-              By signing up, you agree to our <a href="/">Terms of Use</a> and{" "}
-              <a href="/">Privacy Policy</a>.
+              By signing up, you agree to our <a href="/">Terms of Use</a> and <a href="/">Privacy Policy</a>.
             </p>
           </div>
           <div className="login">
