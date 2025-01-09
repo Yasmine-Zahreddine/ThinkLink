@@ -1,0 +1,107 @@
+.animated-tick {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.tick-svg {
+  width:50px;
+  height: 50px;
+}
+
+.tick-circle {
+  stroke: var(--color-dark-blue);
+  stroke-width: 4;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: circle-animation 0.8s ease-out forwards;
+}
+.tick-path {
+  stroke: var(--color-dark-blue);
+  stroke-width: 4;
+  stroke-dasharray: 120; /* Total length of the tick */
+  stroke-dashoffset: 120; /* Initially hidden */
+  animation: tick-animation 1.5s ease-out forwards; /* Animate over 1.5 seconds */
+}
+
+@keyframes tick-animation {
+  to {
+    stroke-dashoffset: 0; /* Fully draws the tick */
+  }
+}
+
+@keyframes circle-animation {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+
+.signip_successful_container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.gradient_text{
+    font-family: var(--font-family);
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 45px;
+    margin: 1rem 0;
+}
+.signip_successful_container > h4 {
+    font-family: var(--font-family);
+    font-size: 16px;
+    line-height: 30px;
+    color: var(--color-text);
+    font-weight: 700;
+}
+
+.button_home {
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+    width: 130px;
+    height: 40px;
+    background-color: var(--color-dark-blue);
+    outline: none;
+    border: none;
+    font-family: var(--font-family);
+    color: var(--color-bg);
+    border-radius: 2px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .button_home:hover {
+    background-color: var(--color-light-blue); 
+    transform: scale(1.01); 
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); 
+  }
+  
+  .button_home:active {
+    transform: scale(0.98);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  @media screen and (max-width:520px) {
+    
+.gradient_text{
+  font-size: 20px;
+}
+
+.signip_successful_container > h4 {
+  font-size: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
+}
+.button_home {
+  width: 100px;
+  height: 40px;
+ 
+}
+
+
+  }
