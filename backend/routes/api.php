@@ -20,23 +20,16 @@ Route::middleware('api')->post('/signup', function (Request $request) {
     Log::info('Validated Data: ', $validatedData);
 
     try {
-        // Generate a unique user_id if necessary
-        $userId = Str::uuid(); // or any other method to generate a unique user_id
-
         DB::table('users')->insert([
-            'user_id' => $userId, // Use 'user_id' instead of 'id'
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
-            'created_at' => now(),
-            'updated_at' => now(),
         ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Account created successfully',
-            'user_id' => $userId
         ], 201);
 
     } catch (\Exception $e) {
