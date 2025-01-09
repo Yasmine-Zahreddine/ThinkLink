@@ -1,12 +1,12 @@
 .animated-tick {
   display: flex;
   justify-content: center;
-  margin: 20px auto;
+  margin-top: 100px;
+  margin-bottom: 10px;
 }
 
 .tick-svg {
-  width:50px;
-  height: 50px;
+  width:90px;
 }
 
 .tick-circle {
@@ -44,20 +44,7 @@
     flex-direction: column;
     align-items: center;
 }
-.gradient_text{
-    font-family: var(--font-family);
-    font-weight: 800;
-    font-size: 34px;
-    line-height: 45px;
-    margin: 1rem 0;
-}
-.signip_successful_container > h4 {
-    font-family: var(--font-family);
-    font-size: 16px;
-    line-height: 30px;
-    color: var(--color-text);
-    font-weight: 700;
-}
+
 
 .button_home {
     margin-top: 3rem;
@@ -85,23 +72,12 @@
     transform: scale(0.98);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
   }
+
   @media screen and (max-width:520px) {
     
-.gradient_text{
-  font-size: 20px;
-}
-
-.signip_successful_container > h4 {
-  font-size: 15px;
-  padding-left: 5px;
-  padding-right: 5px;
-  text-align: center;
-}
-.button_home {
-  width: 100px;
-  height: 40px;
- 
-}
-
-
+    .button_home {
+      width: 100px;
+      height: 40px;
+    
+    }
   }
