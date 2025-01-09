@@ -87,7 +87,9 @@ const Navbar = () => {
             <div className="navbar-menu_container-links">
               <Menu closeMenu={closeMenu} />
               <div className="navbar-menu_container-links-sign">
-                <p onClick={closeMenu}>Sign in</p>
+                <NavLink to="/signin" onClick={closeMenu}>
+                  <p>Sign in</p>
+                </NavLink>
                 <NavLink to="/signup">
                   <button type="button" onClick={closeMenu}>Sign up</button>
                 </NavLink>
