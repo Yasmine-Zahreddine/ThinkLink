@@ -5,7 +5,7 @@
   flex-direction: row;
   padding-bottom: 5vw;
   padding-top: 5vw;
-}/* Full-screen loading overlay */
+}
 .loading-overlay {
   position: absolute;
   top: 0;
@@ -28,8 +28,6 @@
   border-radius: 50%;
   animation: spin 1s linear infinite; /* Rotating animation */
 }
-
-/* Animation keyframes */
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -47,11 +45,14 @@
   padding-top: 3vw;
   padding-bottom: 5vw;
 }
+
 .card-content1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
+
 .form_signup {
   display: flex;
   justify-content: center;
@@ -60,6 +61,7 @@
   gap: 20px;
   width: 100%;
 }
+
 .welcome {
   width: 50%;
   margin-bottom: 10vw;
@@ -67,6 +69,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .first_name_input,
 .last_name_input {
   border: 1.2px solid black;
@@ -78,6 +81,7 @@
   font-size: 20px;
   background-color: var(--color-bg);
 }
+
 .Box {
   display: flex;
   justify-content: center;
@@ -104,12 +108,15 @@
   font-size: 20px;
   color: var(--color-dark-blue);
 }
+
 .Box > h1 {
   margin-bottom: 1vw;
   font-size: 30px;
   font-family: var(--font-family);
   color: var(--color-text);
+  text-align: center;
 }
+
 .flname {
   display: flex;
   justify-content: center;
@@ -118,6 +125,7 @@
   width: 100%;
   gap: 4%;
 }
+
 .firstname,
 .lastname {
   width: 50%;
@@ -154,14 +162,18 @@
   cursor: pointer;
   font-size: 20px;
 }
+
 .policyAgree {
   margin-top: 1vw;
   color: var(--color-text);
+  text-align: center;
 }
+
 .policyAgree > a {
   text-decoration: underline;
   color: var(--color-dark-blue);
 }
+
 .login {
   margin-top: 1vw;
   width: 70%;
@@ -171,388 +183,97 @@
   align-items: center;
   background-color: var(--navbar-color);
 }
+
 .login > p {
   color: var(--color-text);
   font-size: 20px;
 }
+  
+.textinputs::placeholder,
+.last_name_input::placeholder,
+.first_name_input::placeholder {
+  font-size: 15px;
+}
+
 .login > p > a {
   text-decoration: underline;
   color: var(--color-dark-blue);
 }
+
 @media (max-width: 1000px) {
   .first_name_input,
   .last_name_input {
-    border: 1.2px solid black;
     width: 60%;
     height: 3rem;
-    border-radius: 4px;
-    color: var(--color-text);
-    padding-left: 1rem;
-    font-size: 20px;
-    background-color: var(--color-bg);
   }
 
-  .textinputs::placeholder,
-  .last_name_input::placeholder,
-  .first_name_input::placeholder {
-    font-size: 20px;
-  }
   .flname {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    width: 100%;
     gap: 20px;
-  }
-
-  .textinputs::placeholder,
-  .last_name_input::placeholder,
-  .first_name_input::placeholder {
-    font-size: 20px;
   }
 
   .welcome {
     margin-bottom: 2vw;
   }
+
   .Box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
     width: 70%;
   }
 
   .textinputs {
-    border: 1.2px solid black;
     width: 60%;
     height: 3rem;
-    border-radius: 4px;
-    padding-left: 1rem;
-    font-size: 20px;
-    background-color: var(--color-bg);
   }
 
-  .textinputs::placeholder {
-    font-size: 20px;
-  }
   .Box > h1 {
-    margin-bottom: 1vw;
-    font-size: 25px;
-    font-family: var(--font-family);
-    color: var(--color-text);
+    font-size: 30px;
   }
 
   .checkboxContainer {
     width: 60%;
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-  }
-
-  .checkboxContainer > p {
-    width: 100%;
-    font-size: 15px;
-  }
-
-  .checkbox {
-    width: 2rem;
-    height: auto;
   }
 
   .buttonCreateAccount {
     width: 60%;
     height: 3rem;
-    background-color: var(--color-dark-blue);
-    outline: none;
-    border: none;
-    font-family: var(--font-family);
-    color: var(--color-bg);
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 20px;
   }
-  .policyAgree {
-    margin-top: 1vw;
-    font-size: 15px;
-  }
-  .policyAgree > a {
-    text-decoration: underline;
-    color: var(--color-dark-blue);
-  }
-  .policyContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 60%;
-  }
+
   .login {
-    margin-top: 1vw;
     width: 60%;
     height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--navbar-color);
-  }
-  .login > p {
-    color: var(--color-text);
-    font-size: 20px;
-  }
-  .login > p > a {
-    text-decoration: underline;
-    color: var(--color-dark-blue);
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 920px) {
   .first_name_input,
-  .last_name_input {
-    border: 1.2px solid black;
-    width: 26rem;
-    height: 3rem;
-    border-radius: 4px;
-    padding-left: 1rem;
-    font-size: 20px;
-    background-color: var(--color-bg);
-  }
-  .flname {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    gap: 20px;
-  }
-  .welcome {
-    margin-bottom: 2vw;
-    width: 100%;
-  }
-  .card-content1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .Box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
-    width: 90%;
-  }
-
-  .textinputs {
-    border: 1.2px solid black;
-    width: 26rem;
-    height: 3rem;
-    border-radius: 4px;
-    padding-left: 1rem;
-    font-size: 20px;
-    background-color: var(--color-bg);
-  }
-
-  .textinputs::placeholder,
-  .last_name_input::placeholder,
-  .first_name_input::placeholder {
-    font-size: 20px;
-  }
-  .textinputs::placeholder {
-    font-size: 20px;
-  }
-
-  .Box > h1 {
-    margin-bottom: 0.5vw;
-    font-size: 25px;
-    font-family: var(--font-family);
-    color: var(--color-text);
-  }
-
-  .checkboxContainer {
-    width: 26rem;
-    display: flex;
-    margin-top: 2vw;
-    flex-direction: row;
-    gap: 1rem;
-  }
-
-  .checkboxContainer > p {
-    width: 100%;
-    font-size: 0.8rem;
-  }
-
-  .checkbox {
-    width: 3vw;
-    height: auto;
-  }
-
-  .buttonCreateAccount {
-    width: 26rem;
-    height: 3rem;
-    background-color: var(--color-dark-blue);
-    outline: none;
-    border: none;
-    font-family: var(--font-family);
-    color: var(--color-bg);
-    border-radius: 4px;
-    font-size: 3vw;
-  }
-  .policyAgree {
-    margin-top: 1vw;
-    font-size: 15px;
-  }
-  .policyAgree > a {
-    text-decoration: underline;
-    color: var(--color-dark-blue);
-  }
-  .policyContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 26rem;
-  }
+  .last_name_input,
+  .textinputs,
+  .checkboxContainer,
+  .buttonCreateAccount,
   .login {
-    margin-top: 1vw;
     width: 26rem;
-    height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--navbar-color);
   }
-  .login > p {
-    color: var(--color-text);
-    font-size: 20px;
-  }
-  .login > p > a {
-    text-decoration: underline;
-    color: var(--color-dark-blue);
-  }
+  
+.login > p {
+  font-size: 15px;
 }
+
+
+}
+
 @media screen and (max-width: 520px) {
-  .textinputs::placeholder,
-  .last_name_input::placeholder,
-  .first_name_input::placeholder {
-    font-size: 15px;
-  }
   .first_name_input,
-  .last_name_input {
-    border: 1.2px solid black;
+  .last_name_input,
+  .textinputs,
+  .checkboxContainer,
+  .buttonCreateAccount,
+  .login {
     width: 18rem;
     height: 2rem;
-    border-radius: 4px;
-    padding-left: 1rem;
     font-size: 15px;
-    background-color: var(--color-bg);
-  }
-  .flname {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    gap: 20px;
-  }
-  .welcome {
-    margin-bottom: 2vw;
-    width: 100%;
-  }
-  .card-content1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .Box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
-    width: 90%;
-  }
-
-  .textinputs {
-    border: 1.2px solid black;
-    width: 18rem;
-
-    height: 2rem;
-    border-radius: 4px;
-    padding-left: 1rem;
-    font-size: 15px;
-    background-color: var(--color-bg);
-  }
-
-  .textinputs::placeholder {
-    font-size: 15px;
-  }
-  .Box > h1 {
-    margin-bottom: 0.5vw;
-    font-size: 20px;
-    font-family: var(--font-family);
-    color: var(--color-text);
-  }
-
-  .checkboxContainer {
-    width: 18rem;
-    display: flex;
-    margin-top: 2vw;
-    flex-direction: row;
-    gap: 1rem;
-  }
-
-  .checkboxContainer > p {
-    width: 100%;
-    font-size: 15px;
-  }
-
-  .checkbox {
-    width: 1rem;
-    height: auto;
   }
 
   .buttonCreateAccount {
-    width: 18rem;
-    height: 2rem;
-    background-color: var(--color-dark-blue);
-    outline: none;
-    border: none;
-    font-family: var(--font-family);
-    color: var(--color-bg);
-    border-radius: 4px;
-    font-size: 20px;
-  }
-  .policyAgree {
-    margin-top: 1vw;
     font-size: 15px;
-  }
-  .policyAgree > a {
-    text-decoration: underline;
-    color: var(--color-dark-blue);
-  }
-  .policyContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 18rem;
-  }
-  .login {
-    margin-top: 1vw;
-    width: 18rem;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--navbar-color);
-  }
-  .login > p {
-    color: var(--color-text);
-    font-size: 20px;
-  }
-  .login > p > a {
-    text-decoration: underline;
-    color: var(--color-dark-blue);
   }
 }

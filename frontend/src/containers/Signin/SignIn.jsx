@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { signin } from "../../../api/signin.js";
 import "./signin.css";
-import Card from "../../components/card/Card.jsx";
-import { NavLink } from "react-router-dom";
+import Card from "../../components/card/Card";
+import { NavLink, redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useActionState } from "react";
 
 const Signin = () => {
   const [loading, setLoading] =useState(false);
@@ -45,14 +46,13 @@ const Signin = () => {
       const data = await signin(formData);
       setMessage(data.message);
       if (data.success) {
-        redirect('/'); // Navigate to the home page
+        redirect('/'); 
       } else {
-        setError(data.message || "Sign in failed"); // Add an error message if needed
+        setError(data.message || "Sign in failed"); 
       }
     } catch (err) {
       setError(err.errors || err.message || "Something went wrong");
     } finally {
-      // Always set loading to false after try/catch
       setLoading(false);
     }
   };
@@ -72,7 +72,7 @@ const Signin = () => {
       <div className="welcome_signin">
         {isSmallScreen ? (
           <div className="card-content1">
-            <h1 className="gradient_text">Join us today!</h1>
+            <h1 className="gradient_text">Welcome Back!</h1>
           </div>
         ) : (
           <div className="smallBox_signin">

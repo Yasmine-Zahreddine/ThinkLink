@@ -38,13 +38,8 @@ const Signup = () => {
     try {
       setLoading(true);
   
-      // Call the signup API
       const data = await signup(formData);
   
-      // Log data for debugging
-      console.log("API Response:", data);
-  
-      // Handle success or error based on response
       if (data.success) {
         setMessage(data.message || "Sign up successful!");
         setFormData({
@@ -58,14 +53,12 @@ const Signup = () => {
         throw new Error(data.message || "Sign up failed");
       }
     } catch (err) {
-      // Log error for debugging
       console.error("Error:", err);
   
-      // Safely set error message
       setError(
-        err.response?.data?.message || // Server error message
-        err.message || // JavaScript error message
-        "Something went wrong" // Fallback message
+        err.response?.data?.message ||
+        err.message || 
+        "Something went wrong" 
       );
     } finally {
       setLoading(false);
