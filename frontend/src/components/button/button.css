@@ -1,0 +1,46 @@
+.buttonS {
+    width: 70%;
+    height: 4vw;
+    background-color: var(--color-dark-blue);
+    outline: none;
+    border: none;
+    font-family: var(--font-family);
+    color: var(--color-bg);
+    border-radius: 4px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .buttonS:hover {
+    background-color: var(--color-light-blue);
+    transform: scale(1.05);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .buttonS:active {
+    transform: scale(0.98);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+
+@media screen and (max-width:1000px) {
+   .buttonS{
+    width: 26rem;
+    height: 3rem;
+   }
+}
+@media screen and (max-width:768px) {
+  .buttonS{
+    width: 26rem;
+    height: 3rem;
+  }
+  
+}
+@media screen and (max-width:520px) {
+  .buttonS{width: 18rem;
+   
+    height: 2rem;
+    font-size: 15px;
+  }
+}

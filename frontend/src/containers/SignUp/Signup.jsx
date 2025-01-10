@@ -4,7 +4,8 @@ import "./signup.css";
 import Card from "../../components/card/Card";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import Loadingspinner from "../../components/loading-spinner/Loadingspinner.jsx";
+import Button from "../../components/button/button.jsx";
 const Signup = () => {
   const redirect = useNavigate();
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1000);
@@ -75,9 +76,7 @@ const Signup = () => {
   return (
     <>
       {loading && (
-        <div className="loading-overlay">
-          <div className="loading-spinner"></div>
-        </div>
+        <Loadingspinner/>
       )}
       <div className={` ${isSmallScreen ? "smallScreen" : "SignUp_Container"}`}>
         <div className="welcome">
@@ -141,9 +140,7 @@ const Signup = () => {
               <input type="checkbox" className="checkbox" required />
               <p>Send me special offers, personalized recommendations, and learning tips.</p>
             </div>
-            <button className="buttonCreateAccount" type="submit">
-              Sign up
-            </button>
+            <Button content="Sign Up"/>
           </form>
           <div className="policyContainer">
             <p className="policyAgree">

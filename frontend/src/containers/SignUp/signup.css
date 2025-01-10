@@ -6,36 +6,7 @@
   padding-bottom: 5vw;
   padding-top: 5vw;
 }
-.loading-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(85, 85, 85, 0.479); 
-  backdrop-filter: blur(5px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
 
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(255, 255, 255, 0.3); /* Light gray border */
-  border-top: 5px solid white; /* White top border */
-  border-radius: 50%;
-  animation: spin 1s linear infinite; /* Rotating animation */
-}
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
 .smallScreen {
   display: flex;
@@ -110,6 +81,7 @@
 }
 
 .Box > h1 {
+  margin-top: 15px;
   margin-bottom: 1vw;
   font-size: 30px;
   font-family: var(--font-family);
@@ -150,18 +122,6 @@
   margin-bottom: 1rem;
 }
 
-.buttonCreateAccount {
-  width: 70%;
-  height: 4vw;
-  background-color: var(--color-dark-blue);
-  outline: none;
-  border: none;
-  font-family: var(--font-family);
-  color: var(--color-bg);
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 20px;
-}
 
 .policyAgree {
   margin-top: 1vw;
@@ -200,65 +160,44 @@
   color: var(--color-dark-blue);
 }
 
-@media (max-width: 1000px) {
-  .first_name_input,
-  .last_name_input {
-    width: 60%;
-    height: 3rem;
-  }
 
-  .flname {
-    flex-direction: column;
-    gap: 20px;
-  }
 
-  .welcome {
-    margin-bottom: 2vw;
-  }
-
-  .Box {
-    width: 70%;
-  }
-
-  .textinputs {
-    width: 60%;
-    height: 3rem;
-  }
-
-  .Box > h1 {
-    font-size: 30px;
-  }
-
-  .checkboxContainer {
-    width: 60%;
-  }
-
-  .buttonCreateAccount {
-    width: 60%;
-    height: 3rem;
-  }
-
-  .login {
-    width: 60%;
-    height: 3rem;
-  }
-}
-
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1000px) {
   .first_name_input,
   .last_name_input,
   .textinputs,
   .checkboxContainer,
-  .buttonCreateAccount,
   .login {
+    height: 3rem;
     width: 26rem;
   }
+  .smallScreen {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  }
   
+.Box >h1{
+  margin-top: 10px;
+}
 .login > p {
-  font-size: 15px;
+  font-size: 20px;
 }
 
 
+.flname {
+  flex-direction: column;
+  gap: 20px;
+}
+
+.welcome {
+  margin-bottom: 2vw;
+}
+.Box_signin > h1{
+  margin-top: 20px;
+}
+.Box_signin > form{
+  margin-top: 5px;
+}
 }
 
 @media screen and (max-width: 520px) {
@@ -266,14 +205,16 @@
   .last_name_input,
   .textinputs,
   .checkboxContainer,
-  .buttonCreateAccount,
   .login {
     width: 18rem;
     height: 2rem;
     font-size: 15px;
   }
-
-  .buttonCreateAccount {
+  .login >p{
     font-size: 15px;
   }
+  
+.Box > h1 {
+  font-size: 20px;
+}
 }

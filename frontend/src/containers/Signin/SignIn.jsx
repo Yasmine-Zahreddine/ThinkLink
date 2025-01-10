@@ -5,7 +5,8 @@ import Card from "../../components/card/Card";
 import { NavLink, redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useActionState } from "react";
-
+import Loadingspinner from "../../components/loading-spinner/Loadingspinner.jsx";
+import Button from "../../components/button/button.jsx";
 const Signin = () => {
   const [loading, setLoading] =useState(false);
   const redirect = useNavigate();
@@ -60,9 +61,7 @@ const Signin = () => {
   return (
     <>
     {loading && (
-      <div className="loading-overlay">
-        <div className="loading-spinner"></div>
-      </div>
+      <Loadingspinner/>
     )}
     <div
       className={` ${
@@ -110,7 +109,7 @@ const Signin = () => {
             <input type="checkbox" className="checkbox_signin" />
             <p>Remember me</p>
           </div>
-          <button className="buttonSignin" type="submit">Sign in</button>
+          <Button content="Sign In"/>
         </form>
         <a href="" className="link">
           forgot password?

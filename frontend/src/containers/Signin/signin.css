@@ -1,39 +1,13 @@
-.loading-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(85, 85, 85, 0.479); 
-  backdrop-filter: blur(5px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
 
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(255, 255, 255, 0.3); 
-  border-top: 5px solid white; 
-  border-radius: 50%;
-  animation: spin 1s linear infinite; 
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
 .SignIn_Container, .smallScreen_signin, .card-content1 {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.smallScreen_signin{
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .SignIn_Container {
@@ -116,30 +90,6 @@
   height: auto;
 }
 
-.buttonSignin {
-  width: 70%;
-  height: 4vw;
-  background-color: var(--color-dark-blue);
-  outline: none;
-  border: none;
-  font-family: var(--font-family);
-  color: var(--color-bg);
-  border-radius: 4px;
-  font-size: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-}
-
-.buttonSignin:hover {
-  background-color: var(--color-light-blue);
-  transform: scale(1.05);
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-}
-
-.buttonSignin:active {
-  transform: scale(0.98);
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-}
 
 .signup {
   margin-top: 1vw;
@@ -186,7 +136,7 @@ form {
   }
 
   .textinputs_signin {
-    width: 60%;
+    width: 26rem;
     height: 3rem;
     font-size: 15px;
   }
@@ -196,24 +146,21 @@ form {
   }
 
   .checkboxContainer_signin {
-    width: 60%;
+    width: 26rem;
   }
 
   .checkbox_signin {
     width: 2rem;
   }
 
-  .buttonSignin {
-    width: 60%;
-    height: 3rem;
-  }
 
   .link {
     font-size: 15px;
+
   }
 
   .signup {
-    width: 60%;
+    width: 26rem;
     height: 3rem;
   }
 }
@@ -241,10 +188,6 @@ form {
     width: 3vw;
   }
 
-  .buttonSignin {
-    width: 26rem;
-    height: 3rem;
-  }
 
   .signup {
     width: 26rem;
@@ -253,6 +196,10 @@ form {
 }
 
 @media screen and (max-width: 520px) {
+  
+.Box_signin > h1 {
+  font-size: 20px;
+}
   .welcome_signin {
     margin-bottom: 2vw;
     width: 100%;
@@ -275,12 +222,6 @@ form {
     width: 1rem;
   }
 
-  .buttonSignin {
-    width: 18rem;
-   
-    height: 2rem;
-    font-size: 15px;
-  }
 
   .signup {
     width: 18rem;
@@ -291,42 +232,4 @@ form {
     font-size: 15px;
   }
 
-}
-
-@media screen and (max-width: 390px) {
-  .welcome_signin {
-    margin-bottom: 2vw;
-    width: 100%;
-  }
-
-  .Box_signin {
-    width: 90%;
-  }
-
-  .textinputs_signin {
-    width: 15rem;
-    height: 2rem;
-  }
-
-  .checkboxContainer_signin {
-    width: 15rem;
-  }
-
-  .checkbox_signin {
-    width: 1rem;
-  }
-
-  .buttonSignin {
-    width: 15rem;
-    height: 2.2rem;
-    font-size: 15px;
-  }
-
-  .signup {
-    width: 15rem;
-    height: 2.2rem;
-  }
-  .signup >p{
-    font-size: 15px;
-  }
 }
