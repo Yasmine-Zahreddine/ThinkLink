@@ -156,6 +156,7 @@
   padding: 0.5rem 1rem;
   border-radius: 3rem;
   background: var(--color-bg);
+  margin-right: 10px;
 }
 
 .navbar-search input {
@@ -171,14 +172,16 @@
   color: var(--color-dark-blue);
   background: var(--color-bg);
 }
-
 .navbar-search img {
   position: relative;
   width: 30px;
   height: 20px;
   cursor: pointer;
 }
-
+.user-pfp{
+  width: 45px;
+  height: auto;
+}
 @media screen and (max-width: 1090px) {
   .navbar-links_container {
     display: none;

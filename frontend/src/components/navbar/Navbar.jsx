@@ -5,8 +5,11 @@ import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import logo from "../../assets/logos/logo_lighttheme_thinklink.png";
 import SearchIcon from "../../assets/search.svg";
 import PropTypes from 'prop-types';
-
+import Cookies from "js-cookie";
+import { useAuth } from "../../Contexts/Authprovider";
+import Pfp from "../pfp/Pfp";
 const Menu = ({ closeMenu }) => (
+
   <>
     <p>
       <NavLink to="/" onClick={closeMenu}>Home</NavLink>
@@ -28,15 +31,16 @@ Menu.propTypes = {
 };
 
 const Navbar = () => {
+  const {isLogedIn} = useAuth()
   const [toggleMenu, setToggleMenu] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-
+  
   const closeMenu = () => {
     setIsClosing(true);
     setTimeout(() => {
       setToggleMenu(false);
       setIsClosing(false);
-    }, 300); // Match this with animation duration
+    }, 300); 
   };
 
   return (
@@ -54,12 +58,13 @@ const Navbar = () => {
         <img src={SearchIcon} alt="search" />
       </div>
       <div className="navbar-sign">
-        <NavLink to="/signin">
+      {!isLogedIn ? (
+        <><NavLink to="/signin">
           <p>Sign in</p>
         </NavLink>
         <NavLink to="/signup">
           <button type="button">Sign up</button>
-        </NavLink>
+        </NavLink></>) : <Pfp/>}
       </div>
       <div className="navbar-menu">
         {toggleMenu ? (
@@ -87,13 +92,17 @@ const Navbar = () => {
             <div className="navbar-menu_container-links">
               <Menu closeMenu={closeMenu} />
               <div className="navbar-menu_container-links-sign">
+              <>
                 <NavLink to="/signin" onClick={closeMenu}>
                   <p>Sign in</p>
                 </NavLink>
                 <NavLink to="/signup">
                   <button type="button" onClick={closeMenu}>Sign up</button>
                 </NavLink>
-              </div>
+              </>
+            
+          </div>
+
             </div>
           </div>
         )}

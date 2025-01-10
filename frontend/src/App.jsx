@@ -11,8 +11,10 @@ import Header from "./containers/Header/Header";
 import Signup from "./containers/SignUp/Signup";
 import Signin from "./containers/Signin/SignIn";
 import Successful from "./containers/Successful/Successful";
+import { AuthProvider } from "./Contexts/Authprovider";
 function App() {
   return (
+    <AuthProvider>
     <div className="App">
       <Router>
         <Navbar />
@@ -26,6 +28,7 @@ function App() {
         <Footer />
       </Router>
     </div>
+    </AuthProvider>
   );
 }
 
