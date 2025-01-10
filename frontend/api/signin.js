@@ -1,7 +1,6 @@
 import axios from "axios";
 
-// Define the API base URL
-const API_BASE_URL = "http://localhost:8000";  // Ensure the URL is correct
+const API_BASE_URL = "http://localhost:8000";  
 
 export const signin = async (formData) => {
     try {

@@ -1,10 +1,6 @@
-// src/api/signup.js
-
 import axios from "axios";
 
-// Define the API base URL
-const API_BASE_URL = "http://localhost:8000";  // Make sure the URL is correct
-
+const API_BASE_URL = "http://localhost:8000";  
 export const signup = async (formData) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/api/signup`, formData);

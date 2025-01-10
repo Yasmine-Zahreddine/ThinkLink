@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import { signup } from "../../../api/signup.js";
 import "./signup.css";
 import Card from "../../components/card/Card";
-import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Loadingspinner from "../../components/loading-spinner/Loadingspinner.jsx";
 import Button from "../../components/button/button.jsx";
 import Error from "../../components/error/Error.jsx";
+import { useVerification } from '../../context/VerificationContext';
+
 const Signup = () => {
   const redirect = useNavigate();
+  const { setVerificationEmail } = useVerification();
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1000);
   const [formData, setFormData] = useState({
     first_name: "",
@@ -16,7 +18,6 @@ const Signup = () => {
     email: "",
     password: "",
   });
-  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +35,6 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage("");
     setError("");
   
     try {
@@ -43,14 +43,8 @@ const Signup = () => {
       const data = await signup(formData);
   
       if (data.success) {
-        setMessage(data.message || "Sign up successful!");
-        setFormData({
-          first_name: "",
-          last_name: "",
-          email: "",
-          password: "",
-        });
-        redirect("/signup/successful");
+        setVerificationEmail(formData.email);
+        redirect("/signup/verification");
       } else {
         throw new Error(data.message || "Sign up failed");
       }

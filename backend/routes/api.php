@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use App\Mail\VerificationCode;
+use Illuminate\Support\Facades\Mail;
 
 
 Route::middleware('api')->post('/signup', function (Request $request) {
@@ -16,24 +18,30 @@ Route::middleware('api')->post('/signup', function (Request $request) {
         'password' => 'required|string|min:8',
     ]);
 
-    // Log validated data
-    Log::info('Validated Data: ', $validatedData);
-
     try {
-        DB::table('users')->insert([
-            'first_name' => $validatedData['first_name'],
-            'last_name' => $validatedData['last_name'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-        ]);
+        $verificationCode = random_int(100000, 999999);
+
+        // Save data temporarily
+        DB::table('user_verifications')->updateOrInsert(
+            ['email' => $validatedData['email']],
+            [
+                'first_name' => $validatedData['first_name'],
+                'last_name' => $validatedData['last_name'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
+                'verification_code' => $verificationCode,
+                'expires_at' => now()->addMinutes(10),
+            ]
+        );
+
+        // Send verification email
+        Mail::to($validatedData['email'])->send(new VerificationCode($verificationCode));
 
         return response()->json([
             'success' => true,
-            'message' => 'Account created successfully',
-        ], 201);
-
+            'message' => 'A verification code has been sent to your email.',
+        ], 200);
     } catch (\Exception $e) {
-        // Log any error that occurs
         Log::error('Error in signup: ' . $e->getMessage());
         return response()->json([
             'success' => false,
@@ -41,6 +49,67 @@ Route::middleware('api')->post('/signup', function (Request $request) {
         ], 500);
     }
 });
+
+
+Route::middleware('api')->post('/verify-signup', function (Request $request) {
+    $validatedData = $request->validate([
+        'email' => 'required|string|email|max:255',
+        'verification_code' => 'required|integer',
+    ]);
+
+    try {
+        // Find the temporary data and check expiration
+        $tempUser = DB::table('user_verifications')
+            ->where('email', $validatedData['email'])
+            ->where('verification_code', $validatedData['verification_code'])
+            ->first();
+
+        if (!$tempUser) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid verification code.',
+            ], 400);
+        }
+
+        // Check if code has expired
+        if (now()->isAfter($tempUser->expires_at)) {
+            // Delete expired verification data
+            DB::table('user_verifications')
+                ->where('email', $tempUser->email)
+                ->delete();
+                
+            return response()->json([
+                'success' => false,
+                'message' => 'Verification code has expired. Please sign up again.',
+                'expired' => true
+            ], 400);
+        }
+
+        // Insert user into `users` table
+        DB::table('users')->insert([
+            'first_name' => $tempUser->first_name,
+            'last_name' => $tempUser->last_name,
+            'email' => $tempUser->email,
+            'password' => $tempUser->password,
+            'created_at' => now(),
+        ]);
+
+        // Delete the temporary data
+        DB::table('user_verifications')->where('email', $tempUser->email)->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Account created successfully.',
+        ], 201);
+    } catch (\Exception $e) {
+        Log::error('Error in verification: ' . $e->getMessage());
+        return response()->json([
+            'success' => false,
+            'message' => 'Something went wrong',
+        ], 500);
+    }
+});
+
 
 Route::middleware('api')->post('/signin', function (Request $request) {
     $validatedData = $request->validate([

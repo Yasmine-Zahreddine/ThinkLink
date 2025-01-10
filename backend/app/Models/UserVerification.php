@@ -3,15 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class UserVerification extends Model
 {
     use HasFactory;
+    protected $table = 'user_verifications';
+    protected $primaryKey = 'id';
 
-    protected $table = 'users';
-
-    protected $primaryKey = 'user_id';
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -19,11 +18,12 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'email',
+        'verification_code',
         'password',
-        'created_at',
-        'updated_at',
+        'expires_at',
     ];
 
+    // Automatically manage timestamps
+    public $timestamps = true;
     const CREATED_AT = 'created_at';
-    const UPDATED_AT = 'updated_at';
 }

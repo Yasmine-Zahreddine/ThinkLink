@@ -1,0 +1,80 @@
+.verification-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-direction: row;
+}
+
+.verification-code {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  margin-bottom: 100px;
+}
+
+.verification-card{
+  justify-self:center;
+
+}
+
+.verification-card .error-message{
+  justify-self: center;
+}
+.code-input {
+  width: 3.5rem;
+  height: 4rem;
+  padding: 0;
+  border-radius: 8px;
+  border: 2px solid var(--color-dark-blue);
+  background: transparent;
+  font-size: 2rem;
+  text-align: center;
+  color: var(--color-text);
+  transition: all 0.2s ease;
+}
+
+.code-input:focus {
+  outline: none;
+  border-color: var(--color-dark-blue);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.code-input::-webkit-inner-spin-button,
+.code-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+@media screen and (max-width : 700px) {
+  .verification-container{
+    display: flex;
+    flex-direction: row;
+  }
+}
+/* Responsive Design */
+@media screen and (max-width: 480px) {
+  .verification-card{
+    background-color: transparent;
+  }
+  .verification-code {
+    gap: 0.5rem;
+  }
+
+  .code-input {
+    width: 2.5rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .code-input {
+    width: 2rem;
+    height: 2.5rem;
+    font-size: 1.2rem;
+  }
+} 
