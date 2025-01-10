@@ -7,10 +7,13 @@ import Loadingspinner from "../../components/loading-spinner/Loadingspinner.jsx"
 import Button from "../../components/button/button.jsx";
 import Error from "../../components/error/Error.jsx";
 import { useVerification } from '../../context/VerificationContext';
+import Cookies from "js-cookie";
+import { useAuth } from '../../context/AuthProvider.jsx';
 
 const Signup = () => {
   const redirect = useNavigate();
   const { setVerificationEmail } = useVerification();
+  const { setIsLoggedIn } = useAuth();
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1000);
   const [formData, setFormData] = useState({
     first_name: "",

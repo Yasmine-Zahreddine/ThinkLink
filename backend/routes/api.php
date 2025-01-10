@@ -35,7 +35,7 @@ Route::middleware('api')->post('/signup', function (Request $request) {
         );
 
         // Send verification email
-        Mail::to($validatedData['email'])->send(new VerificationCode($verificationCode));
+        Mail::to('zahreddineyasmine@gmail.com')->send(new VerificationCode($verificationCode));
 
         return response()->json([
             'success' => true,

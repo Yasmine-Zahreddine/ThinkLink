@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { signin } from "../../../api/signin.js";
 import "./signin.css";
 import Card from "../../components/card/Card";
-import { NavLink, redirect } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useActionState } from "react";
 import Loadingspinner from "../../components/loading-spinner/Loadingspinner.jsx";
 import Button from "../../components/button/button.jsx";
 import Error from "../../components/error/Error.jsx";
 import Cookies from "js-cookie";
-import { useAuth } from "../../Contexts/Authprovider.jsx";
+import { useAuth } from "../../context/AuthProvider.jsx";
+
 const Signin = () => {
   const [loading, setLoading] =useState(false);
   const redirect = useNavigate();
@@ -20,7 +20,7 @@ const Signin = () => {
   });
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const { setIsLogedIn } = useAuth();
+  const {isLoggedIn, setIsLoggedIn} = useAuth();
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth < 1000);
@@ -50,8 +50,8 @@ const Signin = () => {
       const data = await signin(formData);
       setMessage(data.message);
       if (data.success) {
-        Cookies.set("isLogedIn", true, { expires: 7 }); 
-        setIsLogedIn(true);
+        Cookies.set("isLoggedIn", true, { expires: 7 }); 
+        setIsLoggedIn(true);
         redirect('/'); 
       } else {
         setError(data.message || "Sign in failed"); 

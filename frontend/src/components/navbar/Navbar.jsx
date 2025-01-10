@@ -5,8 +5,7 @@ import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import logo from "../../assets/logos/logo_lighttheme_thinklink.png";
 import SearchIcon from "../../assets/search.svg";
 import PropTypes from 'prop-types';
-import Cookies from "js-cookie";
-import { useAuth } from "../../Contexts/Authprovider";
+import { useAuth } from "../../context/AuthProvider";
 import Pfp from "../pfp/Pfp";
 const Menu = ({ closeMenu }) => (
 
@@ -31,7 +30,7 @@ Menu.propTypes = {
 };
 
 const Navbar = () => {
-  const {isLogedIn} = useAuth()
+  const {isLoggedIn} = useAuth()
   const [toggleMenu, setToggleMenu] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   
@@ -58,7 +57,7 @@ const Navbar = () => {
         <img src={SearchIcon} alt="search" />
       </div>
       <div className="navbar-sign">
-      {!isLogedIn ? (
+      {!isLoggedIn ? (
         <><NavLink to="/signin">
           <p>Sign in</p>
         </NavLink>

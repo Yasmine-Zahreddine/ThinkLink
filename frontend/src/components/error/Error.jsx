@@ -1,4 +1,3 @@
-import React from 'react'
 import error from "../../assets/logos/error.png"
 import "./error.css";
 const Error = (props) => {

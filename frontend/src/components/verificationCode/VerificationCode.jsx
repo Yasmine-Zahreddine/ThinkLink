@@ -7,9 +7,12 @@ import { verifyCode } from '../../../api/verify';
 import { useVerification } from '../../context/VerificationContext';
 import { useNavigate } from 'react-router-dom';
 import Error from '../error/Error';
+import Cookies from "js-cookie";
+import { useAuth } from '../../context/AuthProvider';
 
 const VerificationCode = () => {
   const redirect = useNavigate();
+  const { setIsLoggedIn } = useAuth();
   const { verificationEmail, setVerificationEmail } = useVerification();
   const [code, setCode] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
@@ -36,6 +39,8 @@ const VerificationCode = () => {
         if (response.success) {
           setError('');
           setVerificationEmail('');
+          Cookies.set("isLoggedIn", true, { expires: 7 });
+          setIsLoggedIn(true);
           redirect("/signup/successful");
         }
       } catch (err) {
@@ -70,7 +75,9 @@ const VerificationCode = () => {
           if (response.success) {
             setError('');
             setVerificationEmail('');
-          redirect("/signup/successful");
+            Cookies.set("isLoggedIn", true, { expires: 7 });
+            setIsLoggedIn(true);
+            redirect("/signup/successful");
           }
         } catch (err) {
           setError(err.message || 'Verification failed. Please try again.');
