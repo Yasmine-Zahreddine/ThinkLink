@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Loadingspinner from "../../components/loading-spinner/Loadingspinner.jsx";
 import Button from "../../components/button/button.jsx";
+import Error from "../../components/error/Error.jsx";
 const Signup = () => {
   const redirect = useNavigate();
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1000);
@@ -95,8 +96,7 @@ const Signup = () => {
         </div>
         <div className="Box">
           <h1>Sign up and start learning</h1>
-          {message && <p style={{ color: "green" }}>{message}</p>}
-          {error && <p style={{ color: "red" }}>{error}</p>}
+          {error && <Error message={error}/>}
           <form className="form_signup" onSubmit={handleSubmit}>
             <div className="flname">
               <input

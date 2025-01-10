@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useActionState } from "react";
 import Loadingspinner from "../../components/loading-spinner/Loadingspinner.jsx";
 import Button from "../../components/button/button.jsx";
+import Error from "../../components/error/Error.jsx";
 const Signin = () => {
   const [loading, setLoading] =useState(false);
   const redirect = useNavigate();
@@ -84,8 +85,7 @@ const Signin = () => {
       </div>
       <div className="Box_signin">
         <h1>Sign in and continue learning</h1>
-        {message && <p style={{ color: "green" }}>{message}</p>}
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <Error message={error}/>}
         <form onSubmit={handleSubmit}>
           <input
             type="text"
