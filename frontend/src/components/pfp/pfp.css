@@ -1,0 +1,90 @@
+.user-pfp {
+  width: 40px;
+  height: auto;
+  cursor: pointer;
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  position: fixed;
+  height: min(90vh, 20rem);
+  width: min(90vw, 20rem);
+  background-color: var(--color-dark-blue);
+  opacity: 0.9;
+  right: 2rem;
+}
+
+
+@media screen and (max-width: 1090px) {
+  .profile-container {
+    right: 14rem;
+    transform: translateX(50%);
+    width: min(90vw, 18rem);
+  }
+}
+
+
+.animate-up {
+  animation: slideUp 300ms ease-out forwards;
+}
+
+.animate-down {
+  animation: slideDown 300ms ease-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+@media screen and (max-width: 1090px) {
+  .animate-up {
+    animation: slideUpResponsive 300ms ease-out forwards;
+  }
+
+  .animate-down {
+    animation: slideDownResponsive 300ms ease-out forwards;
+  }
+
+  @keyframes slideUpResponsive {
+    from {
+      opacity: 0;
+      transform: translate(50%, 20px);
+    }
+    to {
+      opacity: 0.9;
+      transform: translate(50%, 0);
+    }
+  }
+
+  @keyframes slideDownResponsive {
+    from {
+      opacity: 0.9;
+      transform: translate(50%, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate(50%, 20px);
+    }
+  }
+}
