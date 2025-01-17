@@ -16,9 +16,9 @@ const Footer = () => {
         </div>
         <div className='footer-links_div'>
           <h4>Contributers</h4>
-          <p><a href='https://www.linkedin.com/in/majed-shmait'>Majed Shmait</a></p>
-          <p><a href='https://www.linkedin.com/in/moussa-farhat'>Moussa Farhat</a></p>
-          <p><a href='https://www.linkedin.com/in/yasmine-zd'>Yasmine Zahreddine</a></p>
+          <p><a href='https://www.linkedin.com/in/majed-shmait' target='_blank'>Majed Shmait</a></p>
+          <p><a href='https://www.linkedin.com/in/moussa-farhat' target='_blank'>Moussa Farhat</a></p>
+          <p><a href='https://www.linkedin.com/in/yasmine-zd' target='_blank'>Yasmine Zahreddine</a></p>
         </div>
         <div className='footer-links_div'>
           <h4>Get in touch</h4>
