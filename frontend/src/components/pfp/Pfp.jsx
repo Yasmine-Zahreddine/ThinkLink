@@ -10,7 +10,6 @@ const Pfp = () => {
 
   const handleClick = () => {
     if (!isClicked && !isAnimatingOut) {
-      // Opening the profile
       setIsClicked(true);
       setIsAnimating(true);
       setIsAnimatingOut(false);
@@ -18,7 +17,6 @@ const Pfp = () => {
         setIsAnimating(false);
       }, 300);
     } else if (isClicked && !isAnimating) {
-      // Closing the profile
       setIsAnimating(false);
       setIsAnimatingOut(true);
       setTimeout(() => {
