@@ -41,8 +41,6 @@ const Pfp = () => {
             'animate-down': isAnimatingOut,
           })}
         >
-          <p>HII YASOOOOOOOOOOOOOO</p>
-
         </div>
       )}
     </div>
