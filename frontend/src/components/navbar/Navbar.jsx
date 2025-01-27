@@ -7,8 +7,7 @@ import SearchIcon from "../../assets/search.svg";
 import PropTypes from 'prop-types';
 import { useAuth } from "../../context/AuthProvider";
 import Pfp from "../pfp/Pfp";
-const Menu = ({ closeMenu }) => (
-
+const Menu = ({ closeMenu, isLoggedIn }) => (
   <>
     <p>
       <NavLink to="/" onClick={closeMenu}>Home</NavLink>
@@ -22,24 +21,35 @@ const Menu = ({ closeMenu }) => (
     <p>
       <a href="#support" onClick={closeMenu}>Support</a>
     </p>
+    {!isLoggedIn && (
+      <>
+        <p>
+          <NavLink to="/signin" onClick={closeMenu}>Sign in</NavLink>
+        </p>
+        <p>
+          <NavLink to="/signup" onClick={closeMenu}>Sign up</NavLink>
+        </p>
+      </>
+    )}
   </>
 );
 
 Menu.propTypes = {
-  closeMenu: PropTypes.func.isRequired
+  closeMenu: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 };
 
 const Navbar = () => {
-  const {isLoggedIn} = useAuth()
+  const { isLoggedIn } = useAuth();
   const [toggleMenu, setToggleMenu] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  
+
   const closeMenu = () => {
     setIsClosing(true);
     setTimeout(() => {
       setToggleMenu(false);
       setIsClosing(false);
-    }, 300); 
+    }, 300);
   };
 
   return (
@@ -49,7 +59,7 @@ const Navbar = () => {
           <img src={logo} alt="logo" />
         </div>
         <div className="navbar-links_container">
-          <Menu closeMenu={closeMenu} />
+          <Menu closeMenu={closeMenu} isLoggedIn={isLoggedIn} />
         </div>
       </div>
       <div className="navbar-search">
@@ -57,13 +67,18 @@ const Navbar = () => {
         <img src={SearchIcon} alt="search" />
       </div>
       <div className="navbar-sign">
-      {!isLoggedIn ? (
-        <><NavLink to="/signin">
-          <p>Sign in</p>
-        </NavLink>
-        <NavLink to="/signup">
-          <button type="button">Sign up</button>
-        </NavLink></>) : <Pfp/>}
+        {!isLoggedIn ? (
+          <>
+            <NavLink to="/signin">
+              <p>Sign in</p>
+            </NavLink>
+            <NavLink to="/signup">
+              <button type="button">Sign up</button>
+            </NavLink>
+          </>
+        ) : (
+          <Pfp />
+        )}
       </div>
       <div className="navbar-menu">
         {toggleMenu ? (
@@ -89,19 +104,7 @@ const Navbar = () => {
               />
             </div>
             <div className="navbar-menu_container-links">
-              <Menu closeMenu={closeMenu} />
-              <div className="navbar-menu_container-links-sign">
-              <>
-                <NavLink to="/signin" onClick={closeMenu}>
-                  <p>Sign in</p>
-                </NavLink>
-                <NavLink to="/signup">
-                  <button type="button" onClick={closeMenu}>Sign up</button>
-                </NavLink>
-              </>
-            
-          </div>
-
+              <Menu closeMenu={closeMenu} isLoggedIn={isLoggedIn} />
             </div>
           </div>
         )}
