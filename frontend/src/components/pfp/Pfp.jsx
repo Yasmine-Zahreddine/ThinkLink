@@ -41,6 +41,7 @@ const Pfp = () => {
             'animate-down': isAnimatingOut,
           })}
         >
+          hello
         </div>
       )}
     </div>
