@@ -147,16 +147,15 @@ Route::middleware('api')->post('/signin', function (Request $request) {
     }
 });
 
-Route::middleware('api')->get('/users', function (Request $request) {
+Route::middleware('api')->post('/users', function (Request $request) {
     try {
         $id = $request["user_id"];
-        // Attempt to fetch user based on the id
+
         $user = DB::table('users')
             ->where('user_id', $id)
             ->select('first_name', 'last_name', 'email')
             ->first();
 
-        // If no user found, return a 404
         if (!$user) {
             return response()->json([
                 'success' => false,
@@ -164,7 +163,6 @@ Route::middleware('api')->get('/users', function (Request $request) {
             ], 404);
         }
 
-        // Return the found user data
         return response()->json([
             'success' => true,
             'data' => $user,
