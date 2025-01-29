@@ -147,8 +147,9 @@ Route::middleware('api')->post('/signin', function (Request $request) {
     }
 });
 
-Route::middleware('api')->get('/users/{id}', function (Request $request,$id) {
+Route::middleware('api')->get('/users', function (Request $request) {
     try {
+        $id = $request["user_id"];
         // Attempt to fetch user based on the id
         $user = DB::table('users')
             ->where('user_id', $id)

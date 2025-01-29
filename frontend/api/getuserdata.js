@@ -4,8 +4,8 @@ const API_BASE_URL = "http://localhost:8000/";
 
 const getuserdata = async (userId) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}api/users`, {
-            params: { id: userId }
+        const response = await axios.post(`${API_BASE_URL}api/users`, {
+            "user_id":userId
         });
         console.log(response.data);
         return response.data;
