@@ -62,6 +62,7 @@ const Navbar = () => {
     
     setTimeout(() => {
       Cookies.remove("isLoggedIn", { path: '/' });
+      Cookies.remove("userData", { path: '/' });
       setIsLoggedIn(false);
       setIsLoading(false);
       navigate("/signin");

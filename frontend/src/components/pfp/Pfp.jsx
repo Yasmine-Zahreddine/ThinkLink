@@ -1,23 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './pfp.css';
 import user from '../../assets/logos/user.png';
 import classNames from 'classnames';
+import cookie from "js-cookie";
 
 const Pfp = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
 
   const handleClick = () => {
+    console.log(userData);
     if (!isClicked && !isAnimatingOut) {
       setIsClicked(true);
       setIsAnimating(true);
-      setIsAnimatingOut(false);
-      setTimeout(() => {
-        setIsAnimating(false);
-      }, 300);
-    } else if (isClicked && !isAnimating) {
-      setIsAnimating(false);
+      setTimeout(() => setIsAnimating(false), 300);
+    } else {
       setIsAnimatingOut(true);
       setTimeout(() => {
         setIsClicked(false);
@@ -30,18 +32,50 @@ const Pfp = () => {
     <div className="pfp-wrapper">
       <img
         src={user}
-        alt="user"
+        alt="User avatar"
         className="user-pfp"
         onClick={handleClick}
+        tabIndex="0"
+        role="button"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') handleClick();
+        }}
       />
+
       {(isClicked || isAnimatingOut) && (
-        <div
-          className={classNames('profile-container', {
-            'animate-up': isAnimating,
-            'animate-down': isAnimatingOut,
-          })}
-        >
-          hello
+        <div className={classNames('profile-container', {
+          'animate-up': isAnimating,
+          'animate-down': isAnimatingOut
+        })}>
+          {isLoading ? (
+            <div className="profile-loading">Loading profile...</div>
+          ) : error ? (
+            <div className="profile-error">⚠️ {error}</div>
+          ) : userData ? (
+            <div className="profile-content">
+              <div className="profile-header">
+                <img 
+                  src={user} 
+                  alt="Profile" 
+                  className="profile-avatar"
+                />
+                <div>
+                  <h3 className="profile-name">
+                    {userData.first_name} {userData.last_name}
+                  </h3>
+                  <p className="profile-email">{userData.email}</p>
+                </div>
+              </div>
+              <div className="profile-actions">
+                <button className="profile-button">Settings</button>
+                <button className="profile-button logout">
+                  Logout
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="profile-message">No user data available</div>
+          )}
         </div>
       )}
     </div>

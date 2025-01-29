@@ -21,7 +21,6 @@ Route::middleware('api')->post('/signup', function (Request $request) {
     try {
         $verificationCode = random_int(100000, 999999);
 
-        // Save data temporarily
         DB::table('user_verifications')->updateOrInsert(
             ['email' => $validatedData['email']],
             [
@@ -117,19 +116,18 @@ Route::middleware('api')->post('/signin', function (Request $request) {
         'password' => 'required|string|min:8',
     ]);
 
-    // Log validated data
     Log::info('Signin attempt: ', ['email' => $validatedData['email']]);
 
     try {
-        // Retrieve the user by email
         $user = DB::table('users')->where('email', $validatedData['email'])->first();
 
         if ($user && Hash::check($validatedData['password'], $user->password)) {
-            // Password matches
+          
             return response()->json([
                 'success' => true,
                 'message' => 'Signin successful',
-                'user_id' => $user->user_id
+                'user_id' => $user->user_id,
+                'email' => $user->email,
             ], 200);
         } else {
             // Invalid credentials
