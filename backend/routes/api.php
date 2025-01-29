@@ -146,3 +146,37 @@ Route::middleware('api')->post('/signin', function (Request $request) {
         ], 500);
     }
 });
+
+Route::middleware('api')->get('/users/{id}', function (Request $request,$id) {
+    try {
+        // Attempt to fetch user based on the id
+        $user = DB::table('users')
+            ->where('user_id', $id)
+            ->select('first_name', 'last_name', 'email')
+            ->first();
+
+        // If no user found, return a 404
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found'
+            ], 404);
+        }
+
+        // Return the found user data
+        return response()->json([
+            'success' => true,
+            'data' => $user,
+            'email' => $user->email,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+        ], 200);
+
+    } catch (\Exception $e) {
+        Log::error('Error fetching user: ' . $e->getMessage());
+        return response()->json([
+            'success' => false,
+            'message' => 'Internal server error'
+        ], 500);
+    }
+});

@@ -3,6 +3,7 @@ import './pfp.css';
 import user from '../../assets/logos/user.png';
 import classNames from 'classnames';
 import cookie from "js-cookie";
+import getuserdata from '../../../api/getuserdata';
 
 const Pfp = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -11,8 +12,28 @@ const Pfp = () => {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  useEffect(() => {
+    const fetchUserData = async () => {
+        try {
+            const userId = cookie.get("userId");
+            if (!userId) throw new Error("User not authenticated");
+            
+            const data = await getuserdata(userId);
+            setUserData(data);
+        } catch (err) {
+            if (err.response?.status === 401) {
+                // Handle unauthorized
+                cookie.remove("userId");
+                window.location.href = '/login';
+            }
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-
+    fetchUserData();
+}, []);
   const handleClick = () => {
     console.log(userData);
     if (!isClicked && !isAnimatingOut) {
@@ -83,3 +104,4 @@ const Pfp = () => {
 };
 
 export default Pfp;
+
