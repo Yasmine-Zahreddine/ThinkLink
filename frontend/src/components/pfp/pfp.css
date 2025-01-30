@@ -6,27 +6,90 @@
 
 .profile-container {
   display: flex;
-  align-items: center;
   flex-direction: column;
   z-index: 9999;
   position: fixed;
-  height: min(90vh, 20rem);
-  width: min(90vw, 20rem);
   background-color: var(--color-dark-blue);
   opacity: 0.9;
   right: 2rem;
+  border-radius: 8px;
+  padding: 1rem;
+  width: min(90vw, 300px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 
-@media screen and (max-width: 1090px) {
-  .profile-container {
-    right: 14rem;
-    transform: translateX(50%);
-    width: min(90vw, 18rem);
-  }
+.profile-content {
+  width: 100%;
 }
 
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
 
+.pfp_pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.profile-info {
+  color: white;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.profile-email {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.profile-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.logout {
+  color: #ff6b6b;
+  margin-top: 1rem;
+}
+
+.loading-spinner {
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+
+.profile-error {
+  color: #ff6b6b;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Animations remain the same */
 .animate-up {
   animation: slideUp 300ms ease-out forwards;
 }
@@ -58,33 +121,19 @@
 }
 
 @media screen and (max-width: 1090px) {
-  .animate-up {
-    animation: slideUpResponsive 300ms ease-out forwards;
+  .profile-container {
+    right: 5rem;
+    width: min(90vw, 18rem);
   }
-
-  .animate-down {
-    animation: slideDownResponsive 300ms ease-out forwards;
-  }
-
-  @keyframes slideUpResponsive {
+  
+  @keyframes slideUp {
     from {
       opacity: 0;
-      transform: translate(50%, 20px);
+      transform: translateY(20px);
     }
     to {
       opacity: 0.9;
-      transform: translate(50%, 0);
-    }
-  }
-
-  @keyframes slideDownResponsive {
-    from {
-      opacity: 0.9;
-      transform: translate(50%, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate(50%, 20px);
+      transform: translateY(0);
     }
   }
 }
