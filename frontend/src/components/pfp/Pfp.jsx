@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './pfp.css';
 import user from '../../assets/logos/user.png';
 import classNames from 'classnames';
@@ -19,6 +19,7 @@ const Pfp = () => {
   const [logoutSpinner, setLogoutSpinner] = useState(false);
   const { isLoggedIn, setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
+  const profileRef = useRef(null);
 
   const fetchUserData = async () => {
     setIsLoading(true);
@@ -40,18 +41,24 @@ const Pfp = () => {
     }
   };
 
-  const handleClick = () => {
-    if (!isClicked && !isAnimatingOut) {
+  const handleClick = (event) => {
+    event.stopPropagation(); // Prevent closing from the document listener
+
+    if (isClicked) {
+      closeProfile();
+    } else {
       setIsClicked(true);
       setIsAnimating(true);
       setTimeout(() => setIsAnimating(false), 300);
-    } else {
-      setIsAnimatingOut(true);
-      setTimeout(() => {
-        setIsClicked(false);
-        setIsAnimatingOut(false);
-      }, 300);
     }
+  };
+
+  const closeProfile = () => {
+    setIsAnimatingOut(true);
+    setTimeout(() => {
+      setIsClicked(false);
+      setIsAnimatingOut(false);
+    }, 300);
   };
 
   useEffect(() => {
@@ -60,9 +67,34 @@ const Pfp = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        closeProfile();
+      }
+    };
+
+    const handleScroll = () => {
+      closeProfile(); // Close when user scrolls
+    };
+
+    if (isClicked) {
+      document.addEventListener('click', handleOutsideClick);
+      window.addEventListener('scroll', handleScroll);
+    } else {
+      document.removeEventListener('click', handleOutsideClick);
+      window.removeEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isClicked]);
+
   const handleLogout = () => {
     setLogoutSpinner(true);
-    setIsAnimatingOut(true);
+    closeProfile();
 
     setTimeout(() => {
       cookie.remove("userId");
@@ -86,22 +118,21 @@ const Pfp = () => {
         tabIndex="0"
         role="button"
         onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') handleClick();
+          if (e.key === 'Enter' || e.key === ' ') handleClick(e);
         }}
       />
 
       {(isClicked || isAnimatingOut) && userData && (
-        <div className={classNames('profile-container', {
-          'animate-up': isAnimating,
-          'animate-down': isAnimatingOut
-        })}>
+        <div
+          ref={profileRef}
+          className={classNames('profile-container', {
+            'animate-up': isAnimating,
+            'animate-down': isAnimatingOut
+          })}
+        >
           <div className="profile-content">
             <div className="profile-header">
-              <img 
-                src={profile} 
-                alt="Profile" 
-                className="pfp_pic"
-              />
+              <img src={profile} alt="Profile" className="pfp_pic" />
               <div className="profile-info">
                 <h3 className="profile-name">
                   {userData.first_name.charAt(0).toUpperCase() + userData.first_name.slice(1)}{' '}
