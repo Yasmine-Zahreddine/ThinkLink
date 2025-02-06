@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './pfp.css';
 import user from '../../assets/logos/user.png';
 import classNames from 'classnames';
@@ -14,7 +14,7 @@ const Pfp = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
   const [userData, setUserData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // No loading on page load
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [logoutSpinner, setLogoutSpinner] = useState(false);
   const { isLoggedIn, setIsLoggedIn } = useAuth();
@@ -28,7 +28,7 @@ const Pfp = () => {
 
       const data = await getuserdata(userId);
       setUserData(data);
-      setError(null); // Clear any previous errors
+      setError(null);
     } catch (err) {
       if (err.response?.status === 401) {
         handleLogout();
@@ -45,11 +45,6 @@ const Pfp = () => {
       setIsClicked(true);
       setIsAnimating(true);
       setTimeout(() => setIsAnimating(false), 300);
-
-      // Fetch user data only when profile is clicked
-      if (!userData) {
-        fetchUserData();
-      }
     } else {
       setIsAnimatingOut(true);
       setTimeout(() => {
@@ -58,6 +53,12 @@ const Pfp = () => {
       }, 300);
     }
   };
+
+  useEffect(() => {
+    if (!userData) {
+      fetchUserData();
+    }
+  }, []);
 
   const handleLogout = () => {
     setLogoutSpinner(true);
@@ -76,7 +77,7 @@ const Pfp = () => {
   return (
     <div className="pfp-wrapper">
       {logoutSpinner && <Loadingspinner />}
-      
+
       <img
         src={user}
         alt="User avatar"
@@ -89,45 +90,36 @@ const Pfp = () => {
         }}
       />
 
-      {(isClicked || isAnimatingOut) && (
+      {(isClicked || isAnimatingOut) && userData && (
         <div className={classNames('profile-container', {
           'animate-up': isAnimating,
           'animate-down': isAnimatingOut
         })}>
-          {isLoading ? (
-            <div className="loading-spinner">
-            </div>
-          ) : error ? (
-            <div className="profile-error">⚠️ {error}</div>
-          ) : userData ? (
-            <div className="profile-content">
-              <div className="profile-header">
-                <img 
-                  src={profile} 
-                  alt="Profile" 
-                  className="pfp_pic"
-                />
-                <div className="profile-info">
-                  <h3 className="profile-name">
-                    {userData.first_name.charAt(0).toUpperCase() + userData.first_name.slice(1)}{' '}
-                    {userData.last_name.charAt(0).toUpperCase() + userData.last_name.slice(1)}
-                  </h3>
-                  <pre className="profile-email">{userData.email.toLowerCase()}</pre>
-                </div>
-              </div>
-              
-              <div className="profile-actions">
-                <button className="profile-button">Account Settings</button>
-                <button className="profile-button">Edit Profile</button>
-                <button className="profile-button">Help & Support</button>
-                <button className="profile-button logout" onClick={handleLogout}>
-                  Logout
-                </button>
+          <div className="profile-content">
+            <div className="profile-header">
+              <img 
+                src={profile} 
+                alt="Profile" 
+                className="pfp_pic"
+              />
+              <div className="profile-info">
+                <h3 className="profile-name">
+                  {userData.first_name.charAt(0).toUpperCase() + userData.first_name.slice(1)}{' '}
+                  {userData.last_name.charAt(0).toUpperCase() + userData.last_name.slice(1)}
+                </h3>
+                <pre className="profile-email">{userData.email.toLowerCase()}</pre>
               </div>
             </div>
-          ) : (
-            <div className="profile-message">No user data available</div>
-          )}
+
+            <div className="profile-actions">
+              <button className="profile-button">Account Settings</button>
+              <button className="profile-button">Edit Profile</button>
+              <button className="profile-button">Help & Support</button>
+              <button className="profile-button logout" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

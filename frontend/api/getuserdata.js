@@ -7,7 +7,6 @@ const getuserdata = async (userId) => {
         const response = await axios.post(`${API_BASE_URL}api/users`, {
             "user_id":userId
         });
-        console.log(response.data);
         return response.data;
     } catch (error) {
         if (error.response) {
