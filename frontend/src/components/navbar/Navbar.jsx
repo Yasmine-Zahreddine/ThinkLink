@@ -118,7 +118,7 @@ const Navbar = () => {
       <div className="navbar-menu">
         {!toggleMenu && (
           <RiMenu3Line
-            color="#fff"
+            color="var(--color-dark-blue)"
             size={27}
             onClick={() => setToggleMenu(true)}
           />
