@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import './verificationCode.css';
 import Card from '../card/Card';
 import Loadingspinner from "../../components/loading-spinner/Loadingspinner.jsx";
-import { verifyCode } from '../../../api/verify';
+import { verifyCode } from '../../../api/verify_signup.js';
+import { verifyNewPassword } from '../../../api/verify_new_password.js';
 import { useVerification } from '../../context/VerificationContext';
 import { useNavigate } from 'react-router-dom';
 import Error from '../error/Error';
 import Cookies from "js-cookie";
 import { useAuth } from '../../context/AuthProvider';
 
-const VerificationCode = () => {
+const VerificationCode = ({ redirectUrl, verificationType }) => {
   const redirect = useNavigate();
   const { setIsLoggedIn } = useAuth();
   const { verificationEmail, setVerificationEmail } = useVerification();
@@ -32,16 +33,20 @@ const VerificationCode = () => {
     if (newCode.every(digit => digit !== '')) {
       try {
         setLoading(true);
-        const response = await verifyCode({ 
+        const verificationData = { 
           verification_code: parseInt(newCode.join('')),
           email: verificationEmail 
-        });
+        };
+        const response = verificationType === 'signup' 
+          ? await verifyCode(verificationData)
+          : await verifyNewPassword(verificationData);
+
         if (response.success) {
           setError('');
           setVerificationEmail('');
           Cookies.set("isLoggedIn", true, { expires: 7 });
           setIsLoggedIn(true);
-          redirect("/signup/successful");
+          redirect(redirectUrl); // Use the redirectUrl prop
         }
       } catch (err) {
         setError(err.message || 'Verification failed. Please try again.');
@@ -68,16 +73,20 @@ const VerificationCode = () => {
       if (digits.length === 6) {
         try {
           setLoading(true);
-          const response = await verifyCode({ 
+          const verificationData = { 
             verification_code: parseInt(pastedData),
             email: verificationEmail 
-          });
+          };
+          const response = verificationType === 'signup' 
+            ? await verifyCode(verificationData)
+            : await verifyNewPassword(verificationData);
+
           if (response.success) {
             setError('');
             setVerificationEmail('');
             Cookies.set("isLoggedIn", true, { expires: 7 });
             setIsLoggedIn(true);
-            redirect("/signup/successful");
+            redirect(redirectUrl); // Use the redirectUrl prop
           }
         } catch (err) {
           setError(err.message || 'Verification failed. Please try again.');
@@ -112,14 +121,14 @@ const VerificationCode = () => {
           />
         ))}
       </div>
-
     </div>
     </>
   );
 };
 
 VerificationCode.propTypes = {
-  email: PropTypes.string.isRequired
+  redirectUrl: PropTypes.string.isRequired,
+  verificationType: PropTypes.string.isRequired
 };
 
-export default VerificationCode; 
+export default VerificationCode;

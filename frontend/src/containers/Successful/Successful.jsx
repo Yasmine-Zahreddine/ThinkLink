@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types';
 import "./successful.css";
 import Card from "../../components/card/Card";
 
-const Successful = () => {
+const Successful = ({ title, content }) => {
   const navigate = useNavigate(); // Use the navigate hook for navigation
 
   const handleDashboardClick = () => {
@@ -28,12 +29,17 @@ const Successful = () => {
         </svg>
       </div>
 
-      <Card title="Account Created Successfully!" content="Welcome aboard! We&apos;re excited to have you join us on this journey."/>
+      <Card title={title} content={content} />
       <button onClick={handleDashboardClick} className="button_home">
         Go to Home
       </button>
     </div>
   );
+};
+
+Successful.propTypes = {
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
 };
 
 export default Successful;

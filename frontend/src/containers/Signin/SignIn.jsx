@@ -117,9 +117,9 @@ const Signin = () => {
           </div>
           <Button content="Sign In"/>
         </form>
-        <a href="" className="link">
+        <NavLink to="/signin/forgotpassword" className="forgot">
           forgot password?
-        </a>
+        </NavLink>
         <div className="signup">
           <p>
             Dont have an account? <NavLink to="/signup">Sign up</NavLink>
