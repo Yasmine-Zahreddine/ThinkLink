@@ -6,10 +6,15 @@ import Card from "../../components/card/Card";
 const Successful = () => {
   const navigate = useNavigate(); // Use the navigate hook for navigation
   const location = useLocation();
-  const { title, content } = location.state || { title: "Success", content: "Operation completed successfully." };
+  const { title, content, type } = location.state || { title: "Success", content: "Operation completed successfully." , type: "home"};
 
   const handleDashboardClick = () => {
-    navigate("/"); // Navigate to the dashboard route
+    if(type === "home"){
+      navigate("/"); // Navigate to the dashboard route
+    }else if(type === "signin"){
+      navigate("/signin"); // Navigate to the signin route
+    }
+    
   };
 
   return (
@@ -33,7 +38,7 @@ const Successful = () => {
 
       <Card title={title} content={content} />
       <button onClick={handleDashboardClick} className="button_home">
-        Go to Home
+        {type === "home" ? "Go to Home" : "Go to Sign In"}
       </button>
     </div>
   );
@@ -42,6 +47,7 @@ const Successful = () => {
 Successful.propTypes = {
   title: PropTypes.string,
   content: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default Successful;

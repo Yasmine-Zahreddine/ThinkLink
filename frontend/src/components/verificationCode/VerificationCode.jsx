@@ -88,12 +88,13 @@ const VerificationCode = ({ verificationType }) => {
           if (response.success) {
             setError('');
             setVerificationEmail('');
-            Cookies.set("isLoggedIn", true, { expires: 7 });
-            setIsLoggedIn(true);
+            
             if (verificationType === 'signup') {
-              navigate('/successful', { state: { title: "Account Created Successfully!", content: "Welcome aboard! We're excited to have you join us on this journey."} }); // Use the redirectUrl prop
+              navigate('/successful', { state: { title: "Account Created Successfully!", content: "Welcome aboard! We're excited to have you join us on this journey.", type: "home"} }); // Use the redirectUrl prop
+              Cookies.set("isLoggedIn", true, { expires: 7 });
+              setIsLoggedIn(true);
             } else {
-              navigate('/successful', { state: { title: "Password Updated Successfully!", content: "You can now sign in with your new password."} }); // Use the redirectUrl prop
+              navigate('/successful', { state: { title: "Password Updated Successfully!", content: "You can now sign in with your new password.", type: "signin"} }); // Use the redirectUrl prop
             }
 
           }
