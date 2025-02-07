@@ -11,8 +11,8 @@ import Error from '../error/Error';
 import Cookies from "js-cookie";
 import { useAuth } from '../../context/AuthProvider';
 
-const VerificationCode = ({ redirectUrl, verificationType }) => {
-  const redirect = useNavigate();
+const VerificationCode = ({ verificationType }) => {
+  const navigate = useNavigate();
   const { setIsLoggedIn } = useAuth();
   const { verificationEmail, setVerificationEmail } = useVerification();
   const [code, setCode] = useState(['', '', '', '', '', '']);
@@ -46,7 +46,11 @@ const VerificationCode = ({ redirectUrl, verificationType }) => {
           setVerificationEmail('');
           Cookies.set("isLoggedIn", true, { expires: 7 });
           setIsLoggedIn(true);
-          redirect(redirectUrl); // Use the redirectUrl prop
+          if (verificationType === 'signup') {
+            navigate('/successful', { state: { title: "Account Created Successfully!", content: "Welcome aboard! We're excited to have you join us on this journey."} }); // Use the redirectUrl prop
+          } else {
+            navigate('/successful', { state: { title: "Password Updated Successfully!", content: "You can now sign in with your new password."} }); // Use the redirectUrl prop
+          }
         }
       } catch (err) {
         setError(err.message || 'Verification failed. Please try again.');
@@ -86,7 +90,12 @@ const VerificationCode = ({ redirectUrl, verificationType }) => {
             setVerificationEmail('');
             Cookies.set("isLoggedIn", true, { expires: 7 });
             setIsLoggedIn(true);
-            redirect(redirectUrl); // Use the redirectUrl prop
+            if (verificationType === 'signup') {
+              navigate('/successful', { state: { title: "Account Created Successfully!", content: "Welcome aboard! We're excited to have you join us on this journey."} }); // Use the redirectUrl prop
+            } else {
+              navigate('/successful', { state: { title: "Password Updated Successfully!", content: "You can now sign in with your new password."} }); // Use the redirectUrl prop
+            }
+
           }
         } catch (err) {
           setError(err.message || 'Verification failed. Please try again.');
@@ -127,7 +136,6 @@ const VerificationCode = ({ redirectUrl, verificationType }) => {
 };
 
 VerificationCode.propTypes = {
-  redirectUrl: PropTypes.string.isRequired,
   verificationType: PropTypes.string.isRequired
 };
 

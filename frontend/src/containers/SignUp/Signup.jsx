@@ -47,7 +47,7 @@ const Signup = () => {
   
       if (data.success) {
         setVerificationEmail(formData.email);
-        redirect("/verification", { state: { redirectUrl: "/signup/successful" , verificationType: "signup"} });
+        redirect("/verification", { state: { verificationType: "signup"} });
       } else {
         throw new Error(data.message || "Sign up failed");
       }

@@ -36,7 +36,7 @@ function ForgotPassword() {
       const data = await forgotpassword(formData); // Use the forgotpassword API
       if (data.success) {
         setVerificationEmail(formData.email);
-        navigate("/verification", { state: { redirectUrl: "/password_updated", verificationType: "forgotpassword"} });
+        navigate("/verification", { state: { verificationType: "forgotpassword"} });
       } else {
         throw new Error(data.message || "Updating password failed");
       }

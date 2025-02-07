@@ -1,10 +1,12 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import PropTypes from 'prop-types';
 import "./successful.css";
 import Card from "../../components/card/Card";
 
-const Successful = ({ title, content }) => {
+const Successful = () => {
   const navigate = useNavigate(); // Use the navigate hook for navigation
+  const location = useLocation();
+  const { title, content } = location.state || { title: "Success", content: "Operation completed successfully." };
 
   const handleDashboardClick = () => {
     navigate("/"); // Navigate to the dashboard route
@@ -38,8 +40,8 @@ const Successful = ({ title, content }) => {
 };
 
 Successful.propTypes = {
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  content: PropTypes.string,
 };
 
 export default Successful;

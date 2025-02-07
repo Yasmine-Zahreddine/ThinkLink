@@ -28,10 +28,9 @@ function App() {
             <Route path="/" element={<Header />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
-            <Route path="/signup/successful" element={<Successful title="Account Created Successfully!" content="Welcome aboard! We&apos;re excited to have you join us on this journey."/>}/>
+            <Route path="/successful" element={<Successful  />}/>
             <Route path="/verification" element={<VerificationCode />} />
             <Route path="/signin/forgotpassword" element={<ForgotPassword/>} />
-            <Route path="/password_updated" element={<Successful title="Password Updated Successfully!" content="You can now sign in with your new password."/>}/>
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
           <Footer />
