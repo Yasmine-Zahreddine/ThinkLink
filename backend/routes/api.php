@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use App\Mail\VerificationCode;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 
 
 Route::middleware('api')->post('/signup', function (Request $request) {
@@ -176,6 +177,98 @@ Route::middleware('api')->post('/users', function (Request $request) {
         return response()->json([
             'success' => false,
             'message' => 'Internal server error'
+        ], 500);
+    }
+});
+
+Route::middleware('api')->post('/forgot-password', function (Request $request) {
+    $validatedData = $request->validate([
+        'email' => 'required|string|email|max:255|exists:users,email',
+        'password' => 'required|string|min:8',
+    ]);
+
+    try {
+        $verificationCode = random_int(100000, 999999);
+
+        DB::table('user_verifications')->updateOrInsert(
+            ['email' => $validatedData['email']],
+            [
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
+                'verification_code' => $verificationCode,
+                'expires_at' => now()->addMinutes(10),
+            ]
+        );
+
+        Mail::to('zahreddineyasmine@gmail.com')->send(new VerificationCode($verificationCode));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'A verification code has been sent to your email.',
+        ], 200);
+    } catch (\Exception $e) {
+        Log::error('Error in forgot password request: ' . $e->getMessage());
+        return response()->json([
+            'success' => false,
+            'message' => 'Something went wrong',
+        ], 500);
+    }
+});
+
+
+Route::middleware('api')->post('/verify-new-password', function (Request $request) {
+    $validatedData = $request->validate([
+        'email' => 'required|string|email|max:255',
+        'verification_code' => 'required|integer',
+    ]);
+
+    try {
+        // Find the temporary data and check expiration
+        $tempUser = DB::table('user_verifications')
+            ->where('email', $validatedData['email'])
+            ->where('verification_code', $validatedData['verification_code'])
+            ->first();
+
+        if (!$tempUser) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid verification code.',
+            ], 400);
+        }
+
+        // Check if code has expired
+        if (now()->isAfter($tempUser->expires_at)) {
+            // Delete expired verification data
+            DB::table('user_verifications')
+                ->where('email', $tempUser->email)
+                ->delete();
+                
+            return response()->json([
+                'success' => false,
+                'message' => 'Verification code has expired. Please try again.',
+                'expired' => true
+            ], 400);
+        }
+
+        // Update the user's password
+        DB::table('users')
+            ->where('email', $tempUser->email)
+            ->update([
+                'password' => $tempUser->password,
+            ]);
+
+        // Delete the temporary data
+        DB::table('user_verifications')->where('email', $tempUser->email)->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Password updated successfully.',
+        ], 201);
+    } catch (\Exception $e) {
+        Log::error('Error in verification: ' . $e->getMessage());
+        return response()->json([
+            'success' => false,
+            'message' => 'Something went wrong',
         ], 500);
     }
 });
