@@ -29,8 +29,9 @@ function App() {
             <Route path="/" element={<Header />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
-            <Route path="/signup/successful" element={<Successful/>}/>
-            <Route path="/signup/verification" element={<VerificationCode />} />
+            <Route path="/successful" element={<Successful  />}/>
+            <Route path="/verification" element={<VerificationCode />} />
+            <Route path="/signin/forgotpassword" element={<ForgotPassword/>} />
             <Route path="/editaccount" element={<Editaccount/>}/>
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
