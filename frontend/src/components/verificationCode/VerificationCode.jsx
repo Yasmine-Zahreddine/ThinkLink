@@ -6,13 +6,15 @@ import Loadingspinner from "../../components/loading-spinner/Loadingspinner.jsx"
 import { verifyCode } from '../../../api/verify_signup.js';
 import { verifyNewPassword } from '../../../api/verify_new_password.js';
 import { useVerification } from '../../context/VerificationContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Error from '../error/Error';
 import Cookies from "js-cookie";
 import { useAuth } from '../../context/AuthProvider';
 
-const VerificationCode = ({ verificationType }) => {
+const VerificationCode = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { verificationType } = location.state || { verificationType: "signup" };
   const { setIsLoggedIn } = useAuth();
   const { verificationEmail, setVerificationEmail } = useVerification();
   const [code, setCode] = useState(['', '', '', '', '', '']);
@@ -37,7 +39,7 @@ const VerificationCode = ({ verificationType }) => {
           verification_code: parseInt(newCode.join('')),
           email: verificationEmail 
         };
-        const response = verificationType === 'signup' 
+        const response = verificationType === "signup" 
           ? await verifyCode(verificationData)
           : await verifyNewPassword(verificationData);
 
@@ -47,9 +49,9 @@ const VerificationCode = ({ verificationType }) => {
           Cookies.set("isLoggedIn", true, { expires: 7 });
           setIsLoggedIn(true);
           if (verificationType === 'signup') {
-            navigate('/successful', { state: { title: "Account Created Successfully!", content: "Welcome aboard! We're excited to have you join us on this journey."} }); // Use the redirectUrl prop
+            navigate('/successful', { state: { title: "Account Created Successfully!", content: "Welcome aboard! We're excited to have you join us on this journey.", type: "home"} });
           } else {
-            navigate('/successful', { state: { title: "Password Updated Successfully!", content: "You can now sign in with your new password."} }); // Use the redirectUrl prop
+            navigate('/successful', { state: { title: "Password Updated Successfully!", content: "You can now sign in with your new password.", type: "signin"} });
           }
         }
       } catch (err) {
@@ -94,9 +96,8 @@ const VerificationCode = ({ verificationType }) => {
               Cookies.set("isLoggedIn", true, { expires: 7 });
               setIsLoggedIn(true);
             } else {
-              navigate('/successful', { state: { title: "Password Updated Successfully!", content: "You can now sign in with your new password.", type: "signin"} }); // Use the redirectUrl prop
+              navigate('/successful', { state: { title: "Password Updated Successfully!", content: "You can now sign in with your new password.", type: "signin"} });
             }
-
           }
         } catch (err) {
           setError(err.message || 'Verification failed. Please try again.');
