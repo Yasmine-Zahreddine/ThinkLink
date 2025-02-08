@@ -5,10 +5,9 @@ import classNames from 'classnames';
 import cookie from "js-cookie";
 import getuserdata from "../../../api/getuserdata";
 import profile from "../../assets/logos/userLight.png";
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Loadingspinner from "../loading-spinner/Loadingspinner";
 import { useAuth } from '../../context/AuthProvider';
-
 const Pfp = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -20,7 +19,7 @@ const Pfp = () => {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
   const profileRef = useRef(null);
-
+  
   const fetchUserData = async () => {
     setIsLoading(true);
     try {
@@ -29,6 +28,11 @@ const Pfp = () => {
 
       const data = await getuserdata(userId);
       setUserData(data);
+       const formattedFirstName = data.first_name.charAt(0).toUpperCase() + data.first_name.slice(1);
+       console.log(formattedFirstName);
+       const formattedLastName = data.last_name.charAt(0).toUpperCase() + data.last_name.slice(1);
+       console.log(formattedLastName);
+       cookie.set("fullName", `${formattedFirstName} ${formattedLastName}`);
       setError(null);
     } catch (err) {
       if (err.response?.status === 401) {
@@ -42,7 +46,7 @@ const Pfp = () => {
   };
 
   const handleClick = (event) => {
-    event.stopPropagation(); // Prevent closing from the document listener
+    event.stopPropagation(); 
 
     if (isClicked) {
       closeProfile();
@@ -60,6 +64,26 @@ const Pfp = () => {
       setIsAnimatingOut(false);
     }, 300);
   };
+  const handleProfileNav = ()=>{
+    setIsAnimatingOut(true);
+    cookie.set('isActive', "Profile");
+    setTimeout(() => {
+      setIsClicked(false);
+      setIsAnimatingOut(false);
+      navigate('/editaccount');
+    }, 300);
+   
+  }
+  const handleHelp = ()=>{
+    setIsAnimatingOut(true);
+    cookie.set('isActive', "Help & Support");
+    setTimeout(() => {
+      setIsClicked(false);
+      setIsAnimatingOut(false);
+      navigate('/editaccount');
+    }, 300);
+   
+  }
 
   useEffect(() => {
     if (!userData) {
@@ -143,12 +167,12 @@ const Pfp = () => {
             </div>
 
             <div className="profile-actions">
-              <button className="profile-button">Account Settings</button>
-              <button className="profile-button">Edit Profile</button>
-              <button className="profile-button">Help & Support</button>
-              <button className="profile-button logout" onClick={handleLogout}>
+              <NavLink  className="profile-button" onClick={handleProfileNav} >Account Settings</NavLink >
+              <NavLink className="profile-button" onClick={handleProfileNav}>Edit Profile</NavLink>
+              <NavLink  className="profile-button" onClick={handleHelp}>Help & Support</NavLink >
+              <NavLink  className="profile-button" onClick={handleLogout}>
                 Logout
-              </button>
+              </NavLink >
             </div>
           </div>
         </div>

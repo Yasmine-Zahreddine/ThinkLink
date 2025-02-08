@@ -35,7 +35,7 @@ Route::middleware('api')->post('/signup', function (Request $request) {
         );
 
         // Send verification email
-        Mail::to('zahreddineyasmine@gmail.com')->send(new VerificationCode($verificationCode));
+        Mail::to('majedshmaitlu@gmail.com')->send(new VerificationCode($verificationCode));
 
         return response()->json([
             'success' => true,
@@ -174,6 +174,36 @@ Route::middleware('api')->post('/users', function (Request $request) {
 
     } catch (\Exception $e) {
         Log::error('Error fetching user: ' . $e->getMessage());
+        return response()->json([
+            'success' => false,
+            'message' => 'Internal server error'
+        ], 500);
+    }
+});
+
+Route::middleware('api')->post('/delete', function (Request $request) {
+    try {
+        $id = $request->input('user_id');
+
+        $user = DB::table('users')->where('user_id', $id)->first();
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found'
+            ], 404);
+        }
+
+        // Delete the user
+        DB::table('users')->where('user_id', $id)->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User deleted successfully'
+        ], 200);
+
+    } catch (\Exception $e) {
+        Log::error('Error deleting user: ' . $e->getMessage());
         return response()->json([
             'success' => false,
             'message' => 'Internal server error'

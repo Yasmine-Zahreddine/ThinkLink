@@ -4,9 +4,9 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get('isLoggedIn') ? true : false);
-
+  const [isActive,setIsActive] = useState(Cookies.get('isActive'));
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn , isActive, setIsActive}}>
       {children}
     </AuthContext.Provider>
   );
