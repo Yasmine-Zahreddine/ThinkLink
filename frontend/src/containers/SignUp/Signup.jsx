@@ -13,7 +13,7 @@ import { useAuth } from '../../context/AuthProvider.jsx';
 const Signup = () => {
   const redirect = useNavigate();
   const { setVerificationEmail } = useVerification();
-  const { setIsLoggedIn } = useAuth();
+  const { isLoggedIn,setIsLoggedIn } = useAuth();
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1000);
   const [formData, setFormData] = useState({
     first_name: "",
@@ -48,6 +48,7 @@ const Signup = () => {
       if (data.success) {
         setVerificationEmail(formData.email);
         redirect("/verification", { state: { verificationType: "signup"} });
+
       } else {
         throw new Error(data.message || "Sign up failed");
       }

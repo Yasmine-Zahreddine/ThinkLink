@@ -89,7 +89,7 @@
   }
   
   .delete {
-    margin-top: 10.1rem;
+    margin-top: 2rem;
     color:  rgba(201, 12, 12, 0.858);
   }
   
@@ -97,9 +97,7 @@
     background-color: #c0c6caeb;
   }
   
-  .header-edit-account {
-    color: var(--text-color);
-  }
+  
   
   .description {
     color: var(--text-color);
@@ -144,16 +142,6 @@
   .input-group input:focus,
   .input-group textarea:focus {
     border-color: #0073e6;
-  }
-  
-  .char-count {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    font-size: 14px;
-    right: 12%;
-    color: #777;
   }
   
   .hint {
@@ -248,25 +236,129 @@
 }
 .warning{
   color: var(--text-color);
-  font-size: 1.2rem;
+  font-size: 1rem;
+  text-align: center;
+}
+.confirm-delete-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #777;
+  flex-direction: column;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 8888;
+}
+.profile-body{
+  margin-top: 8.5rem;
+}
+.labels{
+  width: 80%;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 @media screen and (max-width:1000px) {
- .button {
-  width: 26rem;
-  height: 3rem;
- }
-}
-@media screen and (max-width:768px) {
   .button {
-  width: 26rem;
+    width: 6rem;
+    height: 3rem;
+  }
+  .delete-button{
+    width: 10rem;
+    height: 4rem;
+    margin-left: 0;
+    background-color: rgba(201, 12, 12, 0.858);
+  }
+  .delete {
+    margin-top: 2rem;
+  }
+  .edit-account-box {
+    width: 100%;
+    height:auto;
+    flex-direction: row;
+  
+  }
+  
+  
+  .edit-account-box-options {
+    width: 40%;
+  }
+  
+  .edit-account-box-editable-container {
+    width: 60%;
+  }
+  .account-buttons {
+   
+    font-size: 1.2rem;
+  }
+}
+
+
+@media screen and (max-width:700px) {
+  .button {
+  width: 6rem;
   height: 3rem;
+}
+.delete-button{
+  width: 10rem;
+  height: 4rem;
+  margin-left: 0;
+  background-color: rgba(201, 12, 12, 0.858);
+}
+.delete {
+  margin-top: 4rem;
+}
+.edit-account-box {
+  width: 100%;
+  height:auto;
+  flex-direction: row;
+
+}
+
+
+.edit-account-box-options {
+  width: 40%;
+}
+
+.edit-account-box-editable-container {
+  width: 60%;
 }
 
 }
 @media screen and (max-width:520px) {
-  .button {width: 18rem;
- 
-  height: 2rem;
-  font-size: 15px;
-}
+
+  .button {
+    width: 4rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
+  .delete-button{
+    width: 10rem;
+    height: 4rem;
+    margin-left: 0;
+    background-color: rgba(201, 12, 12, 0.858);
+  }
+  .delete {
+    margin-top: 4rem;
+  }
+  .edit-account-box {
+    width: 100%;
+    height:auto;
+    flex-direction: row;
+  
+  }
+  
+  
+  .edit-account-box-options {
+    width: 40%;
+  }
+  
+  .edit-account-box-editable-container {
+    width: 60%;
+  }
+  .account-buttons {
+   
+    font-size: 1rem;
+  }
+  
 }

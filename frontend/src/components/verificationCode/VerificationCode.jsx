@@ -47,6 +47,9 @@ const VerificationCode = () => {
           setError('');
           setVerificationEmail('');
           Cookies.set("isLoggedIn", true, { expires: 7 });
+          console.log(response.user_id);
+          Cookies.set("userId", response.user_id, { expires: 7, path: '/' });
+
           setIsLoggedIn(true);
           if (verificationType === 'signup') {
             navigate('/successful', { state: { title: "Account Created Successfully!", content: "Welcome aboard! We're excited to have you join us on this journey.", type: "home"} });

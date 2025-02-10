@@ -8,6 +8,7 @@ import profile from "../../assets/logos/userLight.png";
 import { NavLink, useNavigate } from 'react-router-dom';
 import Loadingspinner from "../loading-spinner/Loadingspinner";
 import { useAuth } from '../../context/AuthProvider';
+
 const Pfp = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -19,7 +20,7 @@ const Pfp = () => {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
   const profileRef = useRef(null);
-  
+
   const fetchUserData = async () => {
     setIsLoading(true);
     try {
@@ -28,11 +29,9 @@ const Pfp = () => {
 
       const data = await getuserdata(userId);
       setUserData(data);
-       const formattedFirstName = data.first_name.charAt(0).toUpperCase() + data.first_name.slice(1);
-       console.log(formattedFirstName);
-       const formattedLastName = data.last_name.charAt(0).toUpperCase() + data.last_name.slice(1);
-       console.log(formattedLastName);
-       cookie.set("fullName", `${formattedFirstName} ${formattedLastName}`);
+      const formattedFirstName = data.first_name.charAt(0).toUpperCase() + data.first_name.slice(1);
+      const formattedLastName = data.last_name.charAt(0).toUpperCase() + data.last_name.slice(1);
+      cookie.set("fullName", `${formattedFirstName} ${formattedLastName}`);
       setError(null);
     } catch (err) {
       if (err.response?.status === 401) {
@@ -46,7 +45,8 @@ const Pfp = () => {
   };
 
   const handleClick = (event) => {
-    event.stopPropagation(); 
+    console.log("Profile picture clicked"); // Debugging
+    event.stopPropagation();
 
     if (isClicked) {
       closeProfile();
@@ -64,7 +64,9 @@ const Pfp = () => {
       setIsAnimatingOut(false);
     }, 300);
   };
-  const handleProfileNav = ()=>{
+
+  const handleProfileNav = () => {
+    console.log("Navigating to profile"); // Debugging
     setIsAnimatingOut(true);
     cookie.set('isActive', "Profile");
     setTimeout(() => {
@@ -72,24 +74,24 @@ const Pfp = () => {
       setIsAnimatingOut(false);
       navigate('/editaccount');
     }, 300);
-   
-  }
-  const handleHelp = ()=>{
+  };
+
+  const handleHelp = () => {
+    console.log("Navigating to help"); // Debugging
     setIsAnimatingOut(true);
     cookie.set('isActive', "Help & Support");
     setTimeout(() => {
       setIsClicked(false);
       setIsAnimatingOut(false);
-      navigate('/editaccount');
+      navigate('/help');
     }, 300);
-   
-  }
+  };
 
   useEffect(() => {
     if (!userData) {
       fetchUserData();
     }
-  }, []);
+  }, [userData]);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -99,7 +101,7 @@ const Pfp = () => {
     };
 
     const handleScroll = () => {
-      closeProfile(); // Close when user scrolls
+      closeProfile();
     };
 
     if (isClicked) {
@@ -167,12 +169,10 @@ const Pfp = () => {
             </div>
 
             <div className="profile-actions">
-              <NavLink  className="profile-button" onClick={handleProfileNav} >Account Settings</NavLink >
+              <NavLink className="profile-button" onClick={handleProfileNav}>Account Settings</NavLink>
               <NavLink className="profile-button" onClick={handleProfileNav}>Edit Profile</NavLink>
-              <NavLink  className="profile-button" onClick={handleHelp}>Help & Support</NavLink >
-              <NavLink  className="profile-button" onClick={handleLogout}>
-                Logout
-              </NavLink >
+              <NavLink className="profile-button" onClick={handleHelp}>Help & Support</NavLink>
+              <NavLink className="profile-button" onClick={handleLogout}>Logout</NavLink>
             </div>
           </div>
         </div>

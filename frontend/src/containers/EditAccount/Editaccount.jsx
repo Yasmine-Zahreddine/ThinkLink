@@ -5,78 +5,89 @@ import cookie from "js-cookie";
 import deleteUserApi from "../../../api/deleteuser";
 import { useAuth } from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import Loadingspinner from "../../components/loading-spinner/Loadingspinner"; // Import the spinner component
+import Loadingspinner from "../../components/loading-spinner/Loadingspinner";
+import { updateUserProfile } from "../../../api/update-profile";
+import getuserdata from "../../../api/getuserdata";
 
 const Editaccount = () => {
   const navigate = useNavigate();
-  const { isActive, setIsActive } = useAuth();
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const { isActive, setIsActive, setIsLoggedIn } = useAuth();
 
   const [fullName, setFullname] = useState("");
-  const [description, setDescription] = useState("Add information about yourself");
-  const [headline, setHeadline] = useState("");
-  const [charCount, setCharCount] = useState(60);
+  const [description, setDescription] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [linkedIn, setLinkedIn] = useState("");
   const [gitHub, setGitHub] = useState("");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false); // New state for loading spinner
+  const [loading, setLoading] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+  const [password, setPassword] = useState("");
 
-  const menuOptions = [
-    { label: "Profile" },
-    { label: "Photo" },
-    { label: "Privacy" },
-    { label: "Help & Support" },
-    { label: "Delete Account", className: "delete" },
-  ];
+  const fetchUserData = async () => {
+    try {
+      setLoading(true);
+      const userId = cookie.get("userId");
+      if (!userId) return;
+
+      const response = await getuserdata(userId);
+      setLoading(false);
+      if (response.success) {
+        setFirstName(response.data.first_name || "");
+        setLastName(response.data.last_name || "");
+        setDescription(response.data.description || "");
+        setLinkedIn(response.data.linkedin_url || "");
+        setGitHub(response.data.github_url || "");
+        setFullname(`${response.data.first_name} ${response.data.last_name}`);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   useEffect(() => {
-    const name = cookie.get("fullName");
-    setFullname(name || "");
-    if (name) {
-      const nameParts = name.split(" ");
-      setFirstName(nameParts[0] || "");
-      setLastName(nameParts[1] || "");
-    }
-    if (!isActive) {
-      setIsActive("Profile");
-    }
+    fetchUserData();
+    if (!isActive) setIsActive("Profile");
   }, []);
 
-  useEffect(() => {
-    switch (isActive) {
-      case "Profile":
-        setDescription("Update your basic information");
-        break;
-      case "Photo":
-        setDescription("Upload and manage your profile picture");
-        break;
-      case "Privacy":
-        setDescription("Adjust your privacy settings");
-        break;
-      case "Help & Support":
-        setDescription("Get help and support for your account");
-        break;
-      case "Delete Account":
-        setDescription("");
-        break;
-      default:
-        setDescription("Add information about yourself");
-    }
-  }, [isActive]);
-
-  const handleDeleteUser = async () => {
+  const handleProfileUpdate = async () => {
     try {
-      setLoading(true); // Show spinner
-      setMessage(""); // Clear previous messages
+      setLoading(true);
+      setMessage("");
+      const userId = cookie.get("userId");
+      if (!userId) throw new Error("User ID not found in cookies");
 
+      const response = await updateUserProfile({
+        user_id: userId,
+        first_name: firstName,
+        last_name: lastName,
+        description,
+        linkedin_url: linkedIn,
+        github_url: gitHub,
+      });
+
+      setTimeout(() => {
+        setMessage(response.success ? "Profile updated successfully." : "Failed to update profile.");
+        fetchUserData();
+        setLoading(false);
+      }, 2000);
+    } catch (error) {
+      setTimeout(() => {
+        setMessage(error.message || "An error occurred. Please try again.");
+        setLoading(false);
+      }, 2000);
+      console.error("Error updating profile:", error);
+    }
+  };
+
+  const deleteUser = async () => {
+    try {
+      setLoading(true);
+      setMessage("");
       const userId = cookie.get("userId");
       if (!userId) throw new Error("User ID not found in cookies");
 
       const response = await deleteUserApi(userId);
-
-      // Ensure the spinner is shown for at least 2 seconds
       setTimeout(() => {
         if (response.success) {
           setMessage("Account deleted successfully.");
@@ -86,105 +97,93 @@ const Editaccount = () => {
         } else {
           setMessage("Failed to delete account.");
         }
-        setLoading(false); // Hide spinner
+        setLoading(false);
       }, 2000);
     } catch (error) {
       setTimeout(() => {
         setMessage("An error occurred. Please try again.");
-        setLoading(false); // Hide spinner
+        setLoading(false);
       }, 2000);
       console.error("Error deleting user:", error.message);
     }
   };
 
-  const handleHeadlineChange = (e) => {
-    const inputValue = e.target.value;
-    if (inputValue.length <= 60) {
-      setHeadline(inputValue);
-      setCharCount(60 - inputValue.length);
-    }
-  };
-
-  const handleChange = (e, setChange) => {
-    setChange(e.target.value);
-  };
-
   return (
+    <>
+
+    {loading && <Loadingspinner/>}
     <div className="edit-account-container">
       <div className="edit-account-box">
-        {/* Sidebar */}
         <div className="edit-account-box-options">
           <img src={profile} alt="profile" className="profile-image" />
           <p className="Name">{fullName}</p>
           <div className="options">
-            {menuOptions.map((option) => (
+            {["Profile", "Photo", "Privacy", "Help & Support", "Delete Account"].map((option) => (
               <button
-                key={option.label}
-                className={`account-buttons ${isActive === option.label ? "isActive" : ""} ${option.className || ""}`}
-                onClick={() => setIsActive(option.label)}
+                key={option}
+                className={`account-buttons ${isActive === option ? "isActive" : ""} ${option === "Delete Account" ? "delete" : ""}`}
+                onClick={() => setIsActive(option)}
               >
-                {option.label}
+                {option}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Editable Section */}
         <div className="edit-account-box-editable-container">
-          <div className="edit-account-box-editable-header">
-            <h2 className="header-edit-account">{isActive}</h2>
-            <p className="description">{description}</p>
-          </div>
-
           <div className="edit-account-box-editable-body">
-            {/* Profile Section */}
             {isActive === "Profile" && (
               <div className="profile-body">
+                
                 <div className="input-group">
-                  <h3 className="header-3">Basics:</h3>
-                  <input type="text" placeholder="First Name" value={firstName} onChange={(e) => handleChange(e, setFirstName)} />
+                <label className="labels">Full Name :</label>
+                  <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                 </div>
                 <div className="input-group">
-                  <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => handleChange(e, setLastName)} />
+                  <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                </div>
+                
+                <div className="input-group">
+                <label className="labels">Description :</label>
+                  <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                </div>
+               
+                <div className="input-group">
+                <label className="labels">Links :</label>
+                  <input type="text" placeholder="LinkedIn Profile URL" value={linkedIn} onChange={(e) => setLinkedIn(e.target.value)} />
                 </div>
                 <div className="input-group">
-                  <input type="text" placeholder="Headline" value={headline} onChange={handleHeadlineChange} />
-                  <span className="char-count">{charCount}</span>
+                  <input type="text" placeholder="GitHub Profile URL" value={gitHub} onChange={(e) => setGitHub(e.target.value)} />
                 </div>
-                <p className="hint">Add a professional headline</p>
-                <div className="input-group">
-                  <textarea placeholder="Write about yourself..."></textarea>
-                </div>
-
-                <div className="input-group">
-                  <h3 className="header-3">Links:</h3>
-                  <input type="text" placeholder="LinkedIn Profile URL" value={linkedIn} onChange={(e) => handleChange(e, setLinkedIn)} />
-                </div>
-                <div className="input-group">
-                  <input type="text" placeholder="GitHub Profile URL" value={gitHub} onChange={(e) => handleChange(e, setGitHub)} />
-                </div>
-
                 <div className="save-button-container">
-                  <button className="button">Save</button>
+                  <button className="button" onClick={handleProfileUpdate}>Save</button>
                 </div>
+                {message && <p className="message">{message}</p>}
               </div>
             )}
+
             {isActive === "Delete Account" && (
               <div className="delete-account-section">
                 <h3 className="header3">Are you sure?</h3>
                 <p className="warning">This action cannot be undone.</p>
-                <p className="warning">Proceed with caution.</p>
-
-                {loading ? (
-                  <Loadingspinner /> 
-                ) : (
+                {loading ? <Loadingspinner /> : (
                   <>
                     <div className="delete-button-container">
-                      <button className="button delete-button" onClick={handleDeleteUser}>
-                        Delete My Account
-                      </button>
+                      <button className="button delete-button" onClick={() => setDeleteConfirmation(true)}>Delete My Account</button>
                     </div>
                     {message && <p className="delete-message">{message}</p>}
+                    {deleteConfirmation && (
+                      <div className="confirm-delete-box">
+                        <input
+                          type="password"
+                          className="confirm-delete-input"
+                          placeholder="Enter password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <button className="button delete-button" onClick={deleteUser}>Confirm Delete</button>
+                      </div>
+                    )}
                   </>
                 )}
               </div>
@@ -193,6 +192,7 @@ const Editaccount = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

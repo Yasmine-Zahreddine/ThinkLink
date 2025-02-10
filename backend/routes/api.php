@@ -94,9 +94,8 @@ Route::middleware('api')->post('/verify-signup', function (Request $request) {
             'created_at' => now(),
         ]);
 
-        // Delete the temporary data
         DB::table('user_verifications')->where('email', $tempUser->email)->delete();
-
+        
         return response()->json([
             'success' => true,
             'message' => 'Account created successfully.',
@@ -154,7 +153,7 @@ Route::middleware('api')->post('/users', function (Request $request) {
 
         $user = DB::table('users')
             ->where('user_id', $id)
-            ->select('first_name', 'last_name', 'email')
+            ->select('first_name', 'last_name', 'email','description', 'linkedin_url', 'github_url')
             ->first();
 
         if (!$user) {
@@ -302,3 +301,41 @@ Route::middleware('api')->post('/verify-new-password', function (Request $reques
         ], 500);
     }
 });
+
+Route::middleware('api')->post('/update-profile', function (Request $request) {
+    Log::info('Update Profile Request: ', $request->all());
+
+    $validatedData = $request->validate([
+        'user_id' => 'required|string|exists:users,user_id',
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'description' => 'nullable|string|max:255',
+        'linkedin_url' => 'nullable|url|max:255',
+        'github_url' => 'nullable|url|max:255',
+    ]);
+
+    try {
+        DB::table('users')
+            ->where('user_id', $validatedData['user_id'])
+            ->update([
+                'first_name' => $validatedData['first_name'],
+                'last_name' => $validatedData['last_name'],
+                'description' => $validatedData['description'] ?? null,
+                'linkedin_url' => $validatedData['linkedin_url'] ?? null,
+                'github_url' => $validatedData['github_url'] ?? null,
+            ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Profile updated successfully',
+        ], 200);
+    } catch (\Exception $e) {
+        Log::error('Error updating profile: ' . $e->getMessage());
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to update profile. Please try again.',
+        ], 500);
+    }
+});
+
+
