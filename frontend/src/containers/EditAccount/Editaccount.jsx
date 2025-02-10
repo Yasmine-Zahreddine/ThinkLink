@@ -193,20 +193,43 @@ const Editaccount = () => {
             {isActive === "Help & Support" && 
                         <div className="container">
                          
-                          <div className="support-card">
+                          <div className="privacy-card">
                             <h3 className="topics">Contact Support</h3>
                             <p className="parags">Reach out via email <a className="email-link" href="to:officialthinklink@gmail.com">officialthinklink@gmail.com</a></p>
                           </div>
-                          <div className="support-card">
+                          <div className="privacy-card">
                             <h3 className="topics">Community Support</h3>
                             <p className="parags">Join our forums and discussions.</p>
                           </div>
-                          <div className="support-card">
+                          <div className="privacy-card">
                             <h3 className="topics">Report an Issue</h3>
                             <p className="parags">Let us know if you encounter any bugs.</p>
                           </div>
                         </div>
                     }
+                {isActive === "Privacy" &&  <div className="container">
+                    <div className="privacy-card">
+                      <h3>Data Collection</h3>
+                      <p>We collect necessary data for account management and personalization.</p>
+                    </div>
+                    <div className="privacy-card">
+                      <h3>Data Usage</h3>
+                      <p>We use your data securely for authentication and improving services.</p>
+                    </div>
+                    <div className="privacy-card">
+                      <h3>User Rights</h3>
+                      <p>You can request data deletion or export at any time.</p>
+                    </div>
+                    <div className="privacy-card">
+                      <h3>Security Measures</h3>
+                      <p>Your passwords are encrypted, and we follow best security practices.</p>
+                    </div>
+                    <div className="privacy-card">
+                      <h3>Cookies & Tracking</h3>
+                      <p>We use cookies to improve user experience. You can opt out anytime.</p>
+                    </div>
+                  </div>
+    }
           </div>
         </div>
       </div>

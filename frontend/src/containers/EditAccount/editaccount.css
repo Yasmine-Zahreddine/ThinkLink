@@ -264,7 +264,6 @@
   margin-top: 9rem;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   gap: 2.6rem;
   flex-wrap: wrap;
@@ -281,12 +280,12 @@ h2 {
 }
 
 .privacy-card {
-  background: #f4f4f4;
+  
   padding: 15px;
   margin: 10px 0;
   width: 80%;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
@@ -412,13 +411,10 @@ p {
 
   
 .container {
-  box-shadow: 0;
-}
-.container, 
-.privacy-card, 
-.button, 
-.delete-button {
-  box-shadow: none !important;
+  width: 100%;
+  margin: 0;
+  margin-top: 6rem;
+  padding: 0;
 }
 
 .topics{
