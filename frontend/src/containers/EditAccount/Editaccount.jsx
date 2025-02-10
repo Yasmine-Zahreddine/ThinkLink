@@ -183,11 +183,30 @@ const Editaccount = () => {
                         />
                         <button className="button delete-button" onClick={deleteUser}>Confirm Delete</button>
                       </div>
+
                     )}
                   </>
                 )}
               </div>
             )}
+            
+            {isActive === "Help & Support" && 
+                        <div className="container">
+                         
+                          <div className="support-card">
+                            <h3 className="topics">Contact Support</h3>
+                            <p className="parags">Reach out via email <a className="email-link" href="to:officialthinklink@gmail.com">officialthinklink@gmail.com</a></p>
+                          </div>
+                          <div className="support-card">
+                            <h3 className="topics">Community Support</h3>
+                            <p className="parags">Join our forums and discussions.</p>
+                          </div>
+                          <div className="support-card">
+                            <h3 className="topics">Report an Issue</h3>
+                            <p className="parags">Let us know if you encounter any bugs.</p>
+                          </div>
+                        </div>
+                    }
           </div>
         </div>
       </div>
