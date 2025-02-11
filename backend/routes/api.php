@@ -35,7 +35,7 @@ Route::middleware('api')->post('/signup', function (Request $request) {
         );
 
         // Send verification email
-        Mail::to('majedshmaitlu@gmail.com')->send(new VerificationCode($verificationCode));
+        Mail::to('zahreddineyasmine@gmail.com')->send(new VerificationCode($verificationCode));
 
         return response()->json([
             'success' => true,
@@ -217,6 +217,15 @@ Route::middleware('api')->post('/forgot-password', function (Request $request) {
     ]);
 
     try {
+        // Check if new password is same as old password
+        $user = DB::table('users')->where('email', $validatedData['email'])->first();
+        if (Hash::check($validatedData['password'], $user->password)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'New password cannot be the same as your current password.',
+            ], 400);
+        }
+
         $verificationCode = random_int(100000, 999999);
 
         DB::table('user_verifications')->updateOrInsert(
