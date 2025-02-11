@@ -35,7 +35,7 @@ Route::middleware('api')->post('/signup', function (Request $request) {
         );
 
         // Send verification email
-        Mail::to('zahreddineyasmine@gmail.com')->send(new VerificationCode($verificationCode));
+        Mail::to('majedshmaitlu@gmail.com')->send(new VerificationCode($verificationCode));
 
         return response()->json([
             'success' => true,
@@ -93,12 +93,18 @@ Route::middleware('api')->post('/verify-signup', function (Request $request) {
             'password' => $tempUser->password,
             'created_at' => now(),
         ]);
+        
+        $user = DB::table('users')
+            ->where('email', $tempUser->email)
+            ->first();
+
 
         DB::table('user_verifications')->where('email', $tempUser->email)->delete();
         
         return response()->json([
             'success' => true,
             'message' => 'Account created successfully.',
+            'user_id' => $user->user_id
         ], 201);
     } catch (\Exception $e) {
         Log::error('Error in verification: ' . $e->getMessage());

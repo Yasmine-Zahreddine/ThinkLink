@@ -47,9 +47,9 @@ const VerificationCode = () => {
           setError('');
           setVerificationEmail('');
           Cookies.set("isLoggedIn", true, { expires: 7 });
-          console.log(response.user_id);
+          // Set user ID cookie here
           Cookies.set("userId", response.user_id, { expires: 7, path: '/' });
-
+          
           setIsLoggedIn(true);
           if (verificationType === 'signup') {
             navigate('/successful', { state: { title: "Account Created Successfully!", content: "Welcome aboard! We're excited to have you join us on this journey.", type: "home"} });
@@ -65,7 +65,6 @@ const VerificationCode = () => {
   };
 
   const handleKeyDown = (e, index) => {
-    // Handle backspace
     if (e.key === 'Backspace' && !code[index] && index > 0) {
       inputs.current[index - 1].focus();
     }
@@ -93,11 +92,13 @@ const VerificationCode = () => {
           if (response.success) {
             setError('');
             setVerificationEmail('');
+            Cookies.set("isLoggedIn", true, { expires: 7 });
+            // Set user ID cookie here too
+            Cookies.set("userId", response.user_id, { expires: 7, path: '/' });
             
+            setIsLoggedIn(true);
             if (verificationType === 'signup') {
-              navigate('/successful', { state: { title: "Account Created Successfully!", content: "Welcome aboard! We're excited to have you join us on this journey.", type: "home"} }); // Use the redirectUrl prop
-              Cookies.set("isLoggedIn", true, { expires: 7 });
-              setIsLoggedIn(true);
+              navigate('/successful', { state: { title: "Account Created Successfully!", content: "Welcome aboard! We're excited to have you join us on this journey.", type: "home"} });
             } else {
               navigate('/successful', { state: { title: "Password Updated Successfully!", content: "You can now sign in with your new password.", type: "signin"} });
             }
@@ -115,7 +116,7 @@ const VerificationCode = () => {
     {loading && (
       <Loadingspinner/>
     )}
-    <div className='verfification_container'>
+    <div className='verification_container'>
       <div className='verification-card'>
         <Card title='Please enter verification code' content=''/>
         {error && <div className='error-message'><Error message={error}/> </div>}
