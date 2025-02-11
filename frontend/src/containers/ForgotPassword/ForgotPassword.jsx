@@ -30,32 +30,37 @@ function ForgotPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password || !formData.confirmPassword) {
-      setError("All fields are required.");
-      return;
+        setError("All fields are required.");
+        return;
     }
     
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match.");
-      return;
+        setError("Passwords do not match.");
+        return;
     }
     
     setError("");
 
     try {
-      setLoading(true);
-      const { confirmPassword, ...submitData } = formData; 
-      const data = await forgotpassword(submitData);
-      if (data.success) {
-        setVerificationEmail(formData.email);
-        navigate("/verification", { state: { verificationType: "forgotpassword"} });
-      } else {
-        throw new Error(data.message || "Updating password failed");
-      }
+        setLoading(true);
+        const { confirmPassword, ...submitData } = formData; 
+        const data = await forgotpassword(submitData);
+        if (data.success) {
+            setVerificationEmail(formData.email);
+            navigate("/verification", { state: { verificationType: "forgotpassword"} });
+        } else {
+            throw new Error(data.message || "Updating password failed");
+        }
     } catch (err) {
-      console.error("Error:", err.message?.data?.message || err.message);
-      setError(err.message?.data?.message || "Something went wrong");
-    }finally {
-      setLoading(false);
+        console.error("Error:", err);
+        // Check if the error is about the same password
+        if (err.response?.data?.message === 'New password cannot be the same as your current password.') {
+            setError("Please choose a password different from your current one.");
+        } else {
+            setError(err.response?.data?.message || err.message || "Something went wrong");
+        }
+    } finally {
+        setLoading(false);
     }
   };
 
