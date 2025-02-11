@@ -3,13 +3,17 @@ import Button from "../../components/button/button";
 import Card from "../../components/card/Card";
 import Loadingspinner from "../../components/loading-spinner/Loadingspinner.jsx";
 import Error from "../../components/error/Error";
-import { forgotpassword } from '../../../api/forgot_password'; // Import the forgotpassword function
+import { forgotpassword } from '../../../api/forgot_password'; 
 import { useNavigate } from 'react-router-dom';
 import { useVerification } from '../../context/VerificationContext';
 import "./ForgotPassword.css";
 
 function ForgotPassword() {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ 
+    email: "", 
+    password: "",
+    confirmPassword: "" 
+  });
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { setVerificationEmail } = useVerification();
@@ -23,18 +27,24 @@ function ForgotPassword() {
     }));
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.password) {
-      setError("Email and password are required.");
+    if (!formData.email || !formData.password || !formData.confirmPassword) {
+      setError("All fields are required.");
       return;
     }
+    
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+    
     setError("");
 
     try {
       setLoading(true);
-      const data = await forgotpassword(formData); // Use the forgotpassword API
+      const { confirmPassword, ...submitData } = formData; 
+      const data = await forgotpassword(submitData);
       if (data.success) {
         setVerificationEmail(formData.email);
         navigate("/verification", { state: { verificationType: "forgotpassword"} });
@@ -76,6 +86,15 @@ function ForgotPassword() {
             placeholder="New Password"
             className="password textinputs"
             value={formData.password}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm New Password"
+            className="password textinputs"
+            value={formData.confirmPassword}
             onChange={handleChange}
             required
           />
