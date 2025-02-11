@@ -339,3 +339,39 @@ Route::middleware('api')->post('/update-profile', function (Request $request) {
 });
 
 
+
+Route::middleware('api')->post('/delete-confirmation', function (Request $request) {
+    $validatedData = $request->validate([
+        'user_id' => 'required|string|exists:users,user_id',
+        'password' => 'required|string|min:8',
+    ]);
+
+    try {
+        $user = DB::table('users')->where('user_id', $validatedData['user_id'])->first();
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found',
+            ], 404);
+        }
+
+        if (Hash::check($validatedData['password'], $user->password)) {
+            return response()->json([
+                'success' => true,
+                'message' => 'delete-confirmation',
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid password',
+            ], 401);
+        }
+    } catch (\Exception $e) {
+        Log::error('Error in delete-confirmation: ' . $e->getMessage());
+        return response()->json([
+            'success' => false,
+            'message' => 'Something went wrong',
+        ], 500);
+    }
+});
