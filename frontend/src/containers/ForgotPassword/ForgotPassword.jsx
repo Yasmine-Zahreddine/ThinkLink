@@ -6,6 +6,7 @@ import Error from "../../components/error/Error";
 import { forgotpassword } from '../../../api/forgot_password'; // Import the forgotpassword function
 import { useNavigate } from 'react-router-dom';
 import { useVerification } from '../../context/VerificationContext';
+import "./ForgotPassword.css";
 
 function ForgotPassword() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -54,10 +55,10 @@ function ForgotPassword() {
       )}
     <div className="ForgotPass">
       <div className="ForgotPass-Card">
-        <Card title="Forgot Password?" content="No worries, we'll help you reset it in no time."/>
+        <Card className="ForgotPass-Card_card" title="Forgot Password?" content="No worries, we'll help you reset it in no time."/>
       </div>
       <div className="Box_forgotpass">
-        <h1>Change your password and continue!</h1>
+        <h2>Change your password and continue!</h2>
         {error && <Error message={error}/>}
         <form onSubmit={handleSubmit}>
           <input
