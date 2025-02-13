@@ -1,13 +1,19 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import './videoCard.css';
-
+import Cookie from 'js-cookie';
 const VideoCard = ({ video }) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate('/video-player', { state: { video } });
+    if (Cookie.get("isLoggedIn")) {
+      navigate('/video-player', { state: { video } });
+    } else {
+      window.scrollTo(0, 0); // Scrolls to the top before navigating
+      navigate('/signin');
+    }
   };
+  
 
   return (
     <div className="video-card" onClick={handleCardClick}>
