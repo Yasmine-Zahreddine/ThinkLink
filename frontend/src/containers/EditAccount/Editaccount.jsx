@@ -319,7 +319,7 @@ const handleFileChange = (e) => {
                         />
                         <label htmlFor="file-input" className="upload-overlay">
                           <FiUploadCloud className="upload-icon" />
-                          <span>Update Photo</span>
+                          <span>Upload Photo</span>
                         </label>
                       </div>
                     </div>

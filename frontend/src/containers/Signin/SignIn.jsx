@@ -122,7 +122,7 @@ const Signin = () => {
         </NavLink>
         <div className="signup">
           <p>
-            Dont have an account? <NavLink to="/signup">Sign up</NavLink>
+            Don't have an account? <NavLink to="/signup">Sign up</NavLink>
           </p>
         </div>
       </div>
