@@ -1,12 +1,11 @@
 .chat-interface {
   width: 320px;
-  height: 555px;
+  height: 570px;
   background-color: var(--navbar-color);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .chat-header {
