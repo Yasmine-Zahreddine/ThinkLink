@@ -7,6 +7,7 @@ const VideoCard = ({ video }) => {
 
   const handleCardClick = () => {
     if (Cookie.get("isLoggedIn")) {
+      window.scrollTo(0, 0); 
       navigate('/video-player', { state: { video } });
     } else {
       window.scrollTo(0, 0); // Scrolls to the top before navigating
