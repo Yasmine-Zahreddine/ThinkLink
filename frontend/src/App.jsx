@@ -7,7 +7,8 @@ import {
   Navigate,
 } from "react-router-dom";
 import Footer from "./components/footer/Footer";
-import Header from "./containers/Header/Header";
+// import Header from "./containers/Header/Header";
+import Home from "./containers/Home/Home";
 import Signup from "./containers/SignUp/Signup";
 import Signin from "./containers/SignIn/SignIn";
 import Successful from "./containers/Successful/Successful";
@@ -26,7 +27,7 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Header />} />
+            <Route path="/" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/successful" element={<Successful  />}/>

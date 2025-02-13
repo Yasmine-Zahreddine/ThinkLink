@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Mail\VerificationCode;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
+use App\Http\Controllers\VideoController;
 
 
 Route::middleware('api')->post('/signup', function (Request $request) {
@@ -390,6 +391,10 @@ Route::middleware('api')->post('/delete-confirmation', function (Request $reques
         ], 500);
     }
 });
+
+
+
+Route::get('/videos', [VideoController::class, 'index']); 
 
 Route::middleware('api')->post('/upload-photo', function (Request $request) {
     Log::info('Upload Photo Request Received');
