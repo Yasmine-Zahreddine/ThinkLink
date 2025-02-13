@@ -390,3 +390,76 @@ Route::middleware('api')->post('/delete-confirmation', function (Request $reques
         ], 500);
     }
 });
+
+Route::middleware('api')->post('/upload-photo', function (Request $request) {
+    Log::info('Upload Photo Request Received');
+
+    try {
+        // Validate the request
+        $validatedData = $request->validate([
+            'user_id' => 'required|string|exists:users,user_id',
+            'file' => 'required|image|max:2048',
+        ]);
+
+        $file = $request->file('file');
+        if (!$file->isValid()) {
+            throw new \Exception('Invalid file upload');
+        }
+
+        $userId = $validatedData['user_id'];
+        $fileName = "users/$userId/" . Str::uuid() . '.' . $file->getClientOriginalExtension();
+        $bucket = 'user-uploads';
+
+        // Read file contents
+        $fileContents = file_get_contents($file->getRealPath());
+
+        // Upload to Supabase Storage
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . env('DB_API_KEY'),
+            'Content-Type' => $file->getMimeType(),
+        ])->withOptions([
+            'verify' => false, // Disable SSL verification
+        ])->withBody(
+            $fileContents,
+            $file->getMimeType()
+        )->put("https://dvdvbefkxqowxmcvpzpc.supabase.co/storage/v1/object/$bucket/$fileName");
+
+        if (!$response->successful()) {
+            Log::error('Supabase Upload Failed:', [
+                'status' => $response->status(),
+                'body' => $response->body()
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Upload failed',
+                'error' => $response->json() ?? $response->body()
+            ], 500);
+        }
+
+        $fileUrl = "https://dvdvbefkxqowxmcvpzpc.supabase.co/storage/v1/object/public/$bucket/$fileName";
+
+        // Save file URL to database
+        DB::table('users')
+            ->where('user_id', $userId)
+            ->update(['pfp_url' => $fileUrl]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Photo uploaded successfully',
+            'file_url' => $fileUrl
+        ], 200);
+
+    } catch (\Exception $e) {
+        Log::error('Error uploading photo: ' . $e->getMessage(), [
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+        
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to upload photo',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+});

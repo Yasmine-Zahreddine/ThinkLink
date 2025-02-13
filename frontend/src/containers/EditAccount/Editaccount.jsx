@@ -93,20 +93,48 @@ const handleFileChange = (e) => {
       console.error("Error updating profile:", error);
     }
   };
-  // Add this upload handler (you'll need to implement the actual API call)
-const handleUpload = async () => {
-  if (!selectedFile) {
-    setMessage("Please select a file first!");
-    return;
-  }
-  setLoading(true);
-  // Here you would typically upload the image to your backend
-  setTimeout(() => {
-    setLoading(false);
-    setMessage("Photo uploaded successfully!"); // Simulated success
-    setSelectedFile(null);
-  }, 2000);
-};
+  const handleUpload = async () => {
+    if (!selectedFile) {
+      setMessage("Please select a file first!");
+      return;
+    }
+  
+    setLoading(true);
+    setMessage("");
+  
+    try {
+      const userId = cookie.get("userId");
+      if (!userId) {
+        throw new Error("User ID not found in cookies");
+      }
+  
+      const formData = new FormData();
+      formData.append("user_id", userId);
+      formData.append("file", selectedFile);
+  
+      const token = cookie.get("authToken"); // Ensure this contains the user's authentication token
+  
+      const response = await fetch("http://localhost:8000/api/upload-photo", {
+        method: "POST",
+        body: formData,
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok && result.success) {
+        setMessage("Photo uploaded successfully!");
+        setPreviewUrl(result.file_url); // Update the UI with the new profile photo
+      } else {
+        throw new Error(result.message || "Upload failed.");
+      }
+    } catch (error) {
+      console.error("Error uploading photo:", error);
+      setMessage(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
 
 
   const deleteUser = async () => { // Removed password parameter
