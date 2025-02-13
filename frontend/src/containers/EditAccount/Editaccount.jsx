@@ -153,6 +153,7 @@ const handleFileChange = (e) => {
 
       const deletionResponse = await deleteUserApi(userId);
       if (deletionResponse.success) {
+        setLoading(false);
         setMessage("Account deleted successfully.");
         cookie.remove("userId");
         setIsLoggedIn(false);
@@ -161,10 +162,10 @@ const handleFileChange = (e) => {
         throw new Error(deletionResponse.message || "Failed to delete account.");
       }
     } catch (error) {
+      setLoading(false);
       setMessage(error.message || "An error occurred. Please try again.");
       console.error("Error deleting user:", error);
     } finally {
-      setLoading(false);
       setShowDeleteConfirmation(false);
       setPassword("");
     }
