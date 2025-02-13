@@ -1,0 +1,70 @@
+.video-player-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.video-section {
+  flex: 1;
+  max-width: calc(100% - 332px); /* 300px chat width + 32px gap */
+}
+
+.video-wrapper {
+  position: relative;
+  width: 90%;
+  padding-bottom: 55%; /* Increased from 45% to make it taller */
+  margin-right: auto;
+}
+
+.video-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%; /* Increased from 90% */
+  height: 100%;  
+  border-radius: 8px;
+}
+
+.video-details {
+  width: 80%; /* Match video wrapper width */
+  padding: 0;
+  margin-top: 1rem; /* Reduced from 2rem to bring description closer */
+}
+
+.video-player-title {
+  font-size: 34px;
+  color: var(--color-dark-blue);
+  margin-bottom: 10px;
+}
+
+.video-player-instructor-name {
+  font-size: 20px;
+  color: var(--color-text);
+  margin-bottom: 20px;
+}
+
+.video-player-description {
+  background-color: var(--navbar-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 100%;
+  margin-top: 15px; /* Reduced from 1rem for tighter spacing */
+}
+
+.description-title {
+  font-size: 24px;
+  color: var(--color-dark-blue);
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.bot_interface{
+    margin-top: 30px;
+}

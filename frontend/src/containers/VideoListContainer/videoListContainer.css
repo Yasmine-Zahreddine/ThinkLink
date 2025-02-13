@@ -16,8 +16,9 @@
 .category-title {
   font-size: 27px;
   font-weight: 600;
+  margin-left: 50px;
+
   color: var(--color-dark-blue);
-  margin: 0; 
 }
 
 .video-cards-container {

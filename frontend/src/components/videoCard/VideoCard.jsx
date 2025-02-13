@@ -1,9 +1,16 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import './videoCard.css';
 
 const VideoCard = ({ video }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate('/video-player', { state: { video } });
+  };
+
   return (
-    <div className="video-card">
+    <div className="video-card" onClick={handleCardClick}>
       <img
         src={`https://img.youtube.com/vi/${video.youtube_url.split('/').pop().split('?')[0]}/hqdefault.jpg`}
         alt={video.title}
