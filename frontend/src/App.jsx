@@ -20,11 +20,13 @@ import Editaccount from "./containers/EditAccount/Editaccount";
 import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import VideoPlayer from "./components/videoPlayer/VideoPlayer";
 import ChatButton from "./components/ChatButton/ChatButton";
+import Cookie from 'js-cookie'; // Add this import
 
 // Create a wrapper component that uses useLocation
 const AppContent = () => {
   const location = useLocation();
   const excludedPaths = ['/signin', '/signup', '/video-player'];
+  const isLoggedIn = Cookie.get("isLoggedIn");
 
   return (
     <>
@@ -40,7 +42,7 @@ const AppContent = () => {
         <Route path="/editaccount" element={<Editaccount/>}/>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-      {!excludedPaths.includes(location.pathname) && <ChatButton />}
+      {!excludedPaths.includes(location.pathname) && isLoggedIn && <ChatButton />}
       <Footer />
     </>
   );
