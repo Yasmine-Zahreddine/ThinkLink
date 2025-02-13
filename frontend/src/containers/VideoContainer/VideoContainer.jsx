@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import VideoListContainer from '../VideoListContainer/VideoListContainer';
+import Loadingspinner from '../../components/loading-spinner/Loadingspinner';
 
 const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
@@ -35,7 +36,7 @@ const VideoContainer = () => {
           <VideoListContainer key={category} category={category} videos={videos} />
         ))
       ) : (
-        <p>Loading videos...</p>
+        <Loadingspinner />
       )}
     </div>
   );

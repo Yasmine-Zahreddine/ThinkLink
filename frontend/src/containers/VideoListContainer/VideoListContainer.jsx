@@ -8,12 +8,23 @@ const VideoListContainer = ({ category, videos = [] }) => {
   const filteredVideos = videos.filter((video) => video.category === category);
   const initialDisplay = 4; // Number of videos to show initially
 
+  // Move this inside the component to ensure it updates when showAll changes
   const visibleVideos = showAll ? filteredVideos : filteredVideos.slice(0, initialDisplay);
   const hasMoreVideos = filteredVideos.length > initialDisplay;
 
   return (
     <div className="video-list-container">
-      <h2 className="category-title">{category}</h2>
+      <div className="category-header">
+        <h2 className="category-title">{category}</h2>
+        {hasMoreVideos && (
+          <button 
+            className="show-more-btn"
+            onClick={() => setShowAll(!showAll)}
+          >
+            {showAll ? 'Show Less' : 'Show More'}
+          </button>
+        )}
+      </div>
       <div className={`video-cards-container ${showAll ? 'expanded' : ''}`}>
         {visibleVideos.map((video) => (
           
@@ -22,14 +33,6 @@ const VideoListContainer = ({ category, videos = [] }) => {
           </div>
         ))}
       </div>
-      {hasMoreVideos && (
-        <button 
-          className="show-more-btn"
-          onClick={() => setShowAll(!showAll)}
-        >
-          {showAll ? 'Show Less' : 'Show More'}
-        </button>
-      )}
     </div>
   );
 };
