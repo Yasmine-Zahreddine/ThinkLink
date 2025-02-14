@@ -21,6 +21,8 @@ const Signin = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const {isLoggedIn, setIsLoggedIn} = useAuth();
+  const [rememberMe, setRememberMe] = useState(false);
+
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth < 1000);
@@ -41,6 +43,10 @@ const Signin = () => {
     }));
   };
 
+  const handleRememberMe = (e) => {
+    setRememberMe(e.target.checked);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -50,19 +56,26 @@ const Signin = () => {
       const data = await signin(formData);
       setMessage(data.message);
       if (data.success) {
-        Cookies.set("isLoggedIn", true, { expires: 7, path: '/' });
-        Cookies.set("userId", data.user_id, { expires: 7, path: '/' });
-        console.log(data.user_id);
+        if (rememberMe) {
+          // Set persistent cookies with 7-day expiration
+          Cookies.set("isLoggedIn", true, { expires: 7 });
+          Cookies.set("userId", data.user_id, { expires: 7 });
+        } else {
+          // Set session cookies without expiration
+          Cookies.set("isLoggedIn", true, { expires: undefined });
+          Cookies.set("userId", data.user_id, { expires: undefined });
+        }
+        
         setIsLoggedIn(true);
         redirect('/'); 
       } else {
         setError(data.message || "Sign in failed"); 
+        setLoading(false);
       }
     } catch (err) {
       setError(err.errors || err.message || "Something went wrong");
-    } finally {
       setLoading(false);
-    }
+    } 
   };
 
   return (
@@ -112,7 +125,12 @@ const Signin = () => {
             required
           />
           <div className="checkboxContainer_signin">
-            <input type="checkbox" className="checkbox_signin" />
+            <input 
+              type="checkbox" 
+              className="checkbox_signin"
+              checked={rememberMe}
+              onChange={handleRememberMe}
+            />
             <p>Remember me</p>
           </div>
           <Button content="Sign In"/>
