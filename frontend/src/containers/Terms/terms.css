@@ -60,6 +60,9 @@
   padding: 1.5rem;
   border-radius: 8px;
   text-align: center;
+  min-width: 200px;
+  justify-content: center;
+  align-items: center;
   transition: transform 0.2s ease;
 }
 
