@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './chatInterface.css';
 import logo from '../../assets/logos/logo_lighttheme_thinklink.png'
-
 
 const ChatInterface = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,6 +39,7 @@ const ChatInterface = () => {
             {message.text}
           </div>
         ))}
+        <div ref={messagesEndRef} /> {/* Scroll anchor */}
       </div>
 
       <form className="chat-input-form" onSubmit={handleSubmit}>

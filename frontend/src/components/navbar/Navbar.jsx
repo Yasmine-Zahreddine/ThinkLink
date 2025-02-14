@@ -47,6 +47,8 @@ const Navbar = () => {
   const [isClosing, setIsClosing] = useState(false);
   const [isSmall, setIsSmall] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [logoClicks, setLogoClicks] = useState(0);
+  const [partyMode, setPartyMode] = useState(false);
 
   const closeMenu = () => {
     setIsClosing(true);
@@ -69,6 +71,19 @@ const Navbar = () => {
     }, 2500); 
   };
 
+  const handleLogoClick = () => {
+    setLogoClicks(prev => prev + 1);
+    if (logoClicks === 4) { // Activate on 5th click
+      setPartyMode(true);
+      document.body.classList.add('party-time');
+      setTimeout(() => {
+        setPartyMode(false);
+        document.body.classList.remove('party-time');
+        setLogoClicks(0);
+      }, 3000); // Party lasts for 3 seconds
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setIsSmall(window.innerWidth < 700);
@@ -87,7 +102,13 @@ const Navbar = () => {
 
       <div className="navbar-links">
         <div className="navbar-links_logo">
-          <img src={logo} alt="logo" />
+          <img 
+            src={logo} 
+            alt="logo" 
+            onClick={handleLogoClick}
+            className={partyMode ? 'spin-logo' : ''}
+            style={{ cursor: 'pointer' }}
+          />
         </div>
         <div className="navbar-links_container">
           <Menu 
