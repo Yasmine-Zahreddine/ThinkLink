@@ -23,6 +23,7 @@ const Signup = () => {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [termsAgreed, setTermsAgreed] = useState(false);
 
   const handleResize = () => {
     setIsSmallScreen(window.innerWidth < 1000);
@@ -39,6 +40,11 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
+    if (!termsAgreed) {
+      setError("Please agree to the Terms of Use and Privacy Policy");
+      return;
+    }
   
     try {
       setLoading(true);
@@ -135,16 +141,20 @@ const Signup = () => {
               required
             />
             <div className="checkboxContainer">
-              <input type="checkbox" className="checkbox" required />
-              <p>Send me special offers, personalized recommendations, and learning tips.</p>
+              <input
+                type="checkbox"
+                className="checkbox"
+                checked={termsAgreed}
+                onChange={(e) => setTermsAgreed(e.target.checked)}
+                required
+              />
+              <p className="policyAgree">
+                I agree to the <NavLink to="/terms">Terms of Use</NavLink> and{' '}
+                <NavLink to="/terms">Privacy Policy</NavLink>
+              </p>
             </div>
             <Button content="Sign Up"/>
           </form>
-          <div className="policyContainer">
-            <p className="policyAgree">
-              By signing up, you agree to our <a href="/">Terms of Use</a> and <a href="/">Privacy Policy</a>.
-            </p>
-          </div>
           <div className="login">
             <p>
               Already have an account? <NavLink to="/signin">Sign in</NavLink>

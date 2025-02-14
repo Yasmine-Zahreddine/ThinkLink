@@ -114,6 +114,7 @@
   width: 100%;
   font-size: 15px;
   color: var(--color-text);
+  text-align: left;
 }
 
 .checkbox {
@@ -124,9 +125,7 @@
 
 
 .policyAgree {
-  margin-top: 1vw;
   color: var(--color-text);
-  text-align: center;
 }
 
 .policyAgree > a {

@@ -21,6 +21,7 @@ import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import VideoPlayer from "./components/videoPlayer/VideoPlayer";
 import ChatButton from "./components/ChatButton/ChatButton";
 import Cookie from 'js-cookie'; // Add this import
+import Terms from './containers/Terms/Terms';
 
 // Create a wrapper component that uses useLocation
 const AppContent = () => {
@@ -40,6 +41,7 @@ const AppContent = () => {
         <Route path="/signin/forgotpassword" element={<ForgotPassword/>} />
         <Route path="/video-player" element={<VideoPlayer />} />
         <Route path="/editaccount" element={<Editaccount/>}/>
+        <Route path="/terms" element={<Terms />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       {!excludedPaths.includes(location.pathname) && isLoggedIn && <ChatButton />}
