@@ -193,7 +193,7 @@
   margin-left: auto;
   color: var(--color-bg);
   border-radius: 4px;
-  font-size: 20px;
+  font-size: 1rem;
   margin-top: 1.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
@@ -218,8 +218,9 @@
 }
 .delete-button{
   width: 10rem;
-  height: 4rem;
+  height: 3rem;
   margin-left: 0;
+  font-size: 1rem;
   background-color: rgba(201, 12, 12, 0.858);
 }
 
@@ -285,7 +286,7 @@ h2 {
   flex-direction: column;
   padding: 15px;
   margin: 10px 0;
-  width: 30%;
+  width: 40%;
   border-radius: 8px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -581,8 +582,8 @@ p {
     height: 3rem;
   }
   .delete-button{
-    width: 10rem;
-    height: 4rem;
+    width: 8rem;
+    height: 3rem;
     margin-left: 0;
     background-color: rgba(201, 12, 12, 0.858);
   }
@@ -608,6 +609,11 @@ p {
    
     font-size: 1.2rem;
   }
+
+
+  .confirm-delete-box{
+    width: 60%;
+  }
 }
 
 
@@ -616,9 +622,10 @@ p {
   width: 6rem;
   height: 3rem;
 }
+
 .delete-button{
-  width: 10rem;
-  height: 4rem;
+  width: 8rem;
+  height: 3rem;
   margin-left: 0;
   background-color: rgba(201, 12, 12, 0.858);
 }
@@ -642,6 +649,9 @@ p {
 }
 
 
+.confirm-delete-box{
+  width: 60%;
+}
 }
 @media screen and (max-width:520px) {
   
@@ -650,12 +660,13 @@ p {
     height: 2rem;
     font-size: 1rem;
   }
-  .delete-button{
-    width: 10rem;
-    height: 4rem;
-    margin-left: 0;
-    background-color: rgba(201, 12, 12, 0.858);
-  }
+  
+.delete-button{
+  width: 8rem;
+  height: 3rem;
+  margin-left: 0;
+  background-color: rgba(201, 12, 12, 0.858);
+}
   .delete {
     margin-top: 4rem;
   }
@@ -695,4 +706,7 @@ p {
   font-size: 1rem;
 }
 
+.confirm-delete-box{
+  width: 70%;
+}
 }

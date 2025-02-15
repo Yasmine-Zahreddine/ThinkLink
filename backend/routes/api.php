@@ -469,7 +469,6 @@ Route::middleware('api')->post('/upload-photo', function (Request $request) {
     }
 });
 
-
 Route::middleware('api')->post('/get-photo', function (Request $request) {
     Log::info('Get Photo Request Received');
 
