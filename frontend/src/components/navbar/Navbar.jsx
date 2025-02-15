@@ -120,11 +120,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="navbar-search">
-        <input placeholder="Search" />
-        <img src={SearchIcon} alt="search" />
-      </div>
-
       <div className="navbar-sign">
         {!isLoggedIn ? (
           <>
