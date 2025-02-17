@@ -36,7 +36,7 @@ Route::middleware('api')->post('/signup', function (Request $request) {
         );
 
         // Send verification email
-        Mail::to('majedshmaitlu@gmail.com')->send(new VerificationCode($verificationCode));
+        Mail::to(env('RENDER_EMAIL'))->send(new VerificationCode($verificationCode));
 
         return response()->json([
             'success' => true,
@@ -245,7 +245,7 @@ Route::middleware('api')->post('/forgot-password', function (Request $request) {
             ]
         );
 
-        Mail::to('zahreddineyasmine@gmail.com')->send(new VerificationCode($verificationCode));
+        Mail::to(env('RENDER_EMAIL'))->send(new VerificationCode($verificationCode));
 
         return response()->json([
             'success' => true,
