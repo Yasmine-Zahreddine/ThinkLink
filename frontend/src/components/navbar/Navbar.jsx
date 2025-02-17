@@ -10,7 +10,7 @@ import { useAuth } from "../../context/AuthProvider";
 import Pfp from "../pfp/Pfp";
 import Loadingspinner from "../loading-spinner/Loadingspinner";
 
-const Menu = ({ closeMenu, isLoggedIn, isSmall, handleLogout }) => (
+const Menu = ({ closeMenu, isLoggedIn, isSmall, handleLogout, handleHelp }) => (
   <>
     {isSmall && isLoggedIn && (
       <p>
@@ -20,7 +20,7 @@ const Menu = ({ closeMenu, isLoggedIn, isSmall, handleLogout }) => (
     <p><NavLink to="/" onClick={closeMenu}>Home</NavLink></p>
     <p><a href="#my_learning" onClick={closeMenu}>My Learning</a></p>
     <p><a href="#about" onClick={closeMenu}>About</a></p>
-    <p><a href="#support" onClick={closeMenu}>Support</a></p>
+    <p><a href="#support" onClick={handleHelp}>Support</a></p>
     {isSmall && !isLoggedIn && (
       <>
         <p><NavLink to="/signin" onClick={closeMenu}>Sign in</NavLink></p>
@@ -37,7 +37,8 @@ Menu.propTypes = {
   closeMenu: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isSmall: PropTypes.bool.isRequired,
-  handleLogout: PropTypes.func.isRequired
+  handleLogout: PropTypes.func.isRequired,
+  handleHelp: PropTypes.func.isRequired
 };
 
 const Navbar = () => {
@@ -49,6 +50,12 @@ const Navbar = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [logoClicks, setLogoClicks] = useState(0);
   const [partyMode, setPartyMode] = useState(false);
+
+  const handleHelp = () => {
+    closeMenu();
+    setIsActive("Help & Support");
+    navigate('/help');
+  };
 
   const closeMenu = () => {
     setIsClosing(true);
@@ -92,12 +99,12 @@ const Navbar = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  
+    const { isActive, setIsActive } = useAuth();
   return (
     <div className="navbar">
       {isLoading && (
           <Loadingspinner />
-        
       )}
 
       <div className="navbar-links">
@@ -116,6 +123,7 @@ const Navbar = () => {
             isLoggedIn={isLoggedIn} 
             isSmall={isSmall} 
             handleLogout={handleLogout}
+            handleHelp={handleHelp}
           />
         </div>
       </div>
@@ -155,6 +163,7 @@ const Navbar = () => {
                 isLoggedIn={isLoggedIn} 
                 isSmall={isSmall} 
                 handleLogout={handleLogout}
+                handleHelp={handleHelp}
               />
             </div>
           </div>

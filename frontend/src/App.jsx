@@ -41,6 +41,8 @@ const AppContent = () => {
         <Route path="/signin/forgotpassword" element={<ForgotPassword/>} />
         <Route path="/video-player" element={<VideoPlayer />} />
         <Route path="/editaccount" element={<Editaccount/>}/>
+        
+        <Route path="/help" element={<Editaccount/>}/>
         <Route path="/terms" element={<Terms />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
