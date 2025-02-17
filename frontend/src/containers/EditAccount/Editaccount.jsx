@@ -156,6 +156,9 @@ const handleFileChange = (e) => {
         setLoading(false);
         setMessage("Account deleted successfully.");
         cookie.remove("userId");
+        cookie.remove("fullName");
+        cookie.remove("isActive");
+        cookie.remove("isLoggedIn");
         setIsLoggedIn(false);
         navigate("/home");
       } else {

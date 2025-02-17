@@ -21,6 +21,7 @@ const Pfp = () => {
   const navigate = useNavigate();
   const profileRef = useRef(null);
 
+  // Fetch user data from API
   const fetchUserData = async () => {
     setIsLoading(true);
     try {
@@ -29,9 +30,11 @@ const Pfp = () => {
 
       const data = await getuserdata(userId);
       setUserData(data);
+      
       const formattedFirstName = data.first_name.charAt(0).toUpperCase() + data.first_name.slice(1);
       const formattedLastName = data.last_name.charAt(0).toUpperCase() + data.last_name.slice(1);
-      cookie.set("fullName", `${formattedFirstName} ${formattedLastName}`);
+      
+      cookie.set("fullName", `${formattedFirstName} ${formattedLastName}`, { path: "/" });
       setError(null);
     } catch (err) {
       if (err.response?.status === 401) {
@@ -44,10 +47,9 @@ const Pfp = () => {
     }
   };
 
+  // Handle profile click animation
   const handleClick = (event) => {
-    console.log("Profile picture clicked"); // Debugging
     event.stopPropagation();
-
     if (isClicked) {
       closeProfile();
     } else {
@@ -57,6 +59,7 @@ const Pfp = () => {
     }
   };
 
+  // Close profile dropdown
   const closeProfile = () => {
     setIsAnimatingOut(true);
     setTimeout(() => {
@@ -65,10 +68,10 @@ const Pfp = () => {
     }, 300);
   };
 
+  // Navigate to profile settings
   const handleProfileNav = () => {
-    console.log("Navigating to profile"); // Debugging
+    cookie.set('isActive', "Profile", { path: "/" });
     setIsAnimatingOut(true);
-    cookie.set('isActive', "Profile");
     setTimeout(() => {
       setIsClicked(false);
       setIsAnimatingOut(false);
@@ -76,10 +79,10 @@ const Pfp = () => {
     }, 300);
   };
 
+  // Navigate to Help & Support
   const handleHelp = () => {
-    console.log("Navigating to help"); // Debugging
+    cookie.set('isActive', "Help & Support", { path: "/" });
     setIsAnimatingOut(true);
-    cookie.set('isActive', "Help & Support");
     setTimeout(() => {
       setIsClicked(false);
       setIsAnimatingOut(false);
@@ -87,12 +90,42 @@ const Pfp = () => {
     }, 300);
   };
 
+  // Remove all cookies dynamically
+  const removeAllCookies = () => {
+    document.cookie.split(";").forEach((cookie) => {
+      document.cookie = cookie
+        .replace(/^ +/, "") // Trim spaces
+        .replace(/=.*/, "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"); // Expire cookie
+    });
+
+    // Remove via js-cookie as well
+    Object.keys(cookie.get()).forEach((key) => {
+      cookie.remove(key, { path: "/" });
+    });
+  };
+
+  // Handle logout function
+  const handleLogout = () => {
+    setLogoutSpinner(true);
+    closeProfile();
+
+    setTimeout(() => {
+      removeAllCookies(); // Remove all cookies
+
+      setIsLoggedIn(false);
+      navigate('/signin');
+      setLogoutSpinner(false);
+    }, 1000);
+  };
+
+  // Fetch user data when component mounts
   useEffect(() => {
     if (!userData) {
       fetchUserData();
     }
   }, [userData]);
 
+  // Handle clicking outside the profile dropdown
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
@@ -117,20 +150,6 @@ const Pfp = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [isClicked]);
-
-  const handleLogout = () => {
-    setLogoutSpinner(true);
-    closeProfile();
-
-    setTimeout(() => {
-      cookie.remove("userId");
-      cookie.remove("isLoggedIn");
-      cookie.remove("userData");
-      setIsLoggedIn(false);
-      navigate('/signin');
-      setLogoutSpinner(false);
-    }, 1000);
-  };
 
   return (
     <div className="pfp-wrapper">
