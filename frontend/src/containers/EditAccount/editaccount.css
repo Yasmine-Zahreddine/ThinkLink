@@ -248,6 +248,7 @@
   width: 80%;
   font-weight: 500;
   font-size: 1.2rem;
+  font-family: var(--font-family);
   color: var(--color-dark-blue);
   margin-bottom: 1rem;
   margin-top: 1rem;
