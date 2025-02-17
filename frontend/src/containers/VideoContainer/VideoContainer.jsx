@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import VideoListContainer from '../VideoListContainer/VideoListContainer';
 import Loadingspinner from '../../components/loading-spinner/Loadingspinner';
+import ErrorDisplay from '../../components/ErrorDisplay/ErrorDisplay';
 
 const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
@@ -30,7 +31,7 @@ const VideoContainer = () => {
   return (
     <div>
       {error ? (
-        <p>Error: {error}</p>
+        <ErrorDisplay message="" />
       ) : categories.length > 0 ? (
         categories.map((category) => (
           <VideoListContainer key={category} category={category} videos={videos} />
