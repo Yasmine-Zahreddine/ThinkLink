@@ -53,8 +53,14 @@ const Navbar = () => {
 
   const handleHelp = () => {
     closeMenu();
+    if(Cookies.get("isLoggedIn")){
+      
     setIsActive("Help & Support");
     navigate('/help');
+      
+    }else{
+        navigate("/signin");
+    }
   };
 
   const closeMenu = () => {
