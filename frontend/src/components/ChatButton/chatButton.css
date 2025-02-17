@@ -55,3 +55,39 @@
 .chat-close-button:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
+
+@keyframes slideDown2{
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp2 {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+}
+
+.chat-float-container {
+
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-out;
+}
+
+.chat-float-container.open {
+  animation: slideDown2 0.3s ease-out forwards;
+  visibility: visible;
+}
+
+.chat-float-container.close {
+  animation: slideUp2 0.3s ease-out forwards;
+}
