@@ -14,12 +14,12 @@ const Menu = ({ closeMenu, isLoggedIn, isSmall, handleLogout, handleHelp }) => (
   <>
     {isSmall && isLoggedIn && (
       <p>
-        <NavLink to="/profile" onClick={closeMenu}>Profile</NavLink>
+        <NavLink to="/editaccount" onClick={closeMenu}>Profile</NavLink>
       </p>
     )}
     <p><NavLink to="/" onClick={closeMenu}>Home</NavLink></p>
     <p><a href="#my_learning" onClick={closeMenu}>My Learning</a></p>
-    <p><NavLink to="/about" onClick={closeMenu}>About</NavLink></p>
+    <p><a href="#about" onClick={closeMenu}>About</a></p>
     <p><a href="#support" onClick={handleHelp}>Support</a></p>
     {isSmall && !isLoggedIn && (
       <>
