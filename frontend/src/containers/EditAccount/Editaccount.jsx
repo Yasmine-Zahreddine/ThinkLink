@@ -175,7 +175,33 @@ const handleFileChange = (e) => {
       setPassword("");
     }
   };
-
+ 
+   // Remove all cookies dynamically
+   const removeAllCookies = () => {
+     document.cookie.split(";").forEach((cookie) => {
+       document.cookie = cookie
+         .replace(/^ +/, "") // Trim spaces
+         .replace(/=.*/, "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"); // Expire cookie
+     });
+ 
+     // Remove via js-cookie as well
+     Object.keys(cookie.get()).forEach((key) => {
+       cookie.remove(key, { path: "/" });
+     });
+   };
+ 
+   // Handle logout function
+   const handleLogout = () => {
+     setLoading(true);
+ 
+     setTimeout(() => {
+       removeAllCookies(); // Remove all cookies
+ 
+       setIsLoggedIn(false);
+       navigate('/signin');
+       setLogoutSpinner(false);
+     }, 1000);
+   };
   return (
     <>
       {loading && <Loadingspinner />}
@@ -185,7 +211,7 @@ const handleFileChange = (e) => {
             <img src={previewUrl} alt="profile" className="profile-image" />
             <p className="Name">{fullName}</p>
             <div className="options">
-              {["Profile", "Photo", "Privacy", "Help & Support", "Delete Account"].map((option) => (
+              {["Profile", "Photo", "Privacy", "Help & Support","Logout" ,"Delete Account"].map((option) => (
                 <button
                   key={option}
                   className={`account-buttons ${isActive === option ? "isActive" : ""} ${option === "Delete Account" ? "delete" : ""}`}
@@ -199,6 +225,17 @@ const handleFileChange = (e) => {
 
           <div className="edit-account-box-editable-container">
             <div className="edit-account-box-editable-body">
+                          {isActive === 'Logout' && (
+                <div className="logout-box">
+                  <h3>Are you sure?</h3>
+                  <div className="logout-button">
+                    <button className="button" onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {isActive === "Profile" && (
                 <div className="profile-body">
                   <div className="input-group">

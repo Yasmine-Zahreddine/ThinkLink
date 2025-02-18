@@ -30,7 +30,7 @@ const Pfp = () => {
     try {
       const userId = cookie.get("userId");
       if (!userId) throw new Error("User not authenticated");
-
+      setPfp(cookie.get('pfp_url') ? cookie.get('pfp_url') : user);
       const data = await getuserdata(userId);
       setUserData(data);
 

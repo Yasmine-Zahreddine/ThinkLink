@@ -588,7 +588,25 @@ p {
   background: #fff5f5;
   color: #e53e3e;
 }
-
+.logout-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 15rem;
+  text-align: center;
+  gap: 1rem;
+}
+.logout-box > h3{
+  width: 100%;
+  font-size: 1.6rem;
+  font-family: var(--font-family);
+}
+.logout-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @media screen and (max-width:1000px) {
   .button {
     width: 6rem;

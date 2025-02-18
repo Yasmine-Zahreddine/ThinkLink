@@ -5,7 +5,8 @@
   border-radius: 50%; /* Makes it circular */
   object-fit: cover; /* Ensures the image fills the space properly */
   cursor: pointer;
-
+  
+  border: 3px solid var(--color-dark-blue);
 
 }
 
