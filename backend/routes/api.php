@@ -160,7 +160,7 @@ Route::middleware('api')->post('/users', function (Request $request) {
 
         $user = DB::table('users')
             ->where('user_id', $id)
-            ->select('first_name', 'last_name', 'email','description', 'linkedin_url', 'github_url')
+            ->select('first_name', 'last_name', 'email','description', 'linkedin_url', 'github_url','pfp_url')
             ->first();
 
         if (!$user) {
@@ -176,6 +176,7 @@ Route::middleware('api')->post('/users', function (Request $request) {
             'email' => $user->email,
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
+            'pfp_url' => $user->pfp_url
         ], 200);
 
     } catch (\Exception $e) {
@@ -464,68 +465,6 @@ Route::middleware('api')->post('/upload-photo', function (Request $request) {
         return response()->json([
             'success' => false,
             'message' => 'Failed to upload photo',
-            'error' => $e->getMessage()
-        ], 500);
-    }
-});
-
-Route::middleware('api')->post('/get-photo', function (Request $request) {
-    Log::info('Get Photo Request Received');
-
-    try {
-        // Validate request
-        $validatedData = $request->validate([
-            'user_id' => 'required|string|exists:users,user_id',
-        ]);
-
-        $userId = $validatedData['user_id'];
-
-        // Retrieve user photo URL from the database
-        $user = DB::table('users')->where('user_id', $userId)->first();
-
-        if (!$user || !$user->pfp_url) {
-            return response()->json([
-                'success' => false,
-                'message' => 'No profile photo found'
-            ], 404);
-        }
-
-        $fileUrl = $user->pfp_url;
-
-        // Fetch the image from Supabase
-        $headers = [
-            'Authorization' => 'Bearer ' . env('DB_API_KEY'), // Ensure your Supabase API key is in .env
-            'Accept' => 'image/*'
-        ];
-
-        $response = Http::withHeaders($headers)->get($fileUrl);
-
-        if (!$response->successful()) {
-            Log::error('Failed to retrieve image from Supabase:', [
-                'status' => $response->status(),
-                'body' => $response->body()
-            ]);
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to retrieve image',
-                'error' => $response->json() ?? $response->body()
-            ], 500);
-        }
-
-        // Return the image directly
-        return response($response->body(), 200)
-            ->header('Content-Type', $response->header('Content-Type'))
-            ->header('Content-Disposition', 'inline; filename="profile-photo"');
-    } catch (\Exception $e) {
-        Log::error('Error retrieving photo: ' . $e->getMessage(), [
-            'file' => $e->getFile(),
-            'line' => $e->getLine()
-        ]);
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Failed to retrieve photo',
             'error' => $e->getMessage()
         ], 500);
     }

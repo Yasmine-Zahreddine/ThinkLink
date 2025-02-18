@@ -20,8 +20,11 @@ const Pfp = () => {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
   const profileRef = useRef(null);
+  
+  // Profile Picture State
+  const [pfp, setPfp] = useState(user);
 
-  // Fetch user data from API
+  // Fetch user data
   const fetchUserData = async () => {
     setIsLoading(true);
     try {
@@ -30,11 +33,14 @@ const Pfp = () => {
 
       const data = await getuserdata(userId);
       setUserData(data);
-      
+
       const formattedFirstName = data.first_name.charAt(0).toUpperCase() + data.first_name.slice(1);
       const formattedLastName = data.last_name.charAt(0).toUpperCase() + data.last_name.slice(1);
-      
       cookie.set("fullName", `${formattedFirstName} ${formattedLastName}`, { path: "/" });
+
+      // Update Profile Picture (Prevent Caching)
+      setPfp(data.pfp_url ? `${data.pfp_url}?t=${Date.now()}` : user);
+
       setError(null);
     } catch (err) {
       if (err.response?.status === 401) {
@@ -46,6 +52,18 @@ const Pfp = () => {
       setIsLoading(false);
     }
   };
+
+  // Fetch user data on mount
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  // Update profile picture when userData changes
+  useEffect(() => {
+    if (userData?.pfp_url) {
+      setPfp(`${userData.pfp_url}?t=${Date.now()}`);
+    }
+  }, [userData]);
 
   // Handle profile click animation
   const handleClick = (event) => {
@@ -118,13 +136,6 @@ const Pfp = () => {
     }, 1000);
   };
 
-  // Fetch user data when component mounts
-  useEffect(() => {
-    if (!userData) {
-      fetchUserData();
-    }
-  }, [userData]);
-
   // Handle clicking outside the profile dropdown
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -156,7 +167,7 @@ const Pfp = () => {
       {logoutSpinner && <Loadingspinner />}
 
       <img
-        src={user}
+        src={pfp}
         alt="User avatar"
         className="user-pfp"
         onClick={handleClick}
@@ -177,7 +188,7 @@ const Pfp = () => {
         >
           <div className="profile-content">
             <div className="profile-header">
-              <img src={profile} alt="Profile" className="pfp_pic" />
+              <img src={pfp} alt="Profile" className="pfp_pic" />
               <div className="profile-info">
                 <h3 className="profile-name">
                   {userData.first_name.charAt(0).toUpperCase() + userData.first_name.slice(1)}{' '}

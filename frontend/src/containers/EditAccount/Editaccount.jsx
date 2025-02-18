@@ -25,8 +25,8 @@ const Editaccount = () => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); // Renamed state
   const [password, setPassword] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-const [previewUrl, setPreviewUrl] = useState("");
-
+const [previewUrl, setPreviewUrl] = useState(profile);
+ 
 const handleFileChange = (e) => {
   const file = e.target.files[0];
   if (file) {
@@ -53,6 +53,8 @@ const handleFileChange = (e) => {
         setLinkedIn(response.data.linkedin_url || "");
         setGitHub(response.data.github_url || "");
         setFullname(`${response.data.first_name} ${response.data.last_name}`);
+        setPreviewUrl(response.data.pfp_url || profile);
+        cookie.set('pfp_url', response.data.pfp_url);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -180,7 +182,7 @@ const handleFileChange = (e) => {
       <div className="edit-account-container">
         <div className="edit-account-box">
           <div className="edit-account-box-options">
-            <img src={profile} alt="profile" className="profile-image" />
+            <img src={previewUrl} alt="profile" className="profile-image" />
             <p className="Name">{fullName}</p>
             <div className="options">
               {["Profile", "Photo", "Privacy", "Help & Support", "Delete Account"].map((option) => (
