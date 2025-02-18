@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './pfp.css';
-import user from '../../assets/logos/user.png';
+import user from '../../assets/logos/user.png'; // Dark mode default
+import profile from "../../assets/logos/userLight.png"; // Light mode default
 import classNames from 'classnames';
 import cookie from "js-cookie";
 import getuserdata from "../../../api/getuserdata";
-import profile from "../../assets/logos/userLight.png";
 import { NavLink, useNavigate } from 'react-router-dom';
 import Loadingspinner from "../loading-spinner/Loadingspinner";
 import { useAuth } from '../../context/AuthProvider';
@@ -21,8 +21,9 @@ const Pfp = () => {
   const navigate = useNavigate();
   const profileRef = useRef(null);
   
-  // Profile Picture State
-  const [pfp, setPfp] = useState(user);
+  // Profile Picture States
+  const [pfp1, setPfp1] = useState(user); // Dark Mode Profile Pic
+  const [pfp2, setPfp2] = useState(profile); // Light Mode Profile Pic
 
   // Fetch user data
   const fetchUserData = async () => {
@@ -30,16 +31,25 @@ const Pfp = () => {
     try {
       const userId = cookie.get("userId");
       if (!userId) throw new Error("User not authenticated");
-      setPfp(cookie.get('pfp_url') ? cookie.get('pfp_url') : user);
+
       const data = await getuserdata(userId);
       setUserData(data);
 
+      // Format names
       const formattedFirstName = data.first_name.charAt(0).toUpperCase() + data.first_name.slice(1);
       const formattedLastName = data.last_name.charAt(0).toUpperCase() + data.last_name.slice(1);
       cookie.set("fullName", `${formattedFirstName} ${formattedLastName}`, { path: "/" });
 
-      // Update Profile Picture (Prevent Caching)
-      setPfp(data.pfp_url ? `${data.pfp_url}?t=${Date.now()}` : user);
+      // Check if pfp_url exists and is not empty
+      if (data.pfp_url !== '') {
+        setPfp1(`${data.pfp_url}?t=${Date.now()}`);
+        setPfp2(`${data.pfp_url}?t=${Date.now()}`);
+        cookie.set("pfp_url", data.pfp_url, { path: "/" });
+      } else {
+        // If empty, use default images
+        setPfp1(user);
+        setPfp2(profile);
+      }
 
       setError(null);
     } catch (err) {
@@ -57,13 +67,6 @@ const Pfp = () => {
   useEffect(() => {
     fetchUserData();
   }, []);
-
-  // Update profile picture when userData changes
-  useEffect(() => {
-    if (userData?.pfp_url) {
-      setPfp(`${userData.pfp_url}?t=${Date.now()}`);
-    }
-  }, [userData]);
 
   // Handle profile click animation
   const handleClick = (event) => {
@@ -129,7 +132,6 @@ const Pfp = () => {
 
     setTimeout(() => {
       removeAllCookies(); // Remove all cookies
-
       setIsLoggedIn(false);
       navigate('/signin');
       setLogoutSpinner(false);
@@ -167,12 +169,12 @@ const Pfp = () => {
       {logoutSpinner && <Loadingspinner />}
 
       <img
-        src={pfp}
-        alt="User avatar"
+        src={pfp1}
         className="user-pfp"
         onClick={handleClick}
         tabIndex="0"
         role="button"
+        alt="User Avatar"
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') handleClick(e);
         }}
@@ -188,7 +190,7 @@ const Pfp = () => {
         >
           <div className="profile-content">
             <div className="profile-header">
-              <img src={pfp} alt="Profile" className="pfp_pic" />
+              <img src={pfp2} className="pfp_pic" alt="Profile Light Mode" />
               <div className="profile-info">
                 <h3 className="profile-name">
                   {userData.first_name.charAt(0).toUpperCase() + userData.first_name.slice(1)}{' '}
