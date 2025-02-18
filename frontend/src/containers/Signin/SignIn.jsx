@@ -55,6 +55,10 @@ const Signin = () => {
       const data = await signin(formData);
       setMessage(data.message);
       if (data.success) {
+        // Clear existing cookies
+        Cookies.remove("isLoggedIn");
+        Cookies.remove("userId");
+
         if (rememberMe) {
           Cookies.set("isLoggedIn", true, { expires: 7 });
           Cookies.set("userId", data.user_id, { expires: 7 });
