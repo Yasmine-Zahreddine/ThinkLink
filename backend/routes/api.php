@@ -469,3 +469,80 @@ Route::middleware('api')->post('/upload-photo', function (Request $request) {
         ], 500);
     }
 });
+
+
+Route::middleware('api')->post('/delete-photo', function (Request $request) {
+    Log::info('Delete Photo Request Received');
+
+    try {
+        // Validate the request
+        $validatedData = $request->validate([
+            'user_id' => 'required|string|exists:users,user_id',
+        ]);
+
+        $userId = $validatedData['user_id'];
+
+        // Retrieve the user's current photo URL
+        $user = DB::table('users')->where('user_id', $userId)->first();
+        if (!$user || !$user->pfp_url) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No profile photo found'
+            ], 404);
+        }
+
+        $fileUrl = $user->pfp_url;
+
+        // Extract the correct object path from the URL
+        // Assuming $fileUrl has the form: https://your-project.supabase.co/storage/v1/object/public/bucket_name/your/path/file.jpg
+        $urlParts = parse_url($fileUrl);
+        $path = str_replace("storage/v1/object/public/", "", ltrim($urlParts['path'], '/'));
+// Remove the leading '/' to get the path
+
+        // Log the file URL and path for debugging
+        Log::info('Deleting photo for user', ['user_id' => $userId, 'file_url' => $fileUrl, 'path' => $path]);
+
+        // Delete the photo from Supabase Storage using the path
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . env('DB_API_KEY'),
+        ])->withOptions([
+            'verify' => false, // Disable SSL verification
+        ])->delete("https://dvdvbefkxqowxmcvpzpc.supabase.co/storage/v1/object/$path");
+
+        if (!$response->successful()) {
+            Log::error('Supabase Delete Failed:', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+                'response' => $response->json() ?? $response->body()  // Log the full response for debugging
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete photo',
+                'error' => $response->json() ?? $response->body()
+            ], 500);
+        }
+
+        // Update the user's profile photo URL to null in the database
+        DB::table('users')
+            ->where('user_id', $userId)
+            ->update(['pfp_url' => ""]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Photo deleted successfully'
+        ], 200);
+
+    } catch (\Exception $e) {
+        Log::error('Error deleting photo: ' . $e->getMessage(), [
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to delete photo',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+});
