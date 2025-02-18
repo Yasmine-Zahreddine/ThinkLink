@@ -57,7 +57,7 @@ const Terms = () => {
               <a href="https://www.linkedin.com/in/moussa-farhat" target="_blank" rel="noopener noreferrer">
                 <FaLinkedin className="social-icon" />
               </a>
-              <a href="https://github.com/your-profile" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/MrMfrht" target="_blank" rel="noopener noreferrer">
                 <FaGithub className="social-icon" />
               </a>
             </div>
@@ -73,7 +73,6 @@ const Terms = () => {
               </a>
             </div>
           </div>
-          {/* Add more dev cards as needed */}
         </div>
       </section>
 

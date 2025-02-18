@@ -22,6 +22,7 @@ class User extends Authenticatable
         'password',
         'created_at',
         'updated_at',
+        'pfp_url',
     ];
 
     const CREATED_AT = 'created_at';
