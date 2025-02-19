@@ -308,7 +308,6 @@ h2 {
   margin: 10px 0;
   width: 40%;
   border-radius: 8px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 .confirm-delete-input{
@@ -602,7 +601,7 @@ p {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 15rem;
+  margin-top: 12rem;
   text-align: center;
   gap: 1rem;
 }
@@ -616,6 +615,81 @@ p {
   justify-content: center;
   align-items: center;
 }
+
+.logout-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.logout-icon {
+  font-size: 2rem;
+  color: #e53e3e;
+  margin-bottom: 10px;
+}
+
+.logout-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.logout-message {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.logout-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.logout-btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.confirm {
+  background-color: #e53e3e;
+  color: white;
+}
+
+.confirm:hover {
+  background-color: #c53030;
+}
+
+.cancel {
+  background-color: #ccc;
+  color: black;
+}
+
+.cancel:hover {
+  background-color: #999;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @media screen and (max-width:1000px) {
   .button {
     width: 6rem;
@@ -737,44 +811,212 @@ p {
   width: 70%;
 }
 }
+/* Profile Edit Section Styles */
+.profile-edit-container {
+  width: 80%;
 
-.btn-delete-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 2rem; /* Adjust as needed */
-  align-content: center;
-  justify-items: center;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-.btn-delete {
+.profile-edit-card {
+  background: var(--color-bg);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 4rem;
+  
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.profile-edit-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--font-family);
+  color: #111827;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form-section {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: #e53e3e;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.form-label-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  color: #6b7280;
+}
+
+.name-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  transition: border-color 0.2s;
+  height: 3.2rem;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.form-textarea {
+  width: 100%;
+  height: 6rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+.social-input-container {
+  display: grid;
+  gap: 1rem;
+}
+
+.icon-input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  color: #9ca3af;
+}
+
+.form-input.with-icon {
+  padding-left: 2.5rem;
+}
+
+.save-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-dark-blue);
   color: white;
-  padding: 0.75rem 1.5rem;
+  font-weight: 500;
   border: none;
+  font-family: var(--font-family);
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  font-size: 1rem;
-  margin-top: 10px;
-}
-
-.btn-delete:hover {
-  background-color: #c53030;
-  transform: scale(1.05);
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-}
-
-.btn-delete:active {
-  transform: scale(0.98);
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.delete-icon {
-  margin-right: 0.5rem;
   font-size: 1.2rem;
+  transition: background-color 0.2s;
+}
+
+.save-button:hover {
+  background-color: #1d4ed8;
+}
+
+.save-button:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
+
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.spinner-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.message-feedback {
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.message-feedback.success {
+  background-color: #f0fdf4;
+  color: #166534;
+}
+
+.message-feedback.error {
+  background-color: #fef2f2;
+  color: #b91c1c;
+}
+
+
+/* Delete Account Styles */
+.delete-box {
+  max-width: 400px;
+  
+  margin-top: 8rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.delete-box .logout-icon {
+  color: #e53e3e;
+}
+
+.confirm-delete-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.confirm-delete-input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+}
+
+.confirm-delete-input:focus {
+  outline: none;
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 1px #e53e3e;
+}
+
+.delete-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

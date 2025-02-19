@@ -10,7 +10,8 @@ import { updateUserProfile } from "../../../api/update-profile";
 import getuserdata from "../../../api/getuserdata";
 import deleteConfirmationApi from "../../../api/delete-confirmation"; // Renamed import
 import { FiCamera, FiUploadCloud, FiFile, FiCheckCircle, FiAlertTriangle, FiTrash2 } from 'react-icons/fi';
-
+import { FiAlertCircle } from "react-icons/fi"; // Import icon
+import { User, Link2, Github, Linkedin, Loader2 } from 'lucide-react';
 const Editaccount = () => {
   const navigate = useNavigate();
   const { isActive, setIsActive, setIsLoggedIn } = useAuth();
@@ -265,123 +266,255 @@ const Editaccount = () => {
 
           <div className="edit-account-box-editable-container">
             <div className="edit-account-box-editable-body">
-              {isActive === 'Logout' && (
-                <div className="logout-box">
-                  <h3>Are you sure?</h3>
-                  <div className="logout-button">
-                    <button className="button" onClick={handleLogout}>
-                      Logout
-                    </button>
+                {isActive === 'Logout' && (
+                  <div className="logout-box">
+                    <FiAlertCircle className="logout-icon" />
+                    <h3 className="logout-title">Are you sure?</h3>
+                    <p className="logout-message">Logging out will end your session. You can log in again anytime.</p>
+                    
+                    <div className="logout-buttons">
+                      <button className="logout-btn confirm" onClick={handleLogout}>
+                        Logout
+                      </button>
+                      <button className="logout-btn cancel" onClick={() => setIsActive('Profile')}>
+                        Cancel
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+               {isActive === "Profile" && (
+  <div className="profile-edit-container">
+    <div className="profile-edit-card">
+      <h2 className="profile-edit-title">Edit Profile</h2>
+      
+      {/* Full Name Section */}
+      <div className="form-section">
+        <label className="form-label">
+          <User className="form-label-icon" />
+          Full Name
+        </label>
+        <div className="name-fields-grid">
+          <input
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            className="form-input"
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            className="form-input"
+          />
+        </div>
+      </div>
 
-              {isActive === "Profile" && (
-                <div className="profile-body">
-                  <div className="input-group">
-                    <label className="labels">Full Name :</label>
-                    <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-                  </div>
-                  <div className="input-group">
-                    <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-                  </div>
+      {/* Description Section */}
+      <div className="form-section">
+        <label className="form-label">
+          <Link2 className="form-label-icon" />
+          Description
+        </label>
+        <textarea
+          placeholder="Tell us about yourself..."
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="form-textarea"
+        />
+      </div>
 
-                  <div className="input-group">
-                    <label className="labels">Description :</label>
-                    <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-                  </div>
+      {/* Social Links Section */}
+      <div className="form-section">
+        <label className="form-label">Social Links</label>
+        <div className="social-input-container">
+          <div className="icon-input-wrapper">
+            <Linkedin className="input-icon" />
+            <input
+              type="text"
+              placeholder="LinkedIn Profile URL"
+              value={linkedIn}
+              onChange={(e) => setLinkedIn(e.target.value)}
+              className="form-input with-icon"
+            />
+          </div>
+          <div className="icon-input-wrapper">
+            <Github className="input-icon" />
+            <input
+              type="text"
+              placeholder="GitHub Profile URL"
+              value={gitHub}
+              onChange={(e) => setGitHub(e.target.value)}
+              className="form-input with-icon"
+            />
+          </div>
+        </div>
+      </div>
 
-                  <div className="input-group">
-                    <label className="labels">Links :</label>
-                    <input type="text" placeholder="LinkedIn Profile URL" value={linkedIn} onChange={(e) => setLinkedIn(e.target.value)} />
-                  </div>
-                  <div className="input-group">
-                    <input type="text" placeholder="GitHub Profile URL" value={gitHub} onChange={(e) => setGitHub(e.target.value)} />
-                  </div>
-                  <div className="save-button-container">
-                    <button className="button" onClick={handleProfileUpdate}>Save</button>
-                  </div>
-                  {message && <p className="message">{message}</p>}
-                </div>
-              )}
+      {/* Save Button */}
+      <button
+        className="save-button"
+        onClick={handleProfileUpdate}
+        disabled={loading}
+      >
+        {loading ? (
+          <div className="loading-spinner">
+            <Loader2 className="spinner-icon" />
+            Saving...
+          </div>
+        ) : (
+          'Save Changes'
+        )}
+      </button>
 
-              {isActive === "Delete Account" && (
-                <div className="delete-account-section">
-                  <h3 className="header3">Are you sure?</h3>
-                  <p className="warning">This action cannot be undone.</p>
-                  {loading ? <Loadingspinner /> : (
-                    <>
-                      <div className="delete-button-container">
-                        {!showDeleteConfirmation && (
-                          <button
-                            className="button delete-button"
-                            onClick={() => setShowDeleteConfirmation(true)}
-                          >
-                            Delete My Account
-                          </button>
-                        )}
-                        {showDeleteConfirmation && (
-                          <div className="confirm-delete-box">
-                            <input
-                              type="password"
-                              className="confirm-delete-input"
-                              placeholder="Enter password"
-                              value={password}
-                              onChange={(e) => setPassword(e.target.value)}
-                            />
-                            <button
-                              className="button delete-button"
-                              onClick={deleteUser}
-                            >
-                              Confirm Delete
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                      {message && <p className="delete-message">{message}</p>}
-                    </>
-                  )}
-                </div>
-              )}
-              {isActive === "Help & Support" &&
-                <div className="container">
-                  <div className="privacy-card">
-                    <h3 className="topics">Contact Support</h3>
-                    <p className="parags">Reach out via email <a className="email-link" href="to:officialthinklink@gmail.com">officialthinklink@gmail.com</a></p>
-                  </div>
-                  <div className="privacy-card">
-                    <h3 className="topics">Community Support</h3>
-                    <p className="parags">Join our forums and discussions.</p>
-                  </div>
-                  <div className="privacy-card">
-                    <h3 className="topics">Report an Issue</h3>
-                    <p className="parags">Let us know if you encounter any bugs.</p>
-                  </div>
-                </div>
-              }
-              {isActive === "Privacy" && <div className="container">
-                <div className="privacy-card">
-                  <h3>Data Collection</h3>
-                  <p>We collect necessary data for account management and personalization.</p>
-                </div>
-                <div className="privacy-card">
-                  <h3>Data Usage</h3>
-                  <p>We use your data securely for authentication and improving services.</p>
-                </div>
-                <div className="privacy-card">
-                  <h3>User Rights</h3>
-                  <p>You can request data deletion or export at any time.</p>
-                </div>
-                <div className="privacy-card">
-                  <h3>Security Measures</h3>
-                  <p>Your passwords are encrypted, and we follow best security practices.</p>
-                </div>
-                <div className="privacy-card">
-                  <h3>Cookies & Tracking</h3>
-                  <p>We use cookies to improve user experience. You can opt out anytime.</p>
-                </div>
+      {/* Message Feedback */}
+      {message && (
+        <div className={`message-feedback ${message.includes('success') ? 'success' : 'error'}`}>
+          {message}
+        </div>
+      )}
+    </div>
+  </div>
+)}
+        {isActive === "Delete Account" && (
+  <div className="logout-box delete-box">
+    <FiAlertTriangle className="logout-icon" />
+    <h3 className="logout-title">Delete Account Permanently?</h3>
+    <p className="logout-message">
+      This will remove all your data and cannot be undone. 
+      Please confirm your identity to proceed.
+    </p>
+
+    {loading ? (
+      <Loadingspinner />
+    ) : (
+      <div className="delete-content">
+        <div className="delete-button-container">
+          {!showDeleteConfirmation && (
+            <button
+              className="logout-btn confirm"
+              onClick={() => setShowDeleteConfirmation(true)}
+            >
+              Delete Account
+            </button>
+          )}
+          
+          {showDeleteConfirmation && (
+            <div className="confirm-delete-box">
+              <input
+                type="password"
+                className="confirm-delete-input"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <div className="logout-buttons">
+                <button
+                  className="logout-btn confirm"
+                  onClick={deleteUser}
+                >
+                  Confirm Delete
+                </button>
+                <button
+                  className="logout-btn cancel"
+                  onClick={() => setShowDeleteConfirmation(false)}
+                >
+                  Cancel
+                </button>
               </div>
-              }
+            </div>
+          )}
+        </div>
+        
+        {message && (
+          <div className={`message-feedback ${message.includes('success') ? 'success' : 'error'}`}>
+            {message}
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+)}
+
+{isActive === "Help & Support" && (
+  <div className="container">
+    <div className="privacy-card">
+      <h3 className="topics">📩 Contact Support</h3>
+      <p className="parags">
+        Reach out via email at <a className="email-link" href="mailto:officialthinklink@gmail.com">officialthinklink@gmail.com</a>
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">💬 Community Support</h3>
+      <p className="parags">
+        Join our <a href="https://discord.com" target="_blank" className="email-link">Discord server</a> or visit our <a href="https://forum.example.com" target="_blank" className="email-link">support forum</a> for discussions.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">🐞 Report an Issue</h3>
+      <p className="parags">
+        Encountered a bug? <a href="https://github.com/example/issues" target="_blank" className="email-link">Submit an issue</a> on GitHub or use our feedback form.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">📖 FAQs & Docs</h3>
+      <p className="parags">
+        Check out our <a href="https://docs.example.com" target="_blank" className="email-link">Documentation</a> and <a href="https://faq.example.com" target="_blank" className="email-link">FAQs</a> for quick answers.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">📞 Live Chat</h3>
+      <p className="parags">
+        Need immediate help? Chat with our support team <a href="https://chat.example.com" target="_blank" className="email-link">here</a>.
+      </p>
+    </div>
+  </div>
+)}
+
+{isActive === "Privacy" && (
+  <div className="container">
+    <div className="privacy-card">
+      <h3 className="topics">🔍 Data Collection</h3>
+      <p className="parags">
+        We collect necessary data for account management and personalization.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">🔐 Data Usage</h3>
+      <p className="parags">
+        We use your data securely for authentication and improving services.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">⚖️ User Rights</h3>
+      <p className="parags">
+        You can request data deletion or export at any time.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">🛡️ Security Measures</h3>
+      <p className="parags">
+        Your passwords are encrypted, and we follow best security practices.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">🍪 Cookies & Tracking</h3>
+      <p className="parags">
+        We use cookies to improve user experience. You can opt out anytime.
+      </p>
+    </div>
+  </div>
+)}
+
               {isActive === "Photo" && (
                 <div className="professional-photo-section">
                   <div className="upload-card">
@@ -458,19 +591,59 @@ const Editaccount = () => {
                         )}
                       </div>
                     </div>
-
                     {photoExists && (
-                      <div classname="btn-delete-container">
-                      <button
-                        className="btn-delete"
-                        onClick={handleDeletePhoto}
-                        disabled={loading}
-                      >
-                        <FiTrash2 className="delete-icon" />
-                        Delete Photo
-                      </button>
-                      </div>
-                    )}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
+                    marginTop: "2rem",
+                    alignContent: "center",
+                    justifyItems: "center",
+                  }}
+                >
+                  <button
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: "#e53e3e",
+                      color: "white",
+                      padding: "0.75rem 1.5rem",
+                      border: "none",
+                      borderRadius: "6px",
+                      cursor: "pointer",
+                      transition: "background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease",
+                      fontSize: "1rem",
+                      marginTop: "10px",
+                    }}
+                    onMouseOver={(e) => {
+                      e.target.style.backgroundColor = "#c53030";
+                      e.target.style.transform = "scale(1.05)";
+                      e.target.style.boxShadow = "0px 8px 15px rgba(0, 0, 0, 0.2)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.target.style.backgroundColor = "#e53e3e";
+                      e.target.style.transform = "scale(1)";
+                      e.target.style.boxShadow = "none";
+                    }}
+                    onMouseDown={(e) => {
+                      e.target.style.transform = "scale(0.98)";
+                      e.target.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.15)";
+                    }}
+                    onMouseUp={(e) => {
+                      e.target.style.transform = "scale(1)";
+                      e.target.style.boxShadow = "0px 8px 15px rgba(0, 0, 0, 0.2)";
+                    }}
+                    onClick={handleDeletePhoto}
+                    disabled={loading}
+                  >
+                    <FiTrash2 style={{ marginRight: "0.5rem", fontSize: "1.2rem" }} />
+                    Delete Photo
+                  </button>
+                </div>
+              )}
 
                     {message && (
                       <div className={`status-message ${message.includes('success') ? 'success' : 'error'}`}>
