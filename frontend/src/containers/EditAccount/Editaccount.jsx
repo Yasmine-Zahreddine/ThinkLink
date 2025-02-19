@@ -11,6 +11,7 @@ import getuserdata from "../../../api/getuserdata";
 import deleteConfirmationApi from "../../../api/delete-confirmation"; // Renamed import
 import { FiCamera, FiUploadCloud, FiFile, FiCheckCircle, FiAlertTriangle, FiTrash2 } from 'react-icons/fi';
 import { FiAlertCircle } from "react-icons/fi"; // Import icon
+import { User, Link2, Github, Linkedin, Loader2 } from 'lucide-react';
 const Editaccount = () => {
   const navigate = useNavigate();
   const { isActive, setIsActive, setIsLoggedIn } = useAuth();
@@ -281,75 +282,160 @@ const Editaccount = () => {
                     </div>
                   </div>
                 )}
+               {isActive === "Profile" && (
+  <div className="profile-edit-container">
+    <div className="profile-edit-card">
+      <h2 className="profile-edit-title">Edit Profile</h2>
+      
+      {/* Full Name Section */}
+      <div className="form-section">
+        <label className="form-label">
+          <User className="form-label-icon" />
+          Full Name
+        </label>
+        <div className="name-fields-grid">
+          <input
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            className="form-input"
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            className="form-input"
+          />
+        </div>
+      </div>
 
+      {/* Description Section */}
+      <div className="form-section">
+        <label className="form-label">
+          <Link2 className="form-label-icon" />
+          Description
+        </label>
+        <textarea
+          placeholder="Tell us about yourself..."
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="form-textarea"
+        />
+      </div>
 
-              {isActive === "Profile" && (
-                <div className="profile-body">
-                  <div className="input-group">
-                    <label className="labels">Full Name :</label>
-                    <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-                  </div>
-                  <div className="input-group">
-                    <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-                  </div>
+      {/* Social Links Section */}
+      <div className="form-section">
+        <label className="form-label">Social Links</label>
+        <div className="social-input-container">
+          <div className="icon-input-wrapper">
+            <Linkedin className="input-icon" />
+            <input
+              type="text"
+              placeholder="LinkedIn Profile URL"
+              value={linkedIn}
+              onChange={(e) => setLinkedIn(e.target.value)}
+              className="form-input with-icon"
+            />
+          </div>
+          <div className="icon-input-wrapper">
+            <Github className="input-icon" />
+            <input
+              type="text"
+              placeholder="GitHub Profile URL"
+              value={gitHub}
+              onChange={(e) => setGitHub(e.target.value)}
+              className="form-input with-icon"
+            />
+          </div>
+        </div>
+      </div>
 
-                  <div className="input-group">
-                    <label className="labels">Description :</label>
-                    <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-                  </div>
+      {/* Save Button */}
+      <button
+        className="save-button"
+        onClick={handleProfileUpdate}
+        disabled={loading}
+      >
+        {loading ? (
+          <div className="loading-spinner">
+            <Loader2 className="spinner-icon" />
+            Saving...
+          </div>
+        ) : (
+          'Save Changes'
+        )}
+      </button>
 
-                  <div className="input-group">
-                    <label className="labels">Links :</label>
-                    <input type="text" placeholder="LinkedIn Profile URL" value={linkedIn} onChange={(e) => setLinkedIn(e.target.value)} />
-                  </div>
-                  <div className="input-group">
-                    <input type="text" placeholder="GitHub Profile URL" value={gitHub} onChange={(e) => setGitHub(e.target.value)} />
-                  </div>
-                  <div className="save-button-container">
-                    <button className="button" onClick={handleProfileUpdate}>Save</button>
-                  </div>
-                  {message && <p className="message">{message}</p>}
-                </div>
-              )}
+      {/* Message Feedback */}
+      {message && (
+        <div className={`message-feedback ${message.includes('success') ? 'success' : 'error'}`}>
+          {message}
+        </div>
+      )}
+    </div>
+  </div>
+)}
+        {isActive === "Delete Account" && (
+  <div className="logout-box delete-box">
+    <FiAlertTriangle className="logout-icon" />
+    <h3 className="logout-title">Delete Account Permanently?</h3>
+    <p className="logout-message">
+      This will remove all your data and cannot be undone. 
+      Please confirm your identity to proceed.
+    </p>
 
-              {isActive === "Delete Account" && (
-                <div className="delete-account-section">
-                  <h3 className="header3">Are you sure?</h3>
-                  <p className="warning">This action cannot be undone.</p>
-                  {loading ? <Loadingspinner /> : (
-                    <>
-                      <div className="delete-button-container">
-                        {!showDeleteConfirmation && (
-                          <button
-                            className="button delete-button"
-                            onClick={() => setShowDeleteConfirmation(true)}
-                          >
-                            Delete My Account
-                          </button>
-                        )}
-                        {showDeleteConfirmation && (
-                          <div className="confirm-delete-box">
-                            <input
-                              type="password"
-                              className="confirm-delete-input"
-                              placeholder="Enter password"
-                              value={password}
-                              onChange={(e) => setPassword(e.target.value)}
-                            />
-                            <button
-                              className="button delete-button"
-                              onClick={deleteUser}
-                            >
-                              Confirm Delete
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                      {message && <p className="delete-message">{message}</p>}
-                    </>
-                  )}
-                </div>
-              )}
+    {loading ? (
+      <Loadingspinner />
+    ) : (
+      <div className="delete-content">
+        <div className="delete-button-container">
+          {!showDeleteConfirmation && (
+            <button
+              className="logout-btn confirm"
+              onClick={() => setShowDeleteConfirmation(true)}
+            >
+              Delete Account
+            </button>
+          )}
+          
+          {showDeleteConfirmation && (
+            <div className="confirm-delete-box">
+              <input
+                type="password"
+                className="confirm-delete-input"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <div className="logout-buttons">
+                <button
+                  className="logout-btn confirm"
+                  onClick={deleteUser}
+                >
+                  Confirm Delete
+                </button>
+                <button
+                  className="logout-btn cancel"
+                  onClick={() => setShowDeleteConfirmation(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+        
+        {message && (
+          <div className={`message-feedback ${message.includes('success') ? 'success' : 'error'}`}>
+            {message}
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+)}
 
 {isActive === "Help & Support" && (
   <div className="container">
