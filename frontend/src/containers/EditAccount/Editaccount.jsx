@@ -458,19 +458,59 @@ const Editaccount = () => {
                         )}
                       </div>
                     </div>
-
                     {photoExists && (
-                      <div classname="btn-delete-container">
-                      <button
-                        className="btn-delete"
-                        onClick={handleDeletePhoto}
-                        disabled={loading}
-                      >
-                        <FiTrash2 className="delete-icon" />
-                        Delete Photo
-                      </button>
-                      </div>
-                    )}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
+                    marginTop: "2rem",
+                    alignContent: "center",
+                    justifyItems: "center",
+                  }}
+                >
+                  <button
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: "#e53e3e",
+                      color: "white",
+                      padding: "0.75rem 1.5rem",
+                      border: "none",
+                      borderRadius: "6px",
+                      cursor: "pointer",
+                      transition: "background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease",
+                      fontSize: "1rem",
+                      marginTop: "10px",
+                    }}
+                    onMouseOver={(e) => {
+                      e.target.style.backgroundColor = "#c53030";
+                      e.target.style.transform = "scale(1.05)";
+                      e.target.style.boxShadow = "0px 8px 15px rgba(0, 0, 0, 0.2)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.target.style.backgroundColor = "#e53e3e";
+                      e.target.style.transform = "scale(1)";
+                      e.target.style.boxShadow = "none";
+                    }}
+                    onMouseDown={(e) => {
+                      e.target.style.transform = "scale(0.98)";
+                      e.target.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.15)";
+                    }}
+                    onMouseUp={(e) => {
+                      e.target.style.transform = "scale(1)";
+                      e.target.style.boxShadow = "0px 8px 15px rgba(0, 0, 0, 0.2)";
+                    }}
+                    onClick={handleDeletePhoto}
+                    disabled={loading}
+                  >
+                    <FiTrash2 style={{ marginRight: "0.5rem", fontSize: "1.2rem" }} />
+                    Delete Photo
+                  </button>
+                </div>
+              )}
 
                     {message && (
                       <div className={`status-message ${message.includes('success') ? 'success' : 'error'}`}>
