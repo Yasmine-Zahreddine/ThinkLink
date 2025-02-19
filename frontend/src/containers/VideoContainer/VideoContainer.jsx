@@ -37,7 +37,7 @@ const VideoContainer = () => {
           <VideoListContainer key={category} category={category} videos={videos} />
         ))
       ) : (
-        <Loadingspinner />
+        <div></div>
       )}
     </div>
   );
