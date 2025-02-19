@@ -602,7 +602,7 @@ p {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 15rem;
+  margin-top: 12rem;
   text-align: center;
   gap: 1rem;
 }
@@ -616,6 +616,81 @@ p {
   justify-content: center;
   align-items: center;
 }
+
+.logout-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.logout-icon {
+  font-size: 2rem;
+  color: #e53e3e;
+  margin-bottom: 10px;
+}
+
+.logout-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.logout-message {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.logout-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.logout-btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.confirm {
+  background-color: #e53e3e;
+  color: white;
+}
+
+.confirm:hover {
+  background-color: #c53030;
+}
+
+.cancel {
+  background-color: #ccc;
+  color: black;
+}
+
+.cancel:hover {
+  background-color: #999;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @media screen and (max-width:1000px) {
   .button {
     width: 6rem;
@@ -778,3 +853,4 @@ p {
   margin-right: 0.5rem;
   font-size: 1.2rem;
 }
+

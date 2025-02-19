@@ -10,7 +10,7 @@ import { updateUserProfile } from "../../../api/update-profile";
 import getuserdata from "../../../api/getuserdata";
 import deleteConfirmationApi from "../../../api/delete-confirmation"; // Renamed import
 import { FiCamera, FiUploadCloud, FiFile, FiCheckCircle, FiAlertTriangle, FiTrash2 } from 'react-icons/fi';
-
+import { FiAlertCircle } from "react-icons/fi"; // Import icon
 const Editaccount = () => {
   const navigate = useNavigate();
   const { isActive, setIsActive, setIsLoggedIn } = useAuth();
@@ -265,16 +265,23 @@ const Editaccount = () => {
 
           <div className="edit-account-box-editable-container">
             <div className="edit-account-box-editable-body">
-              {isActive === 'Logout' && (
-                <div className="logout-box">
-                  <h3>Are you sure?</h3>
-                  <div className="logout-button">
-                    <button className="button" onClick={handleLogout}>
-                      Logout
-                    </button>
+                {isActive === 'Logout' && (
+                  <div className="logout-box">
+                    <FiAlertCircle className="logout-icon" />
+                    <h3 className="logout-title">Are you sure?</h3>
+                    <p className="logout-message">Logging out will end your session. You can log in again anytime.</p>
+                    
+                    <div className="logout-buttons">
+                      <button className="logout-btn confirm" onClick={handleLogout}>
+                        Logout
+                      </button>
+                      <button className="logout-btn cancel" onClick={() => setIsActive('Profile')}>
+                        Cancel
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+
 
               {isActive === "Profile" && (
                 <div className="profile-body">
@@ -343,45 +350,85 @@ const Editaccount = () => {
                   )}
                 </div>
               )}
-              {isActive === "Help & Support" &&
-                <div className="container">
-                  <div className="privacy-card">
-                    <h3 className="topics">Contact Support</h3>
-                    <p className="parags">Reach out via email <a className="email-link" href="to:officialthinklink@gmail.com">officialthinklink@gmail.com</a></p>
-                  </div>
-                  <div className="privacy-card">
-                    <h3 className="topics">Community Support</h3>
-                    <p className="parags">Join our forums and discussions.</p>
-                  </div>
-                  <div className="privacy-card">
-                    <h3 className="topics">Report an Issue</h3>
-                    <p className="parags">Let us know if you encounter any bugs.</p>
-                  </div>
-                </div>
-              }
-              {isActive === "Privacy" && <div className="container">
-                <div className="privacy-card">
-                  <h3>Data Collection</h3>
-                  <p>We collect necessary data for account management and personalization.</p>
-                </div>
-                <div className="privacy-card">
-                  <h3>Data Usage</h3>
-                  <p>We use your data securely for authentication and improving services.</p>
-                </div>
-                <div className="privacy-card">
-                  <h3>User Rights</h3>
-                  <p>You can request data deletion or export at any time.</p>
-                </div>
-                <div className="privacy-card">
-                  <h3>Security Measures</h3>
-                  <p>Your passwords are encrypted, and we follow best security practices.</p>
-                </div>
-                <div className="privacy-card">
-                  <h3>Cookies & Tracking</h3>
-                  <p>We use cookies to improve user experience. You can opt out anytime.</p>
-                </div>
-              </div>
-              }
+
+{isActive === "Help & Support" && (
+  <div className="container">
+    <div className="privacy-card">
+      <h3 className="topics">📩 Contact Support</h3>
+      <p className="parags">
+        Reach out via email at <a className="email-link" href="mailto:officialthinklink@gmail.com">officialthinklink@gmail.com</a>
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">💬 Community Support</h3>
+      <p className="parags">
+        Join our <a href="https://discord.com" target="_blank" className="email-link">Discord server</a> or visit our <a href="https://forum.example.com" target="_blank" className="email-link">support forum</a> for discussions.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">🐞 Report an Issue</h3>
+      <p className="parags">
+        Encountered a bug? <a href="https://github.com/example/issues" target="_blank" className="email-link">Submit an issue</a> on GitHub or use our feedback form.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">📖 FAQs & Docs</h3>
+      <p className="parags">
+        Check out our <a href="https://docs.example.com" target="_blank" className="email-link">Documentation</a> and <a href="https://faq.example.com" target="_blank" className="email-link">FAQs</a> for quick answers.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">📞 Live Chat</h3>
+      <p className="parags">
+        Need immediate help? Chat with our support team <a href="https://chat.example.com" target="_blank" className="email-link">here</a>.
+      </p>
+    </div>
+  </div>
+)}
+
+{isActive === "Privacy" && (
+  <div className="container">
+    <div className="privacy-card">
+      <h3 className="topics">🔍 Data Collection</h3>
+      <p className="parags">
+        We collect necessary data for account management and personalization.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">🔐 Data Usage</h3>
+      <p className="parags">
+        We use your data securely for authentication and improving services.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">⚖️ User Rights</h3>
+      <p className="parags">
+        You can request data deletion or export at any time.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">🛡️ Security Measures</h3>
+      <p className="parags">
+        Your passwords are encrypted, and we follow best security practices.
+      </p>
+    </div>
+
+    <div className="privacy-card">
+      <h3 className="topics">🍪 Cookies & Tracking</h3>
+      <p className="parags">
+        We use cookies to improve user experience. You can opt out anytime.
+      </p>
+    </div>
+  </div>
+)}
+
               {isActive === "Photo" && (
                 <div className="professional-photo-section">
                   <div className="upload-card">
