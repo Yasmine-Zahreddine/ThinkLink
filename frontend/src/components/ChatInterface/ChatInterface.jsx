@@ -45,7 +45,7 @@ const ChatInterface = ({ userId }) => {
         const response = await getChatResponse(userMessage, userId);
         console.log(response);
         setMessages(prev => [...prev, { 
-          text: response.response, 
+          text: response.data.message, 
           sender: 'bot' 
         }]);
       } catch (error) {

@@ -37,7 +37,7 @@ Route::middleware('api')->post('/chat-bot', function (Request $request) {
         return response()->json([
             'success' => false,
             'message' => 'Failed to process message'
-        ], 500);
+        ],500);
     }
 });
 

@@ -13,6 +13,8 @@ class ChatHistory extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
+    public $timestamps = false; // Disable timestamps
+
     protected $fillable = [
         'userMessage',
         'botResponse',
