@@ -1,11 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import './chatInterface.css';
-import logo from '../../assets/logos/logo_lighttheme_thinklink.png'
+import logo from '../../assets/logos/logo_lighttheme_thinklink.png';
+import { getChatResponse } from '../../../api/chat';
+import Error from '../error/Error';  // Import Error component
 
-const ChatInterface = () => {
+const ChatInterface = ({ userId }) => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isRolling, setIsRolling] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);  // Add error state
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -19,7 +24,7 @@ const ChatInterface = () => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     
@@ -31,13 +36,26 @@ const ChatInterface = () => {
     }
     
     if (inputMessage.trim()) {
-      setMessages(prev => [...prev, { text: inputMessage, sender: 'user' }]);
+      const userMessage = inputMessage.trim();
+      setMessages(prev => [...prev, { text: userMessage, sender: 'user' }]);
       setInputMessage('');
-      const messagesContainer = document.querySelector('.messages-container');
-      messagesContainer?.scrollTo({
-        top: messagesContainer.scrollHeight,
-        behavior: 'smooth'
-      });
+      setLoading(true);
+
+      try {
+        const response = await getChatResponse(userMessage, userId);
+        setMessages(prev => [...prev, { 
+          text: response.message, 
+          sender: 'bot' 
+        }]);
+      } catch (error) {
+        setMessages(prev => [...prev, { 
+          text: error.message || 'Something went wrong. Please try again.',
+          sender: 'bot',
+          isError: true 
+        }]);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -59,7 +77,8 @@ const ChatInterface = () => {
         {messages.map((message, index) => (
           <div 
             key={index} 
-            className={`message ${message.sender === 'user' ? 'user-message' : 'bot-message'}`}
+            className={`message ${message.sender === 'user' ? 'user-message' : 'bot-message'}
+                      ${message.isError ? 'error-message' : ''}`}
           >
             {message.text}
           </div>
@@ -69,11 +88,7 @@ const ChatInterface = () => {
 
       <form 
         className="chat-input-form" 
-        onSubmit={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          handleSubmit(e);
-        }}
+        onSubmit={handleSubmit}
       >
         <input
           type="text"
@@ -86,18 +101,25 @@ const ChatInterface = () => {
               handleSubmit(e);
             }
           }}
-          placeholder="Ask a question..."
+          placeholder={loading ? "Processing..." : "Ask a question..."}
           className="chat-input"
+          disabled={loading}
         />
         <button 
           type="submit" 
           className="send-button"
+          disabled={loading}
         >
-          Send
+          {loading ? "..." : "Send"}
         </button>
       </form>
     </div>
   );
+};
+
+// Add PropTypes validation
+ChatInterface.propTypes = {
+  userId: PropTypes.string.isRequired
 };
 
 export default ChatInterface;

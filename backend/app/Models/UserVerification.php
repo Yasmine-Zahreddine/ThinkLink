@@ -23,7 +23,6 @@ class UserVerification extends Model
         'expires_at',
     ];
 
-    // Automatically manage timestamps
     public $timestamps = true;
     const CREATED_AT = 'created_at';
 }
