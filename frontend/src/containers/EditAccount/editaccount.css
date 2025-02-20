@@ -298,6 +298,7 @@ h2 {
   border-radius: 8px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  animation: fadeIn 0.3s ease-in-out;
 }
 .confirm-delete-box{
   display: flex;
@@ -412,6 +413,7 @@ p {
   border: 1px solid #eaeef5;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 
