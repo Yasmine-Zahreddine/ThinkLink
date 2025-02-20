@@ -134,7 +134,7 @@ const Editaccount = () => {
         // Fast reload while keeping loading visible
         setTimeout(() => {
           window.location.replace(window.location.href);
-        }, 500); // Reload in 500ms for a smooth transition
+        }, 1); 
       } else {
         throw new Error(result.message || "Upload failed.");
       }
