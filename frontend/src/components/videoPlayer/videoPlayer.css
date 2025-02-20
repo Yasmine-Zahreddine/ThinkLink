@@ -8,16 +8,17 @@
   display: flex;
   gap: 2rem;
   align-items: flex-start;
+  max-width: 100%;
 }
 
 .video-section {
-  flex: 1;
-  max-width: calc(100% - 332px); 
+  flex: 0 0 auto; /* Changed to prevent shrinking */
+  width: 65%; /* Fixed width instead of flex-basis */
 }
 
 .video-wrapper {
   position: relative;
-  width: 90%;
+  width: 100%; /* Changed from 90% */
   padding-bottom: 55%; 
   margin-right: auto;
 }
@@ -66,7 +67,10 @@
 }
 
 .bot_interface{
-    margin-top: 30px;
+  flex: 1;
+  margin-top: 30px;
+  width: 35%; /* Added width */
+  min-width: 400px; /* Minimum width for the chat interface */
 }
 
 @keyframes matrixBg {

@@ -79,6 +79,26 @@
   animation-delay: 0.2s; 
 }
 
+.message.error-message {
+    background-color: #ffebeb;
+    color: #d32f2f;
+    border-left: 3px solid #d32f2f;
+    align-self: flex-start;
+    animation-delay: 0.2s;
+}
+
+.error-message {
+  background-color: #ffebeb !important;
+  color: #d32f2f !important;
+  border-left: 3px solid #d32f2f;
+}
+
+.error-message:hover {
+  background-color: #ffe5e5 !important;
+}
+
+
+
 .chat-input-form {
   display: flex;
   padding: 1rem;

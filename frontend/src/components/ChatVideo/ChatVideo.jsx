@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './chatvideo.css';
-import logo from '../../assets/logos/logo_lighttheme_thinklink.png'
+import logo from '../../assets/logos/logo_lighttheme_thinklink.png';
+import { getChatResponse } from '../../../api/chatVideo';
 
-const ChatInterface = () => {
+const ChatvideoInterface = ({ videoId }) => {
   const [messages, setMessages] = useState([]);
-  const [inputMessage, setInputMessage] = useState('');
-  const [isRolling, setIsRolling] = useState(false);
+  const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -19,85 +19,90 @@ const ChatInterface = () => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (inputMessage.trim().toLowerCase() === 'do a barrel roll') {
-      setIsRolling(true);
-      setInputMessage('');
-      setTimeout(() => setIsRolling(false), 1000);
-      return;
+  const handleQuestionClick = async (questionType) => {
+    let userQuestion = '';
+    switch (questionType) {
+      case 'summary':
+        userQuestion = 'Summarize the video';
+        break;
+      case 'mainPoints':
+        userQuestion = 'What are the main points of the video?';
+        break;
+      case 'quiz':
+        userQuestion = 'Generate a quiz based on the video content';
+        break;
+      default:
+        return;
     }
-    
-    if (inputMessage.trim()) {
-      setMessages(prev => [...prev, { text: inputMessage, sender: 'user' }]);
-      setInputMessage('');
-      const messagesContainer = document.querySelector('.messages-container');
-      messagesContainer?.scrollTo({
-        top: messagesContainer.scrollHeight,
-        behavior: 'smooth'
-      });
-    }
-  };
 
-  const handleScroll = (e) => {
-    e.stopPropagation();
+    setMessages(prev => [...prev, { text: userQuestion, sender: 'user' }]);
+    setLoading(true);
+
+    try {
+      const response = await getChatResponse(questionType, videoId);
+      setMessages(prev => [...prev, { 
+        text: response.message, 
+        sender: 'bot' 
+      }]);
+    } catch (error) {
+      setMessages(prev => [...prev, { 
+        text:  'Something went wrong. Please try again.', 
+        sender: 'bot',
+        isError: true 
+      }]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className={`chat-interface ${isRolling ? 'barrel-roll' : ''}`} onClick={e => e.stopPropagation()}>
-      <div className="chat-header">
-        <img src={logo} alt="logo" className="chat-logo" />
+    <div className="chatvideo-interface" onClick={e => e.stopPropagation()}>
+      <div className="chatvideo-header">
+        <img src={logo} alt="logo" className="chatvideo-logo" />
       </div>
       
       <div 
         className="messages-container" 
-        onWheel={handleScroll}
-        onTouchMove={handleScroll}
+        onWheel={e => e.stopPropagation()}
+        onTouchMove={e => e.stopPropagation()}
       >
         {messages.map((message, index) => (
           <div 
             key={index} 
-            className={`message ${message.sender === 'user' ? 'user-message' : 'bot-message'}`}
+            className={`message ${message.sender === 'user' ? 'user-message' : 'bot-message'}
+                      ${message.isError ? 'error-message' : ''}`}
           >
             {message.text}
           </div>
         ))}
-        <div ref={messagesEndRef} /> {/* Scroll anchor */}
+        <div ref={messagesEndRef} />
       </div>
 
-      <form 
-        className="chat-input-form" 
-        onSubmit={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          handleSubmit(e);
-        }}
-      >
-        <input
-          type="text"
-          value={inputMessage}
-          onChange={(e) => setInputMessage(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-              e.stopPropagation();
-              handleSubmit(e);
-            }
-          }}
-          placeholder="Ask a question..."
-          className="chat-input"
-        />
+      <div className="chatvideo-buttons-container">
         <button 
-          type="submit" 
-          className="send-button"
+          className="chatvideo-action-button"
+          onClick={() => handleQuestionClick('summary')}
+          disabled={loading}
         >
-          Send
+          Summarize Video
         </button>
-      </form>
+        <button 
+          className="chatvideo-action-button"
+          onClick={() => handleQuestionClick('mainPoints')}
+          disabled={loading}
+        >
+          Main Points
+        </button>
+        <button 
+          className="chatvideo-action-button"
+          onClick={() => handleQuestionClick('quiz')}
+          disabled={loading}
+        >
+          Generate Quiz
+        </button>
+      </div>
     </div>
   );
 };
 
-export default ChatInterface;
+export default ChatvideoInterface;
