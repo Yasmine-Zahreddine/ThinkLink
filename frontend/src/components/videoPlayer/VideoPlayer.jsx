@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import ChatInterface from '../ChatInterface/ChatInterface';
+import ChatVideo from '../ChatVideo/ChatVideo';
 import './videoPlayer.css';
 
 const VideoPlayer = () => {
@@ -85,7 +85,7 @@ const VideoPlayer = () => {
           </div>
         </div>
         <div className="chat-interface-wrapper">
-          <ChatInterface className="bot_interface"/>
+          <ChatVideo className="bot_interface"/>
         </div>
       </div>
     </div>

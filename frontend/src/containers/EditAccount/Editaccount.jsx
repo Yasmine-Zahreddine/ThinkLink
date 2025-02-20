@@ -58,7 +58,7 @@ const Editaccount = () => {
         setGitHub(response.data.github_url || "");
         setFullname(`${response.data.first_name} ${response.data.last_name}`);
         setPreviewUrl(response.data.pfp_url || profile);
-        setPhotoExists(!!response.data.pfp_url); // Update photoExists state
+        setPhotoExists(!!response.data.pfp_url); 
         cookie.set('pfp_url', response.data.pfp_url);
       }
     } catch (error) {
@@ -66,7 +66,7 @@ const Editaccount = () => {
     }
   };
   useEffect(() => {
-    setMessage(""); // Reset message when switching sections
+    setMessage(""); 
   }, [isActive]);
   useEffect(() => {
     fetchUserData();
