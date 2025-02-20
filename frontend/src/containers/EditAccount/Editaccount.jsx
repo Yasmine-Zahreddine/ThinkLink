@@ -100,60 +100,60 @@ const Editaccount = () => {
       console.error("Error updating profile:", error);
     }
   };
-
   const handleUpload = async () => {
     if (!selectedFile) {
       setMessage("Please select a file first!");
       return;
     }
-
+  
     setLoading(true);
     setMessage("");
-
+  
     try {
       const userId = cookie.get("userId");
       if (!userId) {
         throw new Error("User ID not found in cookies");
       }
-
+  
       const formData = new FormData();
       formData.append("user_id", userId);
       formData.append("file", selectedFile);
-
-      const token = cookie.get("authToken"); // Ensure this contains the user's authentication token
-
+  
       const response = await fetch("http://localhost:8000/api/upload-photo", {
         method: "POST",
         body: formData,
       });
-
+  
       const result = await response.json();
-
+  
       if (response.ok && result.success) {
         setMessage("Photo uploaded successfully!");
-        setPreviewUrl(result.file_url); // Update the UI with the new profile photo
+        setPreviewUrl(result.file_url); // Update UI with the new profile photo
         setPhotoExists(true); // Update photoExists state
+  
+        // Fast reload while keeping loading visible
+        setTimeout(() => {
+          window.location.replace(window.location.href);
+        }, 500); // Reload in 500ms for a smooth transition
       } else {
         throw new Error(result.message || "Upload failed.");
       }
     } catch (error) {
       console.error("Error uploading photo:", error);
       setMessage(error.message);
-    } finally {
-      setLoading(false);
     }
   };
-
+  
   const handleDeletePhoto = async () => {
     setLoading(true);
     setMessage("");
-
+  
     try {
       const userId = cookie.get("userId");
       if (!userId) {
         throw new Error("User ID not found in cookies");
       }
-
+  
       const response = await fetch("http://localhost:8000/api/delete-photo", {
         method: "POST",
         headers: {
@@ -161,23 +161,27 @@ const Editaccount = () => {
         },
         body: JSON.stringify({ user_id: userId }),
       });
-
+  
       const result = await response.json();
-
+  
       if (response.ok && result.success) {
         setMessage("Photo deleted successfully!");
         setPreviewUrl(profile); // Reset to default profile image
-        setPhotoExists(false); // Update photoExists state
+        setPhotoExists(false); // Update state
+  
+        // Faster reload with a minimal delay
+        setTimeout(() => {
+          window.location.replace(window.location.href);
+        }, 500); // Reduced delay to 500ms
       } else {
         throw new Error(result.message || "Failed to delete photo.");
       }
     } catch (error) {
       console.error("Error deleting photo:", error);
       setMessage(error.message);
-    } finally {
-      setLoading(false);
     }
   };
+  
 
   const deleteUser = async () => { // Removed password parameter
     try {
