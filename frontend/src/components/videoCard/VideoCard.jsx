@@ -10,7 +10,7 @@ const VideoCard = ({ video }) => {
       window.scrollTo(0, 0); 
       navigate('/video-player', { state: { video } });
     } else {
-      window.scrollTo(0, 0); // Scrolls to the top before navigating
+      window.scrollTo(0, 0); 
       navigate('/signin');
     }
   };

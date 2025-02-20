@@ -33,7 +33,6 @@ const ChatInterface = () => {
     if (inputMessage.trim()) {
       setMessages(prev => [...prev, { text: inputMessage, sender: 'user' }]);
       setInputMessage('');
-      // Scroll only within the messages container
       const messagesContainer = document.querySelector('.messages-container');
       messagesContainer?.scrollTo({
         top: messagesContainer.scrollHeight,

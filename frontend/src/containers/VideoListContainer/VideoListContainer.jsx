@@ -6,9 +6,7 @@ import './videoListContainer.css';
 const VideoListContainer = ({ category, videos = [] }) => {
   const [showAll, setShowAll] = useState(false);
   const filteredVideos = videos.filter((video) => video.category === category);
-  const initialDisplay = 4; // Number of videos to show initially
-
-  // Move this inside the component to ensure it updates when showAll changes
+  const initialDisplay = 4; 
   const visibleVideos = showAll ? filteredVideos : filteredVideos.slice(0, initialDisplay);
   const hasMoreVideos = filteredVideos.length > initialDisplay;
 

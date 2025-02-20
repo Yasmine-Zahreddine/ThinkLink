@@ -31,10 +31,9 @@ const VideoContainer = () => {
 
   const handleRetry = () => {
     setIsRetrying(true);
-    // Add a slight delay before reloading to show the spinner
     setTimeout(() => {
       window.location.reload();
-    }, 1000); // 1 second delay
+    }, 1000); 
   };
 
   const categories = [...new Set(videos.map((video) => video.category))];

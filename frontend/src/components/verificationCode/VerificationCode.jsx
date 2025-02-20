@@ -93,7 +93,6 @@ const VerificationCode = () => {
             setError('');
             setVerificationEmail('');
             Cookies.set("isLoggedIn", true, { expires: 7 });
-            // Set user ID cookie here too
             Cookies.set("userId", response.user_id, { expires: 7, path: '/' });
             
             

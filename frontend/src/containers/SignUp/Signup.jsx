@@ -44,8 +44,6 @@ const Signup = () => {
         setError("Please agree to the Terms of Use and Privacy Policy");
         return;
     }
-
-    // Reset error state
     setError("");
     setLoading(true);
 

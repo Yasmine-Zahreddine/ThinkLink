@@ -14,7 +14,7 @@ const VideoPlayer = () => {
     const handleKeyPress = (e) => {
       setKonami(prev => {
         const newKonami = prev + e.key;
-        return newKonami.slice(-9); // Keep last 9 characters (length of 'thinklink')
+        return newKonami.slice(-9); 
       });
     };
 
@@ -25,7 +25,6 @@ const VideoPlayer = () => {
   useEffect(() => {
     if (konami === 'thinklink') {
       setIsMatrix(true);
-      // Optional: Play matrix sound effect
       new Audio('/assets/sounds/matrix.mp3').play().catch(() => {});
       setTimeout(() => {
         setIsMatrix(false);
@@ -35,23 +34,17 @@ const VideoPlayer = () => {
   }, [konami]);
 
   useEffect(() => {
-    // Save current scroll position
     const scrollPos = window.scrollY;
     
-    // Reset scroll position
     window.scrollTo(0, 0);
-    
-    // Prevent scroll events temporarily
     const preventDefault = (e) => {
       e.preventDefault();
     };
     
     window.addEventListener('scroll', preventDefault, { passive: false });
     
-    // Cleanup
     return () => {
       window.removeEventListener('scroll', preventDefault);
-      // Restore original scroll position when component unmounts
       window.scrollTo(0, scrollPos);
     };
   }, []);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './pfp.css';
-import user from '../../assets/logos/user.png'; // Dark mode default
-import profile from "../../assets/logos/userLight.png"; // Light mode default
+import user from '../../assets/logos/user.png'; 
+import profile from "../../assets/logos/userLight.png"; 
 import classNames from 'classnames';
 import cookie from "js-cookie";
 import getuserdata from "../../../api/getuserdata";
@@ -21,11 +21,9 @@ const Pfp = () => {
   const navigate = useNavigate();
   const profileRef = useRef(null);
   
-  // Profile Picture States
-  const [pfp1, setPfp1] = useState(user); // Dark Mode Profile Pic
-  const [pfp2, setPfp2] = useState(profile); // Light Mode Profile Pic
+  const [pfp1, setPfp1] = useState(user); 
+  const [pfp2, setPfp2] = useState(profile); 
 
-  // Fetch user data
   const fetchUserData = async () => {
     setIsLoading(true);
     try {
@@ -35,18 +33,15 @@ const Pfp = () => {
       const data = await getuserdata(userId);
       setUserData(data);
 
-      // Format names
       const formattedFirstName = data.first_name.charAt(0).toUpperCase() + data.first_name.slice(1);
       const formattedLastName = data.last_name.charAt(0).toUpperCase() + data.last_name.slice(1);
       cookie.set("fullName", `${formattedFirstName} ${formattedLastName}`, { path: "/" });
 
-      // Check if pfp_url exists and is not empty
       if (data.pfp_url !== '') {
         setPfp1(`${data.pfp_url}?t=${Date.now()}`);
         setPfp2(`${data.pfp_url}?t=${Date.now()}`);
         cookie.set("pfp_url", data.pfp_url, { path: "/" });
       } else {
-        // If empty, use default images
         setPfp1(user);
         setPfp2(profile);
       }
@@ -63,12 +58,10 @@ const Pfp = () => {
     }
   };
 
-  // Fetch user data on mount
   useEffect(() => {
     fetchUserData();
   }, []);
 
-  // Handle profile click animation
   const handleClick = (event) => {
     event.stopPropagation();
     if (isClicked) {
@@ -79,8 +72,6 @@ const Pfp = () => {
       setTimeout(() => setIsAnimating(false), 300);
     }
   };
-
-  // Close profile dropdown
   const closeProfile = () => {
     setIsAnimatingOut(true);
     setTimeout(() => {
@@ -88,8 +79,6 @@ const Pfp = () => {
       setIsAnimatingOut(false);
     }, 300);
   };
-
-  // Navigate to profile settings
   const handleProfileNav = () => {
     cookie.set('isActive', "Profile", { path: "/" });
     setIsAnimatingOut(true);
@@ -100,7 +89,6 @@ const Pfp = () => {
     }, 300);
   };
 
-  // Navigate to Help & Support
   const handleHelp = () => {
     cookie.set('isActive', "Help & Support", { path: "/" });
     setIsAnimatingOut(true);
@@ -111,34 +99,30 @@ const Pfp = () => {
     }, 300);
   };
 
-  // Remove all cookies dynamically
+
   const removeAllCookies = () => {
     document.cookie.split(";").forEach((cookie) => {
       document.cookie = cookie
-        .replace(/^ +/, "") // Trim spaces
-        .replace(/=.*/, "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"); // Expire cookie
+        .replace(/^ +/, "") 
+        .replace(/=.*/, "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"); 
     });
-
-    // Remove via js-cookie as well
     Object.keys(cookie.get()).forEach((key) => {
       cookie.remove(key, { path: "/" });
     });
   };
 
-  // Handle logout function
   const handleLogout = () => {
     setLogoutSpinner(true);
     closeProfile();
 
     setTimeout(() => {
-      removeAllCookies(); // Remove all cookies
+      removeAllCookies();
       setIsLoggedIn(false);
       navigate('/signin');
       setLogoutSpinner(false);
     }, 1000);
   };
 
-  // Handle clicking outside the profile dropdown
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {

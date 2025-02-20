@@ -13,7 +13,7 @@ const ChatButton = () => {
       setTimeout(() => {
         setIsChatOpen(false);
         setIsClosing(false);
-      }, 300); // Matches animation duration
+      }, 300); 
     } else {
       setIsChatOpen(true);
     }

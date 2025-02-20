@@ -24,11 +24,11 @@ const Editaccount = () => {
   const [gitHub, setGitHub] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); // Renamed state
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [password, setPassword] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(profile);
-  const [photoExists, setPhotoExists] = useState(false); // New state to track if a photo exists
+  const [photoExists, setPhotoExists] = useState(false); 
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -130,10 +130,9 @@ const Editaccount = () => {
   
       if (response.ok && result.success) {
         setMessage("Photo uploaded successfully!");
-        setPreviewUrl(result.file_url); // Update UI with the new profile photo
-        setPhotoExists(true); // Update photoExists state
+        setPreviewUrl(result.file_url); 
+        setPhotoExists(true); 
   
-        // Fast reload while keeping loading visible
         setTimeout(() => {
           window.location.replace(window.location.href);
         }, 1); 
@@ -168,13 +167,11 @@ const Editaccount = () => {
   
       if (response.ok && result.success) {
         setMessage("Photo deleted successfully!");
-        setPreviewUrl(profile); // Reset to default profile image
-        setPhotoExists(false); // Update state
-  
-        // Faster reload with a minimal delay
+        setPreviewUrl(profile); 
+        setPhotoExists(false); 
         setTimeout(() => {
           window.location.replace(window.location.href);
-        }, 500); // Reduced delay to 500ms
+        }, 500); 
       } else {
         throw new Error(result.message || "Failed to delete photo.");
       }
@@ -192,8 +189,6 @@ const Editaccount = () => {
 
       const userId = cookie.get("userId");
       if (!userId) throw new Error("User ID not found in cookies");
-
-      // Use the password from state
       const confirmationResponse = await deleteConfirmationApi(userId, password);
       if (!confirmationResponse.success) {
         throw new Error(confirmationResponse.message || "Password verification failed.");
@@ -222,7 +217,6 @@ const Editaccount = () => {
     }
   };
 
-  // Remove all cookies dynamically
   const removeAllCookies = () => {
     document.cookie.split(";").forEach((cookie) => {
       document.cookie = cookie
@@ -230,18 +224,16 @@ const Editaccount = () => {
         .replace(/=.*/, "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"); // Expire cookie
     });
 
-    // Remove via js-cookie as well
     Object.keys(cookie.get()).forEach((key) => {
       cookie.remove(key, { path: "/" });
     });
   };
 
-  // Handle logout function
   const handleLogout = () => {
     setLoading(true);
 
     setTimeout(() => {
-      removeAllCookies(); // Remove all cookies
+      removeAllCookies(); 
 
       setIsLoggedIn(false);
       navigate('/signin');
@@ -293,7 +285,6 @@ const Editaccount = () => {
     <div className="profile-edit-card">
       <h2 className="profile-edit-title">Edit Profile</h2>
       
-      {/* Full Name Section */}
       <div className="form-section">
         <label className="form-label">
           <User className="form-label-icon" />
@@ -317,7 +308,6 @@ const Editaccount = () => {
         </div>
       </div>
 
-      {/* Description Section */}
       <div className="form-section">
         <label className="form-label">
           <Link2 className="form-label-icon" />
@@ -331,7 +321,6 @@ const Editaccount = () => {
         />
       </div>
 
-      {/* Social Links Section */}
       <div className="form-section">
         <label className="form-label">Social Links</label>
         <div className="social-input-container">
@@ -358,7 +347,6 @@ const Editaccount = () => {
         </div>
       </div>
 
-      {/* Save Button */}
       <button
         className="save-button"
         onClick={handleProfileUpdate}
@@ -373,8 +361,6 @@ const Editaccount = () => {
           'Save Changes'
         )}
       </button>
-
-      {/* Message Feedback */}
       {message && (
         <div className={`message-feedback ${message.includes('success') ? 'success' : 'error'}`}>
           {message}
