@@ -1,5 +1,5 @@
 <?php
-
+use App\Models\ChatHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -12,18 +12,86 @@ use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\VideoController;
 
 Route::middleware('api')->post('/chat-bot', function (Request $request) {
+    try {
+        $validatedData = $request->validate([
+            'user_id' => 'required|string|exists:users,user_id',
+            'message' => 'required|string',
+        ]);
+
+        $chatHistory = new ChatHistory();
+        $result = $chatHistory->processMessage(
+            $validatedData['message'], 
+            $validatedData['user_id']
+        );
+        Log::info('Chat Bot Response:', ['response' => $result]);
+        return response()->json($result, 200);
+
+    } catch (ValidationException $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation error',
+            'errors' => $e->errors()
+        ], 422);
+    } catch (\Exception $e) {
+        Log::error('Chat Bot Error:', ['error' => $e->getMessage()]);
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to process message'
+        ], 500);
+    }
+});
+
+Route::middleware('api')->post('/video-player-chat', function (Request $request) {
     $validatedData = $request->validate([
-        'user_id' => 'required|string|exists:users,user_id',
-        'message' => 'required|string',
+        'type' => 'required|string|in:summary,quiz,mainPoints',
     ]);
 
-    $userId = $validatedData['user_id'];
-    $message = $validatedData['message'];
+    $type = $validatedData['type'];
+    $apiUrl = '';
 
-    $chatController = new ChatController();
-    $chatHistory = $chatController->processMessage($message, $userId);
+    switch ($type) {
+        case 'summary':
+            $apiUrl = 'http://127.0.0.1:5000/summarize';
+            break;
+        case 'quiz':
+            $apiUrl = 'http://127.0.0.1:5000/generateQuiz';
+            break;
+        case 'mainPoints':
+            $apiUrl = 'http://127.0.0.1:5000/keyPoints';
+            break;
+        default:
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid type provided',
+            ], 400);
+    }
 
-    return response($chatHistory, 200)->header('Content-Type', 'application/json');
+    try {
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post($apiUrl);
+
+        $data = json_decode($response->getBody(), true);
+
+        if (isset($data['response'])) {
+            return response()->json([
+                'success' => true,
+                'response' => $data['response'],
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch data from FastAPI or invalid response format',
+                'error' => $data,
+            ], 500);
+        }
+    } catch (\Exception $e){
+        Log::error('Error calling FastAPI endpoint: ' . $e->getMessage());
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to fetch data from FastAPI',
+            'error' => $e->getMessage(),
+        ], 500);
+    }
 });
 
 Route::middleware('api')->post('/signup', function (Request $request) {

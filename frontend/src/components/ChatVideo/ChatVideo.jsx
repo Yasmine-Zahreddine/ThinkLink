@@ -40,8 +40,9 @@ const ChatvideoInterface = ({ videoId }) => {
 
     try {
       const response = await getChatResponse(questionType, videoId);
+      console.log(response);
       setMessages(prev => [...prev, { 
-        text: response.message, 
+        text: response.response, 
         sender: 'bot' 
       }]);
     } catch (error) {

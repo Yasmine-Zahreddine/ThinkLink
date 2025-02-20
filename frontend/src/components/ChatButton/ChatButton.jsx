@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import logo from '../../assets/logos/logo.png';
 import ChatInterface from '../ChatInterface/ChatInterface';
+import cookie from "js-cookie";
+
 import './chatButton.css';
 
 const ChatButton = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
+
+  const userId = cookie.get("userId");
   const toggleChat = () => {
     if (isChatOpen) {
       setIsClosing(true);
@@ -27,7 +31,7 @@ const ChatButton = () => {
 
       {isChatOpen && (
         <div className={`chat-float-container ${isClosing ? 'close' : 'open'}`}>
-          <ChatInterface />
+          <ChatInterface userId={userId} />
           <button className="chat-close-button" onClick={toggleChat}>
             ×
           </button>
