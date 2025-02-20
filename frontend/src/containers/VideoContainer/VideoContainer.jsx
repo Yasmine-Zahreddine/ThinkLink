@@ -6,38 +6,54 @@ import ErrorDisplay from '../../components/ErrorDisplay/ErrorDisplay';
 const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
   const [error, setError] = useState(null);
+  const [isRetrying, setIsRetrying] = useState(false);
+
+  const fetchVideos = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/videos');
+      if (!response.ok) {
+        throw new Error('Failed to fetch videos');
+      }
+      const data = await response.json();
+      setVideos(data.data);
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching videos:', err);
+      setError(err.message);
+    } finally {
+      setIsRetrying(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/api/videos'); // Changed from /get_videos to /videos
-        if (!response.ok) {
-          throw new Error('Failed to fetch videos');
-        }
-        const data = await response.json();
-        setVideos(data.data); // Assuming the data is in the 'data' field
-      } catch (err) {
-        console.error('Error fetching videos:', err);
-        setError(err.message);
-      }
-    };
-
     fetchVideos();
   }, []);
 
-  // Get unique categories from the video data
+  const handleRetry = () => {
+    setIsRetrying(true);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000); 
+  };
+
   const categories = [...new Set(videos.map((video) => video.category))];
 
   return (
     <div>
       {error ? (
-        <ErrorDisplay message="" />
+        <ErrorDisplay 
+          message={error} 
+          onRetry={handleRetry}
+          isRetrying={isRetrying}
+        />
+      ) : isRetrying ? (
+        <Loadingspinner />
       ) : categories.length > 0 ? (
         categories.map((category) => (
           <VideoListContainer key={category} category={category} videos={videos} />
         ))
       ) : (
-        <Loadingspinner />
+        <div></div>
       )}
     </div>
   );

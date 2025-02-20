@@ -57,11 +57,11 @@
     height: auto;
 }
 .profile-image {
-    width: 120px; /* Adjust size as needed */
+    width: 120px;
     height: 120px;
-    border-radius: 50%; /* Makes it circular */
-    object-fit: cover; /* Ensures the image fills the space properly */
-    border: 3px solid #ddd; /* Optional: Adds a border */
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 3px solid #ddd; 
 }
 
 .options {
@@ -128,7 +128,7 @@ h3 {
     width: 100%;
     flex-direction: column;
     align-items: center;
-    position: relative; /* Added to position char-count inside */
+    position: relative;
 }
 
 .input-group input,
@@ -140,7 +140,7 @@ h3 {
     border-radius: 5px;
     outline: none;
     transition: 0.3s;
-    position: relative; /* Ensures the span is positioned inside */
+    position: relative; 
 }
 
 .input-group input:focus,
@@ -298,6 +298,7 @@ h2 {
   border-radius: 8px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  animation: fadeIn 0.3s ease-in-out;
 }
 .confirm-delete-box{
   display: flex;
@@ -330,7 +331,6 @@ p {
   font-size: 1rem;
 }
 
-/* Photo Upload Section */
 .photo-upload-section {
   padding: 20px;
   text-align: center;
@@ -397,7 +397,6 @@ p {
   font-size: 0.9em;
 }
 
-/* Professional Photo Section Styles */
 .professional-photo-section {
   padding: 2rem;
   max-width: 680px;
@@ -412,6 +411,7 @@ p {
   border: 1px solid #eaeef5;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 
@@ -811,7 +811,7 @@ p {
   width: 70%;
 }
 }
-/* Profile Edit Section Styles */
+
 .profile-edit-container {
   width: 80%;
 
@@ -974,7 +974,6 @@ p {
 }
 
 
-/* Delete Account Styles */
 .delete-box {
   max-width: 400px;
   
@@ -1015,7 +1014,6 @@ p {
   gap: 1rem;
 }
 
-/* Animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }

@@ -35,32 +35,39 @@ Route::middleware('api')->post('/signup', function (Request $request) {
     ]);
 
     try {
-        $verificationCode = random_int(100000, 999999);
+        // Start database transaction
+        return DB::transaction(function () use ($validatedData) {
+            $verificationCode = random_int(100000, 999999);
 
-        DB::table('user_verifications')->updateOrInsert(
-            ['email' => $validatedData['email']],
-            [
+            // Clean up any existing verification for this email
+            DB::table('user_verifications')
+                ->where('email', $validatedData['email'])
+                ->delete();
+
+            // Insert new verification
+            DB::table('user_verifications')->insert([
                 'first_name' => $validatedData['first_name'],
                 'last_name' => $validatedData['last_name'],
                 'email' => $validatedData['email'],
                 'password' => Hash::make($validatedData['password']),
                 'verification_code' => $verificationCode,
                 'expires_at' => now()->addMinutes(10),
-            ]
-        );
+            ]);
 
-        // Send verification email
-        Mail::to(env('RENDER_EMAIL'))->send(new VerificationCode($verificationCode));
+            // Send verification email synchronously
+            Mail::to(env('RENDER_EMAIL'))->send(new VerificationCode($verificationCode));
 
-        return response()->json([
-            'success' => true,
-            'message' => 'A verification code has been sent to your email.',
-        ], 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'A verification code has been sent to your email.',
+            ], 200);
+        });
     } catch (\Exception $e) {
         Log::error('Error in signup: ' . $e->getMessage());
         return response()->json([
             'success' => false,
             'message' => 'Something went wrong',
+            'error' => app()->environment('local') ? $e->getMessage() : null
         ], 500);
     }
 });
@@ -258,6 +265,7 @@ Route::middleware('api')->post('/forgot-password', function (Request $request) {
             ]
         );
 
+        // Send email synchronously
         Mail::to(env('RENDER_EMAIL'))->send(new VerificationCode($verificationCode));
 
         return response()->json([

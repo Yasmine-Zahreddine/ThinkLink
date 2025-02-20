@@ -1,0 +1,190 @@
+.chatvideo-interface {
+    width: 100%; /* Changed from fixed width */
+    min-width: 380px; /* Minimum width */
+    height: 570px;
+    background-color: var(--navbar-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    isolation: isolate; 
+  }
+  
+  .chatvideo-header {
+      padding: 1.5rem;
+      background-color: var(--navbar-color);
+      overflow: hidden;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  
+  .messages-container {
+      flex-grow: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0; 
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-dark-blue) transparent;
+      -ms-overflow-style: none;
+      overscroll-behavior: contain;
+      max-height: calc(100% - 140px); /* Adjusted for new button layout */
+  }
+  
+  @keyframes messageAppear {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes barrelRoll {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  .message {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    max-width: 80%;
+    word-wrap: break-word;
+    animation: messageAppear 0.3s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .barrel-roll {
+    animation: barrelRoll 1s linear;
+    transform-origin: center center;
+  }
+  
+  .user-message {
+    background-color: var(--color-dark-blue);
+    color: var(--color-bg);
+    align-self: flex-end;
+    animation-delay: 0.1s; 
+  }
+  
+  .bot-message {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    align-self: flex-start;
+    animation-delay: 0.2s; 
+  }
+  
+  .chatvideo-input-form,
+  .chatvideo-input,
+  .send-button {
+    display: none;
+  }
+  
+  .chatvideo-logo{
+      width: 140px;
+      height: auto;
+      object-fit: contain;
+      margin-top: 15px;
+  }
+  
+  .messages-container::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .messages-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .messages-container::-webkit-scrollbar-thumb {
+    background-color: var(--color-dark-blue);
+    border-radius: 20px;
+    border: transparent;
+  }
+  
+  .messages-container::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-text);
+  }
+  
+  .video-player-container .bot_interface {
+    position: relative;
+    z-index: 1;
+    overscroll-behavior-y: contain;
+  }
+
+  .chatvideo-buttons-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;            /* Increased gap */
+    padding: 12px;       /* Increased padding */
+    background-color: var(--navbar-color);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+    justify-content: center;
+    box-shadow: 0px -4px 6px -1px rgba(0, 0, 0, 0.1); /* Added top shadow */
+    position: relative; /* Added to ensure shadow displays correctly */
+    z-index: 2; /* Ensure the shadow appears above the messages */
+  }
+  
+  .chatvideo-action-button {
+    flex: 0 1 auto;
+    min-width: 120px;    /* Increased minimum width */
+    padding: 8px 16px;   /* Increased padding */
+    border: none;        /* Removed border */
+    border-radius: 20px; /* Increased border radius */
+    background-color: var(--color-dark-blue); /* Bright blue color */
+    color: white;        /* White text */
+    font-weight: 600;    /* Made text bolder */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;     /* Slightly larger font */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
+  }
+  
+  .chatvideo-action-button:hover {
+    background-color: #5294bf; /* Lighter blue on hover */
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .chatvideo-action-button:active {
+    transform: translateY(0);
+    background-color: #5294bf; /* Darker blue when clicked */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .error-message {
+    background-color: #ffebee !important;
+    color: #c62828 !important;
+  }
+
+  .chatvideo-action-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: #cccccc;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Add loading state styles */
+  .chatvideo-action-button:disabled:hover {
+    background-color: #cccccc;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .error-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    animation: messageAppear 0.3s ease-out forwards;
+  }

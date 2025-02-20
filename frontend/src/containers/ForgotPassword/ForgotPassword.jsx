@@ -53,7 +53,6 @@ function ForgotPassword() {
         }
     } catch (err) {
         console.error("Error:", err);
-        // Check if the error is about the same password
         if (err.response?.data?.message === 'New password cannot be the same as your current password.') {
             setError("Please choose a password different from your current one.");
         } else {

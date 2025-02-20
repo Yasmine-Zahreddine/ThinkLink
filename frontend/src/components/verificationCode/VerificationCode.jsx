@@ -47,7 +47,6 @@ const VerificationCode = () => {
           setError('');
           setVerificationEmail('');
           Cookies.set("isLoggedIn", true, { expires: 7 });
-          // Set user ID cookie here
           Cookies.set("userId", response.user_id, { expires: 7, path: '/' });
           
           setIsLoggedIn(true);
@@ -93,11 +92,11 @@ const VerificationCode = () => {
             setError('');
             setVerificationEmail('');
             Cookies.set("isLoggedIn", true, { expires: 7 });
-            // Set user ID cookie here too
             Cookies.set("userId", response.user_id, { expires: 7, path: '/' });
             
-            setIsLoggedIn(true);
+            
             if (verificationType === 'signup') {
+              setIsLoggedIn(true);
               navigate('/successful', { state: { title: "Account Created Successfully!", content: "Welcome aboard! We're excited to have you join us on this journey.", type: "home"} });
             } else {
               navigate('/successful', { state: { title: "Password Updated Successfully!", content: "You can now sign in with your new password.", type: "signin"} });

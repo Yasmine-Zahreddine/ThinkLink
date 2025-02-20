@@ -55,7 +55,6 @@ const Signin = () => {
       const data = await signin(formData);
       setMessage(data.message);
       if (data.success) {
-        // Clear existing cookies
         Cookies.remove("isLoggedIn");
         Cookies.remove("userId");
 
@@ -74,7 +73,7 @@ const Signin = () => {
         setLoading(false);
       }
     } catch (err) {
-      console.error("Signin error:", err); // Debugging log
+      console.error("Signin error:", err);
 
       setError(
         typeof err.errors === "string"

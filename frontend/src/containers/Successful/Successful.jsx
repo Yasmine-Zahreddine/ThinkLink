@@ -4,15 +4,15 @@ import "./successful.css";
 import Card from "../../components/card/Card";
 
 const Successful = () => {
-  const navigate = useNavigate(); // Use the navigate hook for navigation
+  const navigate = useNavigate();
   const location = useLocation();
   const { title, content, type } = location.state || { title: "Success", content: "Operation completed successfully." , type: "home"};
 
   const handleDashboardClick = () => {
     if(type === "home"){
-      navigate("/"); // Navigate to the dashboard route
+      navigate("/");
     }else if(type === "signin"){
-      navigate("/signin"); // Navigate to the signin route
+      navigate("/signin"); 
     }
     
   };

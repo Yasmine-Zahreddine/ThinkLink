@@ -24,11 +24,11 @@ const Editaccount = () => {
   const [gitHub, setGitHub] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); // Renamed state
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [password, setPassword] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(profile);
-  const [photoExists, setPhotoExists] = useState(false); // New state to track if a photo exists
+  const [photoExists, setPhotoExists] = useState(false); 
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -58,14 +58,16 @@ const Editaccount = () => {
         setGitHub(response.data.github_url || "");
         setFullname(`${response.data.first_name} ${response.data.last_name}`);
         setPreviewUrl(response.data.pfp_url || profile);
-        setPhotoExists(!!response.data.pfp_url); // Update photoExists state
+        setPhotoExists(!!response.data.pfp_url); 
         cookie.set('pfp_url', response.data.pfp_url);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
-
+  useEffect(() => {
+    setMessage(""); 
+  }, [isActive]);
   useEffect(() => {
     fetchUserData();
     if (!isActive) setIsActive("Profile");
@@ -100,60 +102,59 @@ const Editaccount = () => {
       console.error("Error updating profile:", error);
     }
   };
-
   const handleUpload = async () => {
     if (!selectedFile) {
       setMessage("Please select a file first!");
       return;
     }
-
+  
     setLoading(true);
     setMessage("");
-
+  
     try {
       const userId = cookie.get("userId");
       if (!userId) {
         throw new Error("User ID not found in cookies");
       }
-
+  
       const formData = new FormData();
       formData.append("user_id", userId);
       formData.append("file", selectedFile);
-
-      const token = cookie.get("authToken"); // Ensure this contains the user's authentication token
-
+  
       const response = await fetch("http://localhost:8000/api/upload-photo", {
         method: "POST",
         body: formData,
       });
-
+  
       const result = await response.json();
-
+  
       if (response.ok && result.success) {
         setMessage("Photo uploaded successfully!");
-        setPreviewUrl(result.file_url); // Update the UI with the new profile photo
-        setPhotoExists(true); // Update photoExists state
+        setPreviewUrl(result.file_url); 
+        setPhotoExists(true); 
+  
+        setTimeout(() => {
+          window.location.replace(window.location.href);
+        }, 1); 
       } else {
         throw new Error(result.message || "Upload failed.");
       }
     } catch (error) {
       console.error("Error uploading photo:", error);
       setMessage(error.message);
-    } finally {
-      setLoading(false);
     }
   };
-
+  
   const handleDeletePhoto = async () => {
     setLoading(true);
     setMessage("");
-
+  
     try {
       const userId = cookie.get("userId");
       if (!userId) {
         throw new Error("User ID not found in cookies");
       }
-
+  
       const response = await fetch("http://localhost:8000/api/delete-photo", {
         method: "POST",
         headers: {
@@ -161,23 +162,25 @@ const Editaccount = () => {
         },
         body: JSON.stringify({ user_id: userId }),
       });
-
+  
       const result = await response.json();
-
+  
       if (response.ok && result.success) {
         setMessage("Photo deleted successfully!");
-        setPreviewUrl(profile); // Reset to default profile image
-        setPhotoExists(false); // Update photoExists state
+        setPreviewUrl(profile); 
+        setPhotoExists(false); 
+        setTimeout(() => {
+          window.location.replace(window.location.href);
+        }, 500); 
       } else {
         throw new Error(result.message || "Failed to delete photo.");
       }
     } catch (error) {
       console.error("Error deleting photo:", error);
       setMessage(error.message);
-    } finally {
-      setLoading(false);
     }
   };
+  
 
   const deleteUser = async () => { // Removed password parameter
     try {
@@ -186,8 +189,6 @@ const Editaccount = () => {
 
       const userId = cookie.get("userId");
       if (!userId) throw new Error("User ID not found in cookies");
-
-      // Use the password from state
       const confirmationResponse = await deleteConfirmationApi(userId, password);
       if (!confirmationResponse.success) {
         throw new Error(confirmationResponse.message || "Password verification failed.");
@@ -216,7 +217,6 @@ const Editaccount = () => {
     }
   };
 
-  // Remove all cookies dynamically
   const removeAllCookies = () => {
     document.cookie.split(";").forEach((cookie) => {
       document.cookie = cookie
@@ -224,18 +224,16 @@ const Editaccount = () => {
         .replace(/=.*/, "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"); // Expire cookie
     });
 
-    // Remove via js-cookie as well
     Object.keys(cookie.get()).forEach((key) => {
       cookie.remove(key, { path: "/" });
     });
   };
 
-  // Handle logout function
   const handleLogout = () => {
     setLoading(true);
 
     setTimeout(() => {
-      removeAllCookies(); // Remove all cookies
+      removeAllCookies(); 
 
       setIsLoggedIn(false);
       navigate('/signin');
@@ -287,7 +285,6 @@ const Editaccount = () => {
     <div className="profile-edit-card">
       <h2 className="profile-edit-title">Edit Profile</h2>
       
-      {/* Full Name Section */}
       <div className="form-section">
         <label className="form-label">
           <User className="form-label-icon" />
@@ -311,7 +308,6 @@ const Editaccount = () => {
         </div>
       </div>
 
-      {/* Description Section */}
       <div className="form-section">
         <label className="form-label">
           <Link2 className="form-label-icon" />
@@ -325,7 +321,6 @@ const Editaccount = () => {
         />
       </div>
 
-      {/* Social Links Section */}
       <div className="form-section">
         <label className="form-label">Social Links</label>
         <div className="social-input-container">
@@ -352,7 +347,6 @@ const Editaccount = () => {
         </div>
       </div>
 
-      {/* Save Button */}
       <button
         className="save-button"
         onClick={handleProfileUpdate}
@@ -367,8 +361,6 @@ const Editaccount = () => {
           'Save Changes'
         )}
       </button>
-
-      {/* Message Feedback */}
       {message && (
         <div className={`message-feedback ${message.includes('success') ? 'success' : 'error'}`}>
           {message}
@@ -645,12 +637,7 @@ const Editaccount = () => {
                 </div>
               )}
 
-                    {message && (
-                      <div className={`status-message ${message.includes('success') ? 'success' : 'error'}`}>
-                        {message.includes('success') ? <FiCheckCircle /> : <FiAlertTriangle />}
-                        {message}
-                      </div>
-                    )}
+
                   </div>
                 </div>
               )}
