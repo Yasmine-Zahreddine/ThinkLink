@@ -39,38 +39,31 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-
+    
     if (!termsAgreed) {
-      setError("Please agree to the Terms of Use and Privacy Policy");
-      return;
+        setError("Please agree to the Terms of Use and Privacy Policy");
+        return;
     }
-  
-    try {
-      setLoading(true);
-  
-      const data = await signup(formData);
-  
-      if (data.success) {
-        setVerificationEmail(formData.email);
-        redirect("/verification", { state: { verificationType: "signup"} });
 
-      } else {
-        throw new Error(data.message || "Sign up failed");
-      }
+    // Reset error state
+    setError("");
+    setLoading(true);
+
+    try {
+        const data = await signup(formData);
+        
+        if (data.success) {
+            setVerificationEmail(formData.email);
+            redirect("/verification", { state: { verificationType: "signup"} });
+        }
     } catch (err) {
-      console.error("Error:", err);
-  
-      setError(
-        err.response?.data?.message ||
-        err.message || 
-        "Something went wrong" 
-      );
+        console.error("Signup error:", err);
+        setError(err.message || "Failed to create account. Please try again.");
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
-  
+};
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
