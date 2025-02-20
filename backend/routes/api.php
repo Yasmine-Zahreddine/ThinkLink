@@ -11,6 +11,20 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\VideoController;
 
+Route::middleware('api')->post('/chat-bot', function (Request $request) {
+    $validatedData = $request->validate([
+        'user_id' => 'required|string|exists:users,user_id',
+        'message' => 'required|string',
+    ]);
+
+    $userId = $validatedData['user_id'];
+    $message = $validatedData['message'];
+
+    $chatController = new ChatController();
+    $chatHistory = $chatController->processMessage($message, $userId);
+
+    return response($chatHistory, 200)->header('Content-Type', 'application/json');
+});
 
 Route::middleware('api')->post('/signup', function (Request $request) {
     $validatedData = $request->validate([
@@ -50,7 +64,6 @@ Route::middleware('api')->post('/signup', function (Request $request) {
         ], 500);
     }
 });
-
 
 Route::middleware('api')->post('/verify-signup', function (Request $request) {
     $validatedData = $request->validate([
@@ -129,7 +142,6 @@ Route::middleware('api')->post('/signin', function (Request $request) {
         $user = DB::table('users')->where('email', $validatedData['email'])->first();
 
         if ($user && Hash::check($validatedData['password'], $user->password)) {
-          
             return response()->json([
                 'success' => true,
                 'message' => 'Signin successful',
