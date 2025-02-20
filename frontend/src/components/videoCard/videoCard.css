@@ -65,11 +65,11 @@
   justify-content: center;
   cursor: pointer;
   transition: transform 0.2s ease, opacity 0.2s ease;
-  opacity: 0;  /* Hide by default */
+  opacity: 0; 
 }
 
 .video-card:hover .arrow-button {
-  opacity: 1;  /* Show on hover */
+  opacity: 1;  
 }
 
 .arrow {

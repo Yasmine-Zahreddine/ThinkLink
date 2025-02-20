@@ -2,8 +2,8 @@
   
   width: 50px;
   height: 50px;
-  border-radius: 50%; /* Makes it circular */
-  object-fit: cover; /* Ensures the image fills the space properly */
+  border-radius: 50%; 
+  object-fit: cover; 
   cursor: pointer;
   
   border: 3px solid var(--color-dark-blue);
@@ -39,8 +39,8 @@
 .pfp_pic {
   width: 50px;
   height: 50px;
-  border-radius: 50%; /* Makes it circular */
-  object-fit: cover; /* Ensures the image fills the space properly */
+  border-radius: 50%; 
+  object-fit: cover; 
 }
 
 
@@ -99,7 +99,6 @@
   text-align: center;
 }
 
-/* Animations remain the same */
 .animate-up {
   animation: slideUp 300ms ease-out forwards;
 }

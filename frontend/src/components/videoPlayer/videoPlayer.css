@@ -12,13 +12,13 @@
 
 .video-section {
   flex: 1;
-  max-width: calc(100% - 332px); /* 300px chat width + 32px gap */
+  max-width: calc(100% - 332px); 
 }
 
 .video-wrapper {
   position: relative;
   width: 90%;
-  padding-bottom: 55%; /* Increased from 45% to make it taller */
+  padding-bottom: 55%; 
   margin-right: auto;
 }
 
@@ -27,15 +27,15 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%; /* Increased from 90% */
+  width: 100%; 
   height: 100%;  
   border-radius: 8px;
 }
 
 .video-details {
-  width: 80%; /* Match video wrapper width */
+  width: 80%; 
   padding: 0;
-  margin-top: 1rem; /* Reduced from 2rem to bring description closer */
+  margin-top: 1rem; 
 }
 
 .video-player-title {
@@ -55,7 +55,7 @@
   padding: 1.5rem;
   border-radius: 8px;
   width: 100%;
-  margin-top: 15px; /* Reduced from 1rem for tighter spacing */
+  margin-top: 15px; 
 }
 
 .description-title {

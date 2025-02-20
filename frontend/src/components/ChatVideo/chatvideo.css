@@ -7,7 +7,7 @@
     flex-direction: column;
     overflow: hidden;
     position: relative;
-    isolation: isolate; /* Creates a new stacking context */
+    isolation: isolate; 
   }
   
   .chat-header {
@@ -28,11 +28,11 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      margin-top: 0; /* Remove any top margin */
+      margin-top: 0; 
       scrollbar-width: thin;
       scrollbar-color: var(--color-dark-blue) transparent;
       -ms-overflow-style: none;
-      overscroll-behavior: contain; /* Prevents scroll chaining */
+      overscroll-behavior: contain;
   }
   
   @keyframes messageAppear {
@@ -57,7 +57,7 @@
     max-width: 80%;
     word-wrap: break-word;
     animation: messageAppear 0.3s ease-out forwards;
-    opacity: 0; /* Start invisible */
+    opacity: 0;
   }
   
   .barrel-roll {
@@ -69,14 +69,14 @@
     background-color: var(--color-dark-blue);
     color: var(--color-bg);
     align-self: flex-end;
-    animation-delay: 0.1s; /* Slight delay for user messages */
+    animation-delay: 0.1s; 
   }
   
   .bot-message {
     background-color: var(--color-bg);
     color: var(--color-text);
     align-self: flex-start;
-    animation-delay: 0.2s; /* Slightly longer delay for bot messages */
+    animation-delay: 0.2s; 
   }
   
   .chat-input-form {
@@ -88,13 +88,13 @@
   .chat-input {
     flex-grow: 1;
     padding: 0.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Add visible initial border */
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     font-size: 14px;
     color: var(--color-text);
     background-color: var(--color-bg);
     width: 100%;
-    transition: all 0.3s ease; /* Changed to affect all properties */
+    transition: all 0.3s ease; 
   }
   
   .chat-input:focus {

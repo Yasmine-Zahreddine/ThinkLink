@@ -1,15 +1,15 @@
 .thinklink__about {
     display: flex;
     flex-direction: column;
-    padding: 8rem 6rem; /* Increased vertical padding */
+    padding: 8rem 6rem;
     background: var(--color-bg);
-    min-height: 100vh; /* Ensures minimum full viewport height */
+    min-height: 100vh; 
 }
 
 .thinklink__about-content {
     display: flex;
     flex-direction: column;
-    gap: 5rem; /* Increased gap between main sections */
+    gap: 5rem; 
 }
 
 .thinklink__about-content h1 {
@@ -22,8 +22,8 @@
 .thinklink__about-description,
 .thinklink__about-vision,
 .thinklink__about-join {
-    margin-top: 4rem; /* Increased top margin */
-    padding: 2rem 0; /* Added vertical padding */
+    margin-top: 4rem; 
+    padding: 2rem 0; 
 }
 
 .thinklink__about-description {
@@ -63,16 +63,16 @@
 .thinklink__about-features {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 3rem; /* Increased gap between features */
-    margin: 4rem 0; /* Increased vertical margin */
+    gap: 3rem; 
+    margin: 4rem 0; 
 }
 
 .feature {
     background: var(--navbar-color);
-    padding: 3rem 2rem; /* Increased padding */
+    padding: 3rem 2rem;
     border-radius: 15px;
     transition: transform 0.3s ease;
-    margin: 1rem 0; /* Added vertical margin */
+    margin: 1rem 0; 
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -98,17 +98,16 @@
 
 .thinklink__about-join {
     background: var(--navbar-color);
-    /* border-radius: 15px; */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 @media screen and (max-width: 850px) {
     .thinklink__about {
-        padding: 6rem 4rem; /* Adjusted padding for medium screens */
+        padding: 6rem 4rem; 
     }
     
     .thinklink__about-content {
-        gap: 4rem; /* Adjusted gap for medium screens */
+        gap: 4rem; 
     }
 
     .thinklink__about-content h1 {
@@ -123,7 +122,7 @@
     }
     
     .thinklink__about-content {
-        gap: 3rem; /* Adjusted gap for small screens */
+        gap: 3rem; 
     }
 
     .thinklink__about-content h1 {

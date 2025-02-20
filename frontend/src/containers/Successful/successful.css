@@ -19,14 +19,14 @@
 .tick-path {
   stroke: var(--color-dark-blue);
   stroke-width: 4;
-  stroke-dasharray: 120; /* Total length of the tick */
-  stroke-dashoffset: 120; /* Initially hidden */
-  animation: tick-animation 1.5s ease-out forwards; /* Animate over 1.5 seconds */
+  stroke-dasharray: 120; 
+  stroke-dashoffset: 120; 
+  animation: tick-animation 1.5s ease-out forwards; 
 }
 
 @keyframes tick-animation {
   to {
-    stroke-dashoffset: 0; /* Fully draws the tick */
+    stroke-dashoffset: 0; 
   }
 }
 
