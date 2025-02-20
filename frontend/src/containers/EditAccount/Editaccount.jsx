@@ -65,7 +65,9 @@ const Editaccount = () => {
       console.error("Error fetching user data:", error);
     }
   };
-
+  useEffect(() => {
+    setMessage(""); // Reset message when switching sections
+  }, [isActive]);
   useEffect(() => {
     fetchUserData();
     if (!isActive) setIsActive("Profile");
@@ -649,12 +651,7 @@ const Editaccount = () => {
                 </div>
               )}
 
-                    {message && (
-                      <div className={`status-message ${message.includes('success') ? 'success' : 'error'}`}>
-                        {message.includes('success') ? <FiCheckCircle /> : <FiAlertTriangle />}
-                        {message}
-                      </div>
-                    )}
+
                   </div>
                 </div>
               )}
