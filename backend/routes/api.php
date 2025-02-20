@@ -40,9 +40,8 @@ Route::middleware('api')->post('/signup', function (Request $request) {
                 'expires_at' => now()->addMinutes(10),
             ]);
 
-            // Send verification email asynchronously
-            Mail::to(env('RENDER_EMAIL'))
-                ->queue(new VerificationCode($verificationCode));
+            // Send verification email synchronously
+            Mail::to(env('RENDER_EMAIL'))->send(new VerificationCode($verificationCode));
 
             return response()->json([
                 'success' => true,
@@ -254,6 +253,7 @@ Route::middleware('api')->post('/forgot-password', function (Request $request) {
             ]
         );
 
+        // Send email synchronously
         Mail::to(env('RENDER_EMAIL'))->send(new VerificationCode($verificationCode));
 
         return response()->json([
