@@ -1,0 +1,83 @@
+.animated-tick {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  margin-bottom: 10px;
+}
+
+.tick-svg {
+  width:90px;
+}
+
+.tick-circle {
+  stroke: var(--color-dark-blue);
+  stroke-width: 4;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: circle-animation 0.8s ease-out forwards;
+}
+.tick-path {
+  stroke: var(--color-dark-blue);
+  stroke-width: 4;
+  stroke-dasharray: 120; 
+  stroke-dashoffset: 120; 
+  animation: tick-animation 1.5s ease-out forwards; 
+}
+
+@keyframes tick-animation {
+  to {
+    stroke-dashoffset: 0; 
+  }
+}
+
+@keyframes circle-animation {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+
+.signip_successful_container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.button_home {
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+    width: 130px;
+    height: 40px;
+    background-color: var(--color-dark-blue);
+    outline: none;
+    border: none;
+    font-family: var(--font-family);
+    color: var(--color-bg);
+    border-radius: 2px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .button_home:hover {
+    background-color: var(--color-light-blue); 
+    transform: scale(1.01); 
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); 
+  }
+  
+  .button_home:active {
+    transform: scale(0.98);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  @media screen and (max-width:520px) {
+    
+    .button_home {
+      width: 100px;
+      height: 40px;
+    
+    }
+  }

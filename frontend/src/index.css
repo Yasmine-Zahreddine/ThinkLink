@@ -1,0 +1,15 @@
+:root {
+    --font-family: 'Manrope', sans-serif;
+  
+    --gradient-text: linear-gradient(90deg, #164b63 1.84%, #56bcc0 102.67%);
+    --gradient-bar: linear-gradient(103.22deg, #9B30FF -13.86%, #DA70D6 99.55%);
+    
+    --color-bg: #f4faff;
+    --color-text: #272727;
+    --color-dark-blue : #164b63;
+    --color-light-blue: #56bcc0;
+    --navbar-color: #d7e4ed;
+    --color-bg-transparent: #d4e2eea3;
+    --color-dark-blue-transparent:#164b63ca;
+  }
+

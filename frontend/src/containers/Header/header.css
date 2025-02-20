@@ -1,0 +1,24 @@
+.header{
+    width: 100vw;
+    padding: 3rem 2rem;
+    margin: 2rem 0rem;
+    background-image: url("../../assets/study_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: 90%;
+    background-position: center;
+}
+
+.header-card{
+    margin-left: 4rem;
+}
+
+@media screen and (max-width: 860px){
+    .header{
+        flex-direction: column;
+        width: 100%;
+        background-image: none;
+    }
+    .header-card{
+        margin: 0rem 0;
+    }
+}

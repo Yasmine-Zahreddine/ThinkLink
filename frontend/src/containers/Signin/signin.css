@@ -1,0 +1,235 @@
+
+
+.SignIn_Container, .smallScreen_signin, .card-content1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.smallScreen_signin{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.SignIn_Container {
+  flex-direction: row;
+  padding-bottom: 5vw;
+  padding-top: 5vw;
+}
+
+.smallScreen_signin {
+  flex-direction: column;
+  padding-top: 3vw;
+  padding-bottom: 5vw;
+}
+
+.link {
+  text-decoration: underline;
+  color: var(--color-dark-blue);
+  font-size: 15px;
+}
+
+.welcome_signin {
+  width: 50%;
+  order: 2;
+  margin-bottom: 10vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Box_signin {
+  display: flex;
+  order: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 50%;
+}
+
+.textinputs_signin {
+  border: 1.2px solid black;
+  width: 70%;
+  height: 3.5vw;
+  border-radius: 4px;
+  color: var(--color-text);
+  padding-left: 1rem;
+  font-size: 1.2vw;
+  background-color: var(--color-bg);
+}
+
+.textinputs_signin::placeholder {
+  font-size: 1.2vw;
+  color: var(--color-dark-blue);
+}
+
+.Box_signin > h1 {
+  margin-bottom: 1vw;
+  font-size: 30px;
+  font-family: var(--font-family);
+  color: var(--color-text);
+  text-align: center;
+}
+
+.checkboxContainer_signin {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.checkboxContainer_signin > p {
+  width: 100%;
+  font-size: 15px;
+  color: var(--color-text);
+}
+
+.checkbox_signin {
+  margin-top: 0;
+  width: 1rem;
+  height: auto;
+}
+
+
+.signup {
+  margin-top: 1vw;
+  width: 70%;
+  height: 4vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--navbar-color);
+}
+
+.signup > p {
+  color: var(--color-text);
+  font-size: 20px;
+}
+
+.signup > p > a {
+  text-decoration: underline;
+  color: var(--color-dark-blue);
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+@media (max-width: 1000px) {
+  .welcome_signin {
+    margin-bottom: 2vw;
+    order: 1;
+  }
+  
+.textinputs_signin::placeholder {
+  font-size: 15px;
+}
+
+
+  .Box_signin {
+    width: 70%;
+  }
+
+  .textinputs_signin {
+    width: 26rem;
+    height: 3rem;
+    font-size: 15px;
+  }
+
+  .Box_signin > h1 {
+    margin-bottom: 1vw;
+  }
+
+  .checkboxContainer_signin {
+    width: 26rem;
+  }
+
+  .checkbox_signin {
+    width: 2rem;
+  }
+
+
+  .link {
+    font-size: 15px;
+
+  }
+
+  .signup {
+    width: 26rem;
+    height: 3rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .welcome_signin {
+    margin-bottom: 2vw;
+    width: 100%;
+    order: 1;
+  }
+
+  .Box_signin {
+    width: 90%;
+  }
+
+  .textinputs_signin {
+    width: 26rem;
+  }
+
+  .checkboxContainer_signin {
+    width: 26rem;
+  }
+
+  .checkbox_signin {
+    width: 3vw;
+  }
+
+
+  .signup {
+    width: 26rem;
+    height: 3rem;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  
+.Box_signin > h1 {
+  font-size: 20px;
+}
+  .welcome_signin {
+    margin-bottom: 2vw;
+    width: 100%;
+  }
+
+  .Box_signin {
+    width: 90%;
+  }
+
+  .textinputs_signin {
+    width: 18rem;
+    height: 2rem;
+  }
+
+  .checkboxContainer_signin {
+    width: 18rem;
+  }
+
+  .checkbox_signin {
+    width: 1rem;
+  }
+
+
+  .signup {
+    width: 18rem;
+    height: 2rem;
+  }
+  
+  .signup > p{
+    font-size: 15px;
+  }
+
+}

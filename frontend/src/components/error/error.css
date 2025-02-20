@@ -1,0 +1,45 @@
+.error-box{
+    width: 70%;
+    height: 5rem;
+    background-color: #fcbca0;
+    border: 1px solid red;
+    border-radius:9px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.error-box > p{
+    color: #2c3134;
+    font-size: 16.5px;
+    font-weight: 500;
+}
+.error-image{
+     width: 30px;
+     height: 30px;
+}
+@media screen and (max-width:1000px) {
+    .error-box{
+        width: 26rem;
+        height: 5rem;
+    }
+    
+}
+@media screen and (max-width:520px){
+    
+.error-image{
+    width: 25px;
+    height: 25px;
+}
+    .error-box{
+        width: 18rem;
+        height: 4rem;
+        gap: 15px;
+    }
+    
+.error-box > p{
+    color: #2c3134;
+    font-size: 15px;
+}
+}
